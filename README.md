@@ -4,8 +4,8 @@ This project is a modern portfolio website built with Next.js 15, featuring AI-p
 
 ## Key Features
 
-- **AI-powered Chatbot**: Interactive portfolio exploration using LangChain and OpenAI, with vector search capabilities through Supabase pgvector
-- **Tech Stack Architecture Visualization**: Interactive drag-and-drop interface to design and validate technology stacks with AI feedback
+- **AI-powered Chatbot**: Interactive portfolio exploration using LangChain and Ollama (free local AI), with vector search capabilities through Supabase pgvector
+- **AI-powered Chatbot**: Interactive portfolio exploration with recruiter-focused questions
 - **GitHub Integration**: Dynamic GitHub statistics, featured projects, and contribution graphs
 - **Responsive Design**: Fully responsive UI with dark/light mode support using Tailwind CSS and NextUI components
 - **Blog System**: Markdown-based blog with reading time estimation and syntax highlighting
@@ -19,7 +19,8 @@ This project is a modern portfolio website built with Next.js 15, featuring AI-p
 - **Database**: Supabase with pgvector for vector embeddings
 - **AI/ML**: 
   - LangChain for chat functionality
-  - OpenAI for embeddings and completions
+  - Ollama for local AI models (free)
+- Hugging Face for embeddings and fallback (free)
   - ReactFlow for tech stack visualization
 - **GitHub API**: Octokit for repository and contribution data
 - **UI Components**: 
@@ -34,18 +35,32 @@ This project is a modern portfolio website built with Next.js 15, featuring AI-p
 ## Features Summary
 
 1. **Home Page**: Featuring about section, skills, timeline, and featured projects
-2. **Tech Stack Architect**: Interactive tool for designing and validating technology stacks with AI feedback
-3. **Blog System**: Markdown-based blog with filtering capabilities
-4. **AI Chatbot**: Conversational interface for exploring the portfolio
-5. **GitHub Integration**: Dynamic display of repositories and statistics
+2. **Blog System**: Markdown-based blog with filtering capabilities
+3. **AI Chatbot**: Conversational interface for exploring the portfolio with recruiter-focused questions
+4. **GitHub Integration**: Dynamic display of repositories and statistics
 
 ## Prerequisites
 
 - Node.js 18.17 or later
 - npm or yarn package manager
 - Git
+- Ollama (for free local AI) - [Installation Guide](FREE-AI-SETUP.md)
 
 ## Installation Guide
+
+### 1. Setup Ollama (Free AI)
+```bash
+# Install Ollama
+curl -fsSL https://ollama.ai/install.sh | sh
+
+# Pull a free model
+ollama pull llama3.1:8b
+
+# Start Ollama
+ollama serve
+```
+
+### 2. Setup the Project
 
 1. **Clone the Repository**
    ```bash
@@ -61,8 +76,12 @@ This project is a modern portfolio website built with Next.js 15, featuring AI-p
 3. **Environment Setup**
    Create a `.env.local` file in the root directory with the following variables:
    ```env
-   # OpenAI
-   OPENAI_API_KEY=your_openai_api_key
+   # Ollama (Local AI - Free)
+OLLAMA_BASE_URL=http://localhost:11434
+OLLAMA_MODEL=llama3.1:8b
+
+# Hugging Face (Optional - Free)
+HUGGINGFACE_API_KEY=your_huggingface_token_here
 
    # Supabase
    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url

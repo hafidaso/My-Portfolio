@@ -15,6 +15,12 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // Configure experimental features to fix build issues
+  experimental: {
+    // Disable static generation for API routes during build
+    workerThreads: false,
+    cpus: 1,
+  },
 };
 
 export default nextConfig;

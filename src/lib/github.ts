@@ -1,5 +1,6 @@
 import { Octokit } from '@octokit/rest';
 import type { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods';
+import { fallbackService } from './githubFallback';
 
 type UserResponse = RestEndpointMethodTypes["users"]["getByUsername"]["response"];
 type ReposResponse = RestEndpointMethodTypes["repos"]["listForUser"]["response"];
@@ -16,12 +17,14 @@ class GitHubService {
   private constructor() {
     const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
     if (!token) {
-      console.error('GitHub token is not set in environment variables');
-      throw new Error('GitHub token is not set in environment variables');
+      console.warn('GitHub token is not set in environment variables. GitHub features will be limited.');
+      // Create Octokit instance without auth for public API access
+      this.octokit = new Octokit();
+    } else {
+      this.octokit = new Octokit({
+        auth: token,
+      });
     }
-    this.octokit = new Octokit({
-      auth: token,
-    });
   }
 
   public static getInstance(): GitHubService {
@@ -71,6 +74,11 @@ class GitHubService {
     const cached = this.getFromCache<UserResponse>(cacheKey);
     if (cached) return cached;
 
+    if (!this.isAuthenticated()) {
+      console.warn('Using fallback GitHub data - no token provided');
+      return fallbackService.getUserData();
+    }
+
     const data = await this.retryOperation(() => 
       this.octokit.users.getByUsername({ username })
     );
@@ -82,6 +90,11 @@ class GitHubService {
     const cacheKey = this.getCacheKey('getRepositories', { username, ...options });
     const cached = this.getFromCache<ReposResponse>(cacheKey);
     if (cached) return cached;
+
+    if (!this.isAuthenticated()) {
+      console.warn('Using fallback GitHub data - no token provided');
+      return fallbackService.getRepositories(options);
+    }
 
     const data = await this.retryOperation(() => 
       this.octokit.repos.listForUser({ username, ...options })
@@ -95,6 +108,11 @@ class GitHubService {
     const cached = this.getFromCache<CommitsResponse>(cacheKey);
     if (cached) return cached;
 
+    if (!this.isAuthenticated()) {
+      console.warn('Using fallback GitHub data - no token provided');
+      return fallbackService.getRepositoryCommits();
+    }
+
     const data = await this.retryOperation(() => 
       this.octokit.repos.listCommits({ owner, repo, ...options })
     );
@@ -102,7 +120,15 @@ class GitHubService {
     return data;
   }
 
+  isAuthenticated(): boolean {
+    return !!process.env.NEXT_PUBLIC_GITHUB_TOKEN;
+  }
+
   async isTokenValid(): Promise<boolean> {
+    if (!this.isAuthenticated()) {
+      return false;
+    }
+    
     try {
       const response = await this.octokit.users.getAuthenticated();
       console.log('GitHub Authentication Success:', response.data.login);

@@ -37,12 +37,14 @@ smart-portfolio/
 │   │   ├── api/
 │   │   │   ├── chat/route.ts
 │   │   │   ├── github/insights/route.ts
-│   │   │   └── validate-stack/route.ts
+│   │   │   ├── project-descriptions/route.ts
+│   │   │   ├── recommendations/route.ts
+│   │   │   └── resume-analysis/route.ts
 │   │   ├── blog/
 │   │   │   ├── [id]/page.tsx
 │   │   │   └── page.tsx
 │   │   ├── projects/page.tsx
-│   │   ├── tech-stack-architect/page.tsx
+
 │   │   ├── favicon-32x32.png
 │   │   ├── favicon.ico
 │   │   ├── globals.css
@@ -69,31 +71,8 @@ smart-portfolio/
 │   │   ├── ThemeProvider.tsx
 │   │   ├── ThemeToggle.tsx
 │   │   ├── Timeline.tsx
-│   │   ├── tech-stack-architect/
-│   │   │   ├── StackBuilder.tsx
-│   │   │   ├── TechInfo.tsx
-│   │   │   ├── TechNode.tsx
-│   │   │   ├── aiValidation.ts
-│   │   │   ├── compatibilityUtils.ts
-│   │   │   ├── components/
-│   │   │   │   ├── FlowArea.tsx
-│   │   │   │   ├── FlowControls.tsx
-│   │   │   │   ├── MainFlow.tsx
-│   │   │   │   ├── SaveStackDialog.tsx
-│   │   │   │   ├── ShortcutsHelp.tsx
-│   │   │   │   ├── Sidebar.tsx
-│   │   │   │   ├── TemplateModal.tsx
-│   │   │   │   └── ValidationModal.tsx
-│   │   │   ├── historyManager.ts
-│   │   │   ├── hooks/
-│   │   │   │   ├── useStackExport.ts
-│   │   │   │   ├── useStackState.ts
-│   │   │   │   └── useStackValidation.ts
-│   │   │   ├── stackTemplates.ts
-│   │   │   ├── stackUtils.ts
-│   │   │   ├── techData.ts
-│   │   │   ├── techDataFetcher.ts
-│   │   │   └── utils.ts
+
+
 │   │   └── ui/
 │   │       ├── button.tsx
 │   │       ├── dialog.tsx

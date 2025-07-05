@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import heroImage from "@/assets/hafida.jpeg";
-import { Twitter, GithubIcon, Linkedin } from 'lucide-react';
+import { GithubIcon, Linkedin } from 'lucide-react';
 
 const AboutMe: React.FC = () => {
   return (
@@ -40,15 +40,6 @@ const AboutMe: React.FC = () => {
               <div className="mt-auto">
                 <div className="flex items-center space-x-4">
                   <a 
-                    href="https://twitter.com/ahmedoublihi" 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-500 hover:text-orange-500 dark:text-gray-400 dark:hover:text-orange-400 transition-colors"
-                    aria-label="Twitter Profile"
-                  >
-                    <Twitter className="w-5 h-5" />
-                  </a>
-                  <a 
                     href="https://github.com/hafidaso"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -58,7 +49,7 @@ const AboutMe: React.FC = () => {
                     <GithubIcon className="w-5 h-5" />
                   </a>
                   <a 
-                    href="https://linkedin.com/in/ahmed-oublihi" 
+                    href="https://linkedin.com/in/hafida-belayd" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-500 hover:text-orange-600 dark:text-gray-400 dark:hover:text-orange-400 transition-colors"

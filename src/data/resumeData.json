@@ -1,19 +1,19 @@
 {
   "personalInfo": {
     "name": "Hafida Belayd",
-    "title": "Full Stack Developer",
-    "email": "oublihi.a@gmail.com",
+    "title": "Data Analyst",
+    "email": "hafidabelaidagnaoui@gmail.com",
     "location": "Rabat, Morocco",
     "github": "https://github.com/hafidaso",
-    "linkedin": "https://www.linkedin.com/in/ahmed-oublihi/",
+    "linkedin": "https://www.linkedin.com/in/hafida-belayd/",
     "website": "https://medevs.xyz",
-    "summary": "Full Stack Developer specializing in JavaScript, PHP, and modern web technologies. Experienced in developing efficient web applications and optimizing enterprise software. Combining technical expertise with a passion for AI to create innovative solutions.",
+    "summary": "Data Analyst specializing in data visualization, statistical analysis, and modern data technologies. Experienced in developing efficient data solutions and optimizing business intelligence systems. Combining technical expertise with a passion for AI to create innovative data-driven solutions.",
     "image": "https://avatars.githubusercontent.com/u/40724828?v=4"
   },
   "experience": [
     {
       "company": "ePhilos AG",
-      "position": "Full Stack Developer",
+      "position": "Data Analyst",
       "startDate": "Aug 2021",
       "endDate": "Present",
       "description": "Further development of the enterprise software Comfortmarkt (PHP, MySQL, Ext and Webix js). Optimization of database queries and performance. Implementation of new features focusing on user-friendliness. Application of best practices in software development and code optimization. Conducting unit tests and collaborating on CI/CD processes.",
@@ -21,7 +21,7 @@
     },
     {
       "company": "Freelancer",
-      "position": "Web Developer",
+      "position": "Data Analyst",
       "startDate": "Mar 2020",
       "endDate": "Jun 2021",
       "description": "Development of responsive websites (HTML, CSS, Bootstrap, jQuery, WordPress). Customizations and SEO optimization. Close collaboration with clients to implement tailored solutions.",

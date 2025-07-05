@@ -155,7 +155,7 @@ export default async function BlogPost({
                 <div>
                   <h4 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">{postData.author}</h4>
                   <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                    A passionate Software Developer and technologist exploring the intersections of code and creativity.
+                    A passionate Data Analyst and technologist exploring the intersections of data and creativity.
                   </p>
                 </div>
               </div>
