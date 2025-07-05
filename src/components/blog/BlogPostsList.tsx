@@ -32,40 +32,40 @@ export default function BlogPostsList({ posts }: BlogPostsListProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
       {displayedPosts.map((post) => (
         <Link href={`/blog/${post.id}`} key={post.id} className="group">
           <article className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col">
-            <div className="relative h-40 sm:h-48 w-full">
+            <div className="relative h-48 w-full">
               <Image
                 src={`/images/${post.id}.png`}
                 alt={post.title}
                 fill
-                sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 style={{ objectFit: "cover" }}
                 className="transition-transform duration-300 group-hover:scale-105"
                 priority={false}
                 quality={85}
               />
             </div>
-            <div className="p-4 sm:p-6 flex flex-col flex-grow">
-              <h2 className="text-lg sm:text-xl font-semibold mb-2 text-gray-800 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors line-clamp-2">
+            <div className="p-6 flex flex-col flex-grow">
+              <h2 className="text-xl font-semibold mb-2 text-gray-800 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors line-clamp-2">
                 {post.title}
               </h2>
-              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-4 flex-grow line-clamp-3">
+              <p className="text-gray-600 dark:text-gray-300 mb-4 flex-grow line-clamp-3">
                 {post.description}
               </p>
-              <div className="flex flex-wrap items-center text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-auto gap-2 sm:gap-4">
-                <span className="flex items-center">
-                  <Calendar size={12} className="sm:w-3.5 sm:h-3.5 mr-1" />
+              <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mt-auto">
+                <span className="flex items-center mr-4">
+                  <Calendar size={14} className="mr-1" />
                   {post.date}
                 </span>
-                <span className="flex items-center">
-                  <Clock size={12} className="sm:w-3.5 sm:h-3.5 mr-1" />
+                <span className="flex items-center mr-4">
+                  <Clock size={14} className="mr-1" />
                   {post.readTime}
                 </span>
                 <span className="flex items-center">
-                  <Tag size={12} className="sm:w-3.5 sm:h-3.5 mr-1" />
+                  <Tag size={14} className="mr-1" />
                   {post.category}
                 </span>
               </div>

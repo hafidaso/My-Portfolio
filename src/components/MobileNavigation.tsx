@@ -37,7 +37,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
     <>
       {/* Mobile Menu Button */}
       <motion.button
-        className="md:hidden fixed top-4 right-4 z-50 p-3 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700"
+        className="md:hidden fixed top-4 right-4 z-50 p-3 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-lg shadow-lg border border-gray-200 dark:border-gray-600"
         onClick={onToggle}
         whileTap={{ scale: 0.95 }}
         whileHover={{ scale: 1.05 }}
@@ -67,44 +67,42 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
         </AnimatePresence>
       </motion.button>
 
-
-
       {/* Mobile Menu Content */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed top-0 right-0 h-full w-72 bg-white dark:bg-gray-900 z-50 md:hidden shadow-2xl border-l border-gray-200 dark:border-gray-700"
+            className="fixed top-0 right-0 h-full w-72 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 z-50 md:hidden shadow-2xl border-l border-gray-200 dark:border-gray-600"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
           >
             {/* Header */}
-            <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-800">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <div className="p-4 border-b border-gray-200 dark:border-gray-600 flex justify-between items-center bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
+              <h2 className="text-lg font-bold text-gray-900 dark:text-white">
                 Menu
               </h2>
-              <div className="flex items-center space-x-1">
+              <div className="flex items-center space-x-2">
                 {/* Theme Toggle */}
                 {mounted && (
                   <button
                     onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                    className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                    className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                     aria-label="Toggle theme"
                   >
                     {theme === 'dark' ? (
-                      <Sun className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                      <Sun className="w-4 h-4 text-gray-600 dark:text-gray-300" />
                     ) : (
-                      <Moon className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                      <Moon className="w-4 h-4 text-gray-600 dark:text-gray-300" />
                     )}
                   </button>
                 )}
                 {/* Close Button */}
                 <button
                   onClick={onToggle}
-                  className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                  className="p-2 rounded-lg bg-red-100 dark:bg-red-900/30 hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors"
                 >
-                  <X className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                  <X className="w-4 h-4 text-red-600 dark:text-red-400" />
                 </button>
               </div>
             </div>
@@ -119,7 +117,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
                   className={`flex items-center space-x-3 p-3 rounded-lg transition-all duration-200 ${
                     pathname === item.href
                       ? 'bg-orange-500 text-white shadow-md'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                   }`}
                 >
                   <item.icon className="w-4 h-4" />
@@ -130,7 +128,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
 
             {/* Divider */}
             <div className="px-3 py-2">
-              <div className="border-t border-gray-200 dark:border-gray-700"></div>
+              <div className="border-t border-gray-200 dark:border-gray-600"></div>
             </div>
 
             {/* Social Links */}
@@ -146,7 +144,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={onToggle}
-                    className="flex items-center space-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
+                    className="flex items-center space-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
                   >
                     <link.icon className="w-4 h-4" />
                     <span className="font-medium text-sm">{link.label}</span>
@@ -156,10 +154,10 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
             </div>
 
             {/* Footer */}
-            <div className="absolute bottom-0 left-0 right-0 p-3 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+            <div className="absolute bottom-0 left-0 right-0 p-3 border-t border-gray-200 dark:border-gray-600 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
               <div className="text-center text-xs text-gray-600 dark:text-gray-400">
-                <p>© 2024 Hafida Belayd</p>
-                <p className="text-xs mt-1">Data Analyst & AI Specialist</p>
+                <p>© 2025 Hafida Belayd</p>
+                <p className="text-xs mt-1 opacity-75">Data Analyst & AI Specialist</p>
               </div>
             </div>
           </motion.div>

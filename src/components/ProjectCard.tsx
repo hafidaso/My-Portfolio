@@ -50,20 +50,20 @@ const ProjectCard = memo<ProjectCardProps>(({
   return (
     <ThreeDCard intensity={0.05} className="group relative overflow-hidden rounded-xl p-1 transition-all duration-500 hover:scale-[1.02] hover:shadow-xl flex-grow">
       <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-orange-500 opacity-75 transition-all duration-500 group-hover:opacity-100"></div>
-      <div className="relative h-full rounded-lg bg-white p-4 sm:p-6 dark:bg-gray-800 transition-all duration-500 dark:bg-opacity-80 backdrop-blur-sm flex flex-col">
-        <h3 className="mb-3 text-lg sm:text-xl md:text-2xl font-bold text-gray-800 dark:text-white">{title}</h3>
+      <div className="relative h-full rounded-lg bg-white p-6 dark:bg-gray-800 transition-all duration-500 dark:bg-opacity-80 backdrop-blur-sm flex flex-col">
+        <h3 className="mb-3 text-xl md:text-2xl font-bold text-gray-800 dark:text-white">{title}</h3>
         <p className="mb-4 text-sm md:text-base text-gray-600 dark:text-gray-300 flex-grow">{description}</p>
         <div className="mt-auto space-y-4">
-          <div className="flex flex-wrap gap-1 sm:gap-2">
+          <div className="flex flex-wrap gap-2">
             {technologies.map((tech, index) => {
               const IconComponent = iconComponents[tech.icon];
               return IconComponent ? (
                 <div
                   key={index}
-                  className="inline-flex items-center bg-gray-100 dark:bg-gray-700 rounded-md px-1.5 sm:px-2 py-1 mr-1 sm:mr-2"
+                  className="inline-flex items-center bg-gray-100 dark:bg-gray-700 rounded-md px-2 py-1 mr-2"
                 >
                   <div 
-                    className="w-3 h-3 sm:w-4 sm:h-4 mr-1"
+                    className="w-4 h-4 mr-1"
                     style={{ color: tech.color }}
                   >
                     <IconComponent className="w-full h-full" />

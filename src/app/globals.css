@@ -69,47 +69,6 @@ html {
   canvas {
     opacity: 0.2;
   }
-  
-  /* Better text sizing for mobile */
-  h1 {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-  
-  h2 {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-  
-  /* Improve spacing on mobile */
-  .space-y-2 > * + * {
-    margin-top: 0.5rem;
-  }
-  
-  .space-y-4 > * + * {
-    margin-top: 1rem;
-  }
-}
-
-/* Small mobile devices */
-@media (max-width: 480px) {
-  /* Reduce padding on very small screens */
-  .p-4 {
-    padding: 0.75rem;
-  }
-  
-  .p-6 {
-    padding: 1rem;
-  }
-  
-  /* Smaller text on very small screens */
-  .text-sm {
-    font-size: 0.75rem;
-  }
-  
-  .text-xs {
-    font-size: 0.625rem;
-  }
 }
 
 /* Touch device optimizations */
