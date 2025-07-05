@@ -1,6 +1,7 @@
 import { Octokit } from '@octokit/rest';
 import type { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods';
 import { fallbackService } from './githubFallback';
+import { getGitHubToken } from '@/config/github';
 
 type UserResponse = RestEndpointMethodTypes["users"]["getByUsername"]["response"];
 type ReposResponse = RestEndpointMethodTypes["repos"]["listForUser"]["response"];
@@ -15,7 +16,7 @@ class GitHubService {
   private readonly RETRY_DELAY = 1000; // 1 second
 
   private constructor() {
-    const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
+    const token = getGitHubToken();
     if (!token) {
       console.warn('GitHub token is not set in environment variables. GitHub features will be limited.');
       // Create Octokit instance without auth for public API access
@@ -121,7 +122,7 @@ class GitHubService {
   }
 
   isAuthenticated(): boolean {
-    return !!process.env.NEXT_PUBLIC_GITHUB_TOKEN;
+    return !!getGitHubToken();
   }
 
   async isTokenValid(): Promise<boolean> {

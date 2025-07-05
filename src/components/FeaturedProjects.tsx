@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { githubService } from '@/lib/github';
+import { getGitHubUsername, GITHUB_CONFIG } from '@/config/github';
 import { GithubIcon, ExternalLink, Loader } from 'lucide-react';
 import { 
   SiNextdotjs, SiOpenai, SiReact, SiTypescript, 
@@ -34,9 +35,9 @@ const FeaturedProjects: React.FC = () => {
   const fetchProjects = useCallback(async () => {
     setLoading(true);
     try {
-      const username = 'hafidaso';
+      const username = getGitHubUsername();
       const { data: repos } = await githubService.getRepositories(username, {
-        per_page: 100,
+        per_page: GITHUB_CONFIG.REPOS_PER_PAGE,
         type: 'owner'
       });
 
@@ -54,7 +55,7 @@ const FeaturedProjects: React.FC = () => {
         return dateB - dateA;
       });
 
-      setProjects(sortedRepos.slice(0, 4));
+      setProjects(sortedRepos.slice(0, GITHUB_CONFIG.FEATURED_PROJECTS_COUNT));
     } catch (err) {
       setError('Error fetching featured projects');
       console.error('Error fetching featured projects:', err);

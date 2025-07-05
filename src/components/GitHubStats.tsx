@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { githubService } from '@/lib/github';
+import { getGitHubUsername } from '@/config/github';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { Book, Star, Users, UserPlus } from 'lucide-react';
 import type { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods';
@@ -43,10 +44,11 @@ const GitHubStats: React.FC = () => {
   useEffect(() => {
     const fetchGitHubData = async () => {
       try {
-        const userResponse = await githubService.getUserData('hafidaso');
+        const username = getGitHubUsername();
+        const userResponse = await githubService.getUserData(username);
         setUserData(userResponse.data as UserData);
 
-        const reposResponse = await githubService.getRepositories('hafidaso', { per_page: 100 });
+        const reposResponse = await githubService.getRepositories(username, { per_page: 100 });
         setRepos(reposResponse.data.map((repo: GitHubRepo): RepoData => ({
           name: repo.name,
           stargazers_count: repo.stargazers_count ?? 0,

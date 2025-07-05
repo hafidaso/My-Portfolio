@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { githubService } from '@/lib/github';
+import { getGitHubUsername, GITHUB_CONFIG } from '@/config/github';
 import ProjectCard from './ProjectCard';
 import { GitBranch, User } from 'lucide-react';
 import LoadingAnimation from './LoadingAnimation';
@@ -89,10 +90,10 @@ const ProjectsGrid: React.FC = () => {
   const fetchProjects = useCallback(async () => {
     setLoading(true);
     try {
-      const username = 'hafidaso';
+      const username = getGitHubUsername();
 
       const { data: allRepos } = await githubService.getRepositories(username, {
-        per_page: 100,
+        per_page: GITHUB_CONFIG.REPOS_PER_PAGE,
         sort: 'updated',
         type: 'all',
       });
