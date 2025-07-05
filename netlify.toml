@@ -8,6 +8,8 @@
   # Clear cache on every build
   NODE_ENV = "production"
   NEXT_TELEMETRY_DISABLED = "1"
+  # GitHub Configuration
+  NEXT_PUBLIC_GITHUB_USERNAME = "hafidaso"
 
 [[redirects]]
   from = "/*"
