@@ -1,5 +1,5 @@
-import React from 'react';
-import { Github, ExternalLink, Star, GitFork, Clock } from 'lucide-react';
+import React, { memo, useMemo } from 'react';
+import { Github, ExternalLink, Star, GitFork } from 'lucide-react';
 import * as Si from 'react-icons/si';
 import ThreeDCard from './ThreeDCard';
 
@@ -18,7 +18,7 @@ interface ProjectCardProps {
   lastUpdated: string;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({
+const ProjectCard = memo<ProjectCardProps>(({
   title,
   description,
   technologies,
@@ -28,21 +28,24 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   forks,
   lastUpdated
 }) => {
-  // Create a mapping of icon names to actual components
-  const iconComponents: { [key: string]: React.ElementType } = {};
-  Object.keys(Si).forEach(key => {
-    iconComponents[key] = (Si as any)[key];
-  });
+  // Memoize icon components mapping
+  const iconComponents = useMemo(() => {
+    const components: { [key: string]: React.ElementType } = {};
+    Object.keys(Si).forEach(key => {
+      components[key] = (Si as any)[key];
+    });
+    return components;
+  }, []);
 
-  // Function to format the date
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
+  // Memoize formatted date
+  const formattedDate = useMemo(() => {
+    const date = new Date(lastUpdated);
     return date.toLocaleDateString('de-DE', {
       year: 'numeric',
       month: 'short',
       day: 'numeric'
     });
-  };
+  }, [lastUpdated]);
 
   return (
     <ThreeDCard intensity={0.05} className="group relative overflow-hidden rounded-xl p-1 transition-all duration-500 hover:scale-[1.02] hover:shadow-xl flex-grow">
@@ -110,6 +113,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       </div>
     </ThreeDCard>
   );
-};
+}));
 
 export default ProjectCard;
