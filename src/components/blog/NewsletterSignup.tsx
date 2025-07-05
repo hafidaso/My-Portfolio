@@ -22,25 +22,19 @@ export default function NewsletterSignup({ className = '' }: NewsletterSignupPro
     setStatus('idle');
 
     try {
-      const response = await fetch('/api/newsletter', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name })
-      });
+      // Simulate API call for static export
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
-      const data = await response.json();
+      // For production, you would integrate with a newsletter service here
+      // Examples: Mailchimp, ConvertKit, Substack, etc.
       
-      if (!response.ok) {
-        throw new Error(data.error || 'Subscription failed');
-      }
-
       setStatus('success');
-      setMessage(data.message || 'Welcome to the newsletter! Check your email for confirmation.');
+      setMessage('Welcome to the newsletter! Check your email for confirmation.');
       setEmail('');
       setName('');
     } catch (error) {
       setStatus('error');
-      setMessage(error instanceof Error ? error.message : 'Something went wrong. Please try again.');
+      setMessage('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
     }

@@ -1,23 +1,30 @@
+import { getSortedPostsData, getPostData, getAllPostIds } from '../../../../utils/markdown';
+
+export const dynamic = 'force-static'
+
+// Generate static params for all blog posts
+export function generateStaticParams() {
+  return [
+    { id: 'building-ai-agents-nextjs-langchain' },
+    { id: 'complete_openai_api_guide' },
+    { id: 'laravel-react-crash-course' },
+    { id: 'mastering-react-key-concepts-tips-beginners-2025' },
+    { id: 'python-playground-generative-ai-tutorial' }
+  ];
+}
+
 import Image from "next/image";
 import MarkdownContent from '@/components/MarkdownContent';
 import TableOfContents from '@/components/TableOfContents';
 import BlogPostJsonLd from '@/components/BlogPostJsonLd';
 import ReadingProgress from '@/components/blog/ReadingProgress';
 import RelatedPosts from '@/components/blog/RelatedPosts';
-import CommentSystem from '@/components/blog/CommentSystem';
 import NewsletterSignup from '@/components/blog/NewsletterSignup';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { getSortedPostsData, getPostData, getAllPostIds } from '../../../../utils/markdown';
 import Link from "next/link";
 import { ArrowLeft, Calendar, Clock, Tag, User } from "lucide-react";
 import heroImage from "@/assets/hafida.jpeg";
-
-// This matches the return type of getAllPostIds
-export async function generateStaticParams() {
-  const paths = await getAllPostIds();
-  return paths;
-}
 
 // Use the same params type for metadata generation
 export async function generateMetadata({ 
@@ -188,9 +195,6 @@ export default async function BlogPost({
                 </div>
               </div>
             </div>
-
-            {/* Comments Section */}
-            <CommentSystem postId={id} />
 
             {/* Newsletter Signup */}
             <div className="mt-16">

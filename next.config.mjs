@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  trailingSlash: true,
   images: {
+    unoptimized: true,
     remotePatterns: [
       { protocol: "https", hostname: "res.cloudinary.com", pathname: "**" },
       { protocol: "https", hostname: "images.unsplash.com", pathname: "**" },
@@ -21,6 +24,8 @@ const nextConfig = {
     workerThreads: false,
     cpus: 1,
   },
+  // Exclude API routes from static export
+  distDir: 'out',
 };
 
 export default nextConfig;
