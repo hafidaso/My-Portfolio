@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Home, Briefcase, BookOpen, User } from 'lucide-react';
+import { Menu, X, Home, Briefcase, BookOpen, User, Github, Mail, Linkedin } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import TouchGestures from './TouchGestures';
 
 interface MobileNavigationProps {
   isOpen: boolean;
@@ -14,7 +13,6 @@ interface MobileNavigationProps {
 
 const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle }) => {
   const pathname = usePathname();
-  const [activeIndex, setActiveIndex] = useState(0);
 
   const navItems = [
     { href: '/', label: 'Home', icon: Home },
@@ -22,32 +20,17 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
     { href: '/blog', label: 'Blog', icon: BookOpen },
   ];
 
-  useEffect(() => {
-    const currentIndex = navItems.findIndex(item => item.href === pathname);
-    setActiveIndex(currentIndex >= 0 ? currentIndex : 0);
-  }, [pathname]);
-
-  const handleSwipeLeft = () => {
-    if (activeIndex < navItems.length - 1) {
-      setActiveIndex(activeIndex + 1);
-    }
-  };
-
-  const handleSwipeRight = () => {
-    if (activeIndex > 0) {
-      setActiveIndex(activeIndex - 1);
-    }
-  };
-
-  const handleSwipeUp = () => {
-    onToggle(); // Close menu
-  };
+  const socialLinks = [
+    { href: 'https://github.com/hafidaso', label: 'GitHub', icon: Github },
+    { href: 'mailto:contact@ymadigital.com', label: 'Email', icon: Mail },
+    { href: 'https://linkedin.com/in/hafida-belayd', label: 'LinkedIn', icon: Linkedin },
+  ];
 
   return (
     <>
       {/* Mobile Menu Button */}
       <motion.button
-        className="md:hidden fixed top-4 right-4 z-50 p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg"
+        className="md:hidden fixed top-4 right-4 z-50 p-3 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700"
         onClick={onToggle}
         whileTap={{ scale: 0.95 }}
         whileHover={{ scale: 1.05 }}
@@ -61,7 +44,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
               exit={{ rotate: 90, opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5" />
             </motion.div>
           ) : (
             <motion.div
@@ -71,7 +54,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
               exit={{ rotate: -90, opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <Menu className="w-6 h-6" />
+              <Menu className="w-5 h-5" />
             </motion.div>
           )}
         </AnimatePresence>
@@ -94,84 +77,75 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed top-0 right-0 h-full w-80 bg-white dark:bg-gray-900 z-50 md:hidden"
+            className="fixed top-0 right-0 h-full w-80 bg-white dark:bg-gray-900 z-50 md:hidden shadow-xl"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
           >
-            <TouchGestures
-              onSwipeLeft={handleSwipeLeft}
-              onSwipeRight={handleSwipeRight}
-              onSwipeUp={handleSwipeUp}
-              className="h-full flex flex-col"
-            >
-              {/* Header */}
-              <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-                  Navigation
-                </h2>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                  Swipe to navigate
-                </p>
-              </div>
+            {/* Header */}
+            <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                Menu
+              </h2>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                Navigate your portfolio
+              </p>
+            </div>
 
-              {/* Navigation Items */}
-              <div className="flex-1 overflow-hidden">
-                <motion.div
-                  className="h-full flex"
-                  animate={{ x: -activeIndex * 100 + '%' }}
-                  transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            {/* Navigation Items */}
+            <div className="p-4 space-y-2">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={onToggle}
+                  className={`flex items-center space-x-3 p-4 rounded-lg transition-all duration-200 ${
+                    pathname === item.href
+                      ? 'bg-orange-500 text-white shadow-md'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                  }`}
                 >
-                  {navItems.map((item, index) => (
-                    <div
-                      key={item.href}
-                      className="w-full flex-shrink-0 p-6"
-                      style={{ width: '100%' }}
-                    >
-                      <Link
-                        href={item.href}
-                        onClick={onToggle}
-                        className={`flex items-center space-x-3 p-4 rounded-lg transition-all duration-200 ${
-                          pathname === item.href
-                            ? 'bg-orange-500 text-white'
-                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
-                        }`}
-                      >
-                        <item.icon className="w-5 h-5" />
-                        <span className="font-medium">{item.label}</span>
-                      </Link>
-                    </div>
-                  ))}
-                </motion.div>
-              </div>
+                  <item.icon className="w-5 h-5" />
+                  <span className="font-medium">{item.label}</span>
+                </Link>
+              ))}
+            </div>
 
-              {/* Pagination Dots */}
-              <div className="p-6 flex justify-center space-x-2">
-                {navItems.map((_, index) => (
-                  <motion.div
-                    key={index}
-                    className={`w-2 h-2 rounded-full ${
-                      index === activeIndex
-                        ? 'bg-orange-500'
-                        : 'bg-gray-300 dark:bg-gray-600'
-                    }`}
-                    animate={{
-                      scale: index === activeIndex ? 1.2 : 1,
-                    }}
-                    transition={{ duration: 0.2 }}
-                  />
+            {/* Divider */}
+            <div className="px-4 py-2">
+              <div className="border-t border-gray-200 dark:border-gray-700"></div>
+            </div>
+
+            {/* Social Links */}
+            <div className="p-4">
+              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-3 px-4">
+                Connect
+              </h3>
+              <div className="space-y-2">
+                {socialLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={onToggle}
+                    className="flex items-center space-x-3 p-4 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
+                  >
+                    <link.icon className="w-5 h-5" />
+                    <span className="font-medium">{link.label}</span>
+                  </a>
                 ))}
               </div>
+            </div>
 
-              {/* Footer */}
-              <div className="p-6 border-t border-gray-200 dark:border-gray-700">
-                <div className="text-center text-sm text-gray-600 dark:text-gray-400">
-                  <p>Swipe left/right to navigate</p>
-                  <p>Swipe up to close</p>
-                </div>
+            {/* Footer */}
+            <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 dark:border-gray-700">
+              <div className="text-center text-sm text-gray-600 dark:text-gray-400">
+                <p>© 2024 Hafida Belayd</p>
+                <p className="text-xs mt-1">Data Scientist & Developer</p>
               </div>
-            </TouchGestures>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
