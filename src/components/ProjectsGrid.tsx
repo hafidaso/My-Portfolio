@@ -223,7 +223,7 @@ const ProjectsGrid: React.FC = () => {
       </div>
 
       {/* Filters Row */}
-      <div className="flex flex-wrap gap-2 items-center justify-center">
+      <div className="flex flex-col sm:flex-row flex-wrap gap-2 items-center justify-center">
         <div className="flex items-center gap-2">
           <select
             value={sortBy}
@@ -301,7 +301,7 @@ const ProjectsGrid: React.FC = () => {
       </div>
 
       {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
         {loading ? (
           <div className="col-span-full flex justify-center items-center py-12">
             <LoadingAnimation type="dots" size="lg" color="primary" />

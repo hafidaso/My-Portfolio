@@ -14,23 +14,23 @@ const Technologies: React.FC = () => {
       <h2 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-600 mb-4">
         Technologies
       </h2>
-      <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 gap-2">
         {skills.map((skill, index) => {
           const IconComponent = iconComponents[skill.icon];
           return (
             <div
               key={index}
-              className="flex flex-col items-center justify-center p-3 bg-gray-50 dark:bg-[#1E2330] rounded-lg transition-all hover:scale-105 hover:bg-gray-100 dark:hover:bg-[#252B3B] group"
+              className="flex flex-col items-center justify-center p-2 sm:p-3 bg-gray-50 dark:bg-[#1E2330] rounded-lg transition-all hover:scale-105 hover:bg-gray-100 dark:hover:bg-[#252B3B] group"
             >
               {IconComponent && (
                 <div 
-                  className="w-8 h-8 mb-2 text-gray-600 dark:text-gray-400 group-hover:text-[#000000] dark:group-hover:text-white transition-colors"
+                  className="w-6 h-6 sm:w-8 sm:h-8 mb-1 sm:mb-2 text-gray-600 dark:text-gray-400 group-hover:text-[#000000] dark:group-hover:text-white transition-colors"
                   style={{ color: skill.color }}
                 >
                   <IconComponent className="w-full h-full" />
                 </div>
               )}
-              <span className="text-xs font-medium text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
+              <span className="text-xs font-medium text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors text-center">
                 {skill.name}
               </span>
             </div>
