@@ -10,7 +10,8 @@
     "start": "next start",
     "lint": "next lint",
     "vercel-build": "npm run generate && next build",
-    "netlify-build": "npm install --legacy-peer-deps && next build"
+    "netlify-build": "npm install --legacy-peer-deps && ./scripts/clear-cache.sh && next build",
+    "clear-cache": "./scripts/clear-cache.sh"
   },
   "dependencies": {
     "@huggingface/inference": "^4.3.2",
