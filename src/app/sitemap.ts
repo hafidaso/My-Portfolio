@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { getSortedPostsData, PostData } from '../../utils/markdown';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://medevs.xyz';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hafida-belayd.netlify.app';
   
   // Get all blog posts
   const posts = await getSortedPostsData();

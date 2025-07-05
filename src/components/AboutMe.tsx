@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import heroImage from "@/assets/hafida.jpeg";
 import { GithubIcon, Linkedin } from 'lucide-react';
+import { AnimatedLink } from './MicroInteractions';
 
 const AboutMe: React.FC = () => {
   return (
@@ -39,24 +40,20 @@ const AboutMe: React.FC = () => {
 
               <div className="mt-auto">
                 <div className="flex items-center space-x-4">
-                  <a 
+                  <AnimatedLink 
                     href="https://github.com/hafidaso"
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
                     aria-label="GitHub Profile"
                   >
                     <GithubIcon className="w-5 h-5" />
-                  </a>
-                  <a 
-                    href="https://linkedin.com/in/hafida-belayd" 
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  </AnimatedLink>
+                  <AnimatedLink 
+                    href="https://linkedin.com/in/hafida-belayd"
                     className="text-gray-500 hover:text-orange-600 dark:text-gray-400 dark:hover:text-orange-400 transition-colors"
                     aria-label="LinkedIn Profile"
                   >
                     <Linkedin className="w-5 h-5" />
-                  </a>
+                  </AnimatedLink>
                 </div>
               </div>
             </div>

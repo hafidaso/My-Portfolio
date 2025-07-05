@@ -81,12 +81,37 @@ export function createPersonSchema(data: PersonSchema) {
     sameAs: data.sameAs,
     image: data.image,
     description: data.description,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Salé',
+      addressCountry: 'Morocco'
+    },
     worksFor: {
       '@type': 'Organization',
       name: data.worksFor.name,
       url: data.worksFor.url,
     },
     knowsAbout: data.knowsAbout,
+    hasOccupation: {
+      '@type': 'Occupation',
+      name: 'Data Analyst',
+      occupationLocation: {
+        '@type': 'City',
+        name: 'Casablanca-Settat'
+      }
+    },
+    alumniOf: [
+      {
+        '@type': 'EducationalOrganization',
+        name: 'University of the People',
+        url: 'https://www.uopeople.edu'
+      },
+      {
+        '@type': 'EducationalOrganization',
+        name: 'ExploreAI Academy',
+        url: 'https://exploreaiacademy.com'
+      }
+    ],
   };
 }
 

@@ -3,7 +3,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { githubService } from '@/lib/github';
 import ProjectCard from './ProjectCard';
-import { Loader, GitBranch, User } from 'lucide-react';
+import { GitBranch, User } from 'lucide-react';
+import LoadingAnimation from './LoadingAnimation';
+import ProgressiveLoading, { useProgressiveLoading } from './ProgressiveLoading';
 import type { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods';
 import { skills } from '@/data/skills';
 
@@ -200,6 +202,12 @@ const ProjectsGrid: React.FC = () => {
     setSearchQuery('');
   };
 
+  // Progressive loading for mobile
+  const { visibleItems, loadMore, isLoading: loadingMore, hasMore } = useProgressiveLoading(
+    getSortedAndFilteredProjects(),
+    6 // Show 6 items at a time on mobile
+  );
+
   return (
     <div className="space-y-4">
       {/* Search Bar */}
@@ -295,14 +303,31 @@ const ProjectsGrid: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {loading ? (
           <div className="col-span-full flex justify-center items-center py-12">
-            <Loader className="w-8 h-8 animate-spin text-orange-500" />
+            <LoadingAnimation type="dots" size="lg" color="primary" />
           </div>
         ) : error ? (
           <div className="col-span-full text-red-500 text-center py-12">{error}</div>
         ) : (
-          getSortedAndFilteredProjects().map((project, index) => (
-            <ProjectCard key={index} {...project} />
-          ))
+          <>
+            {visibleItems.map((project, index) => (
+              <ProjectCard key={index} {...project} />
+            ))}
+            {hasMore && (
+              <div className="col-span-full flex justify-center py-4">
+                <button
+                  onClick={loadMore}
+                  disabled={loadingMore}
+                  className="px-6 py-3 bg-gradient-to-r from-orange-500 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-300 disabled:opacity-50"
+                >
+                  {loadingMore ? (
+                    <LoadingAnimation type="dots" size="sm" color="white" />
+                  ) : (
+                    'Load More Projects'
+                  )}
+                </button>
+              </div>
+            )}
+          </>
         )}
       </div>
 

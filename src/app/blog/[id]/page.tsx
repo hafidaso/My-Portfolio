@@ -28,11 +28,49 @@ export async function generateMetadata({
   if (!postData) {
     return {
       title: 'Post Not Found',
+      description: 'The requested blog post could not be found.',
     };
   }
+
   return {
     title: postData.title,
     description: postData.description,
+    keywords: [
+      ...postData.tags || [],
+      "Data Science",
+      "Python",
+      "Machine Learning",
+      "AI",
+      "Data Analysis",
+      "Blog Post",
+      "Hafida Belayd"
+    ],
+    authors: [{ name: postData.author }],
+    openGraph: {
+      title: postData.title,
+      description: postData.description,
+      type: 'article',
+      url: `https://hafida-belayd.netlify.app/blog/${id}`,
+      images: [
+        {
+          url: `/images/${id}.png`,
+          width: 1200,
+          height: 630,
+          alt: postData.title,
+        },
+      ],
+      publishedTime: postData.date,
+      modifiedTime: postData.date,
+      authors: [postData.author],
+      siteName: 'Hafida Belayd Portfolio',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: postData.title,
+      description: postData.description,
+      images: [`/images/${id}.png`],
+      creator: '@hafidaso',
+    },
   };
 }
 
