@@ -100,9 +100,9 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
                 {/* Close Button */}
                 <button
                   onClick={onToggle}
-                  className="p-2 rounded-lg bg-red-100 dark:bg-red-900/30 hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors"
+                  className="p-2 rounded-lg bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 transition-colors shadow-md"
                 >
-                  <X className="w-4 h-4 text-red-600 dark:text-red-400" />
+                  <X className="w-5 h-5 text-white" />
                 </button>
               </div>
             </div>

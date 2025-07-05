@@ -9,6 +9,7 @@ export function generateStaticParams() {
     { id: 'complete_openai_api_guide' },
     { id: 'laravel-react-crash-course' },
     { id: 'mastering-react-key-concepts-tips-beginners-2025' },
+    { id: 'model-context-protocol-ai-integration-standard' },
     { id: 'python-playground-generative-ai-tutorial' }
   ];
 }
