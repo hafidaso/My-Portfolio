@@ -2,6 +2,10 @@ import Image from "next/image";
 import MarkdownContent from '@/components/MarkdownContent';
 import TableOfContents from '@/components/TableOfContents';
 import BlogPostJsonLd from '@/components/BlogPostJsonLd';
+import ReadingProgress from '@/components/blog/ReadingProgress';
+import RelatedPosts from '@/components/blog/RelatedPosts';
+import CommentSystem from '@/components/blog/CommentSystem';
+import NewsletterSignup from '@/components/blog/NewsletterSignup';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getSortedPostsData, getPostData, getAllPostIds } from '../../../../utils/markdown';
@@ -101,6 +105,7 @@ export default async function BlogPost({
 
   return (
     <>
+      <ReadingProgress />
       <BlogPostJsonLd post={postData} />
       <div className="max-w-7xl mx-auto px-4 py-12">
       <Link href="/blog" className="inline-flex items-center text-orange-600 hover:text-orange-800 mb-6 transition-colors duration-200">
@@ -161,22 +166,7 @@ export default async function BlogPost({
                   </span>
                 ))}
               </div>
-              {relatedPosts.length > 0 && (
-                <div className="mt-8">
-                  <h2 className="text-2xl font-bold mb-4">Related Posts</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {relatedPosts.map((post) => (
-                      <a 
-                      className="block rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200 dark:border-gray-700 p-6"
-                      key={post.id}
-                      href={`/blog/${post.id}`}>
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{post.title}</h3>
-                        <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{post.description}</p>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              )}
+              <RelatedPosts currentPost={postData} allPosts={await getSortedPostsData()} />
             </div>
             <div className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
               <h3 className="text-2xl font-semibold mb-6 text-gray-900 dark:text-white">About the Author</h3>
@@ -197,6 +187,14 @@ export default async function BlogPost({
                   </p>
                 </div>
               </div>
+            </div>
+
+            {/* Comments Section */}
+            <CommentSystem postId={id} />
+
+            {/* Newsletter Signup */}
+            <div className="mt-16">
+              <NewsletterSignup />
             </div>
           </article>
         </div>

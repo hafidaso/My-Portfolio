@@ -1,5 +1,6 @@
-import LatestPosts from "@/components/LatestPosts";
 import { Metadata } from "next";
+import BlogContent from "@/components/blog/BlogContent";
+import { getSortedPostsData, getAllCategories, getAllTags } from "../../../utils/markdown";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -25,14 +26,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Blog() {
+export default async function Blog() {
+  const posts = await getSortedPostsData();
+  const categories = await getAllCategories();
+  const tags = await getAllTags();
+
   return (
     <div className="min-h-screen">
       <main className="container mx-auto px-4 py-16">
         <h1 className="text-5xl font-bold mb-24 text-center">
           📝 Blog
         </h1>
-        <LatestPosts />
+        <BlogContent posts={posts} categories={categories} tags={tags} />
       </main>
     </div>
   );

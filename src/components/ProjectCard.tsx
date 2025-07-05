@@ -113,6 +113,8 @@ const ProjectCard = memo<ProjectCardProps>(({
       </div>
     </ThreeDCard>
   );
-}));
+});
+
+ProjectCard.displayName = 'ProjectCard';
 
 export default ProjectCard;
