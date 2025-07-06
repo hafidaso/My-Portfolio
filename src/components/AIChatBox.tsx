@@ -1,10 +1,8 @@
 import { cn } from "@/lib/utils";
 import { Message, useChat } from "ai/react";
-import { Bot, SendHorizontal, Trash, XCircle, Globe, Lightbulb, FileText, TrendingUp } from "lucide-react";
-import Link from "next/link";
+import { Bot, SendHorizontal, Trash, XCircle } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { detectLanguage, getLanguageGreeting, SUPPORTED_LANGUAGES } from "@/lib/languageDetection";
 
 
 interface AIChatBoxProps {
@@ -13,7 +11,6 @@ interface AIChatBoxProps {
 }
 
 export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
-  const [detectedLanguage, setDetectedLanguage] = useState<string>('en');
   const [interactionHistory, setInteractionHistory] = useState<string[]>([]);
   const [userPreferences, setUserPreferences] = useState<string[]>([]);
 
@@ -60,10 +57,6 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!input.trim()) return;
-    
-    // Detect language from input
-    const language = detectLanguage(input);
-    setDetectedLanguage(language.code);
     
     try {
       await originalHandleSubmit(e);
@@ -133,172 +126,9 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
           {!error && messages.length === 0 && (
             <div className="flex flex-col items-center justify-center h-full text-center">
               <Bot size={48} className="text-purple-500 mb-4 animate-bounce" />
-              <p className="text-lg font-medium mb-2">
-                {getLanguageGreeting(detectedLanguage as any)}
-              </p>
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                 Hi! I'm Hafida Belayd, a Data Analyst and Creative Technologist. Ask me anything about my work, skills, or how I can help with your projects!
               </p>
-              
-              {/* Recruiter-Focused Questions */}
-              <div className="mb-4">
-                <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                  For Recruiters & Hiring Managers:
-                </h4>
-                <div className="space-y-2">
-                  <button
-                    onClick={() => {
-                      const message = "What are this candidate's strongest skills based on their GitHub?";
-                      setMessages([{
-                        id: Date.now().toString(),
-                        role: 'user',
-                        content: message
-                      }]);
-                    }}
-                    className="w-full text-left p-2 text-xs bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 rounded hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors"
-                  >
-                    What are this candidate's strongest skills based on their GitHub?
-                  </button>
-                  <button
-                    onClick={() => {
-                      const message = "Which programming languages does this candidate use most?";
-                      setMessages([{
-                        id: Date.now().toString(),
-                        role: 'user',
-                        content: message
-                      }]);
-                    }}
-                    className="w-full text-left p-2 text-xs bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 rounded hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors"
-                  >
-                    Which programming languages does this candidate use most?
-                  </button>
-                  <button
-                    onClick={() => {
-                      const message = "Can you summarize this candidate's recent projects?";
-                      setMessages([{
-                        id: Date.now().toString(),
-                        role: 'user',
-                        content: message
-                      }]);
-                    }}
-                    className="w-full text-left p-2 text-xs bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 rounded hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors"
-                  >
-                    Can you summarize this candidate's recent projects?
-                  </button>
-                  <button
-                    onClick={() => {
-                      const message = "What technologies does this candidate specialize in?";
-                      setMessages([{
-                        id: Date.now().toString(),
-                        role: 'user',
-                        content: message
-                      }]);
-                    }}
-                    className="w-full text-left p-2 text-xs bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 rounded hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors"
-                  >
-                    What technologies does this candidate specialize in?
-                  </button>
-                  <button
-                    onClick={() => {
-                      const message = "How active and consistent is this candidate on GitHub?";
-                      setMessages([{
-                        id: Date.now().toString(),
-                        role: 'user',
-                        content: message
-                      }]);
-                    }}
-                    className="w-full text-left p-2 text-xs bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 rounded hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors"
-                  >
-                    How active and consistent is this candidate on GitHub?
-                  </button>
-                  <button
-                    onClick={() => {
-                      const message = "Does this candidate have experience with frontend, backend, and full-stack development?";
-                      setMessages([{
-                        id: Date.now().toString(),
-                        role: 'user',
-                        content: message
-                      }]);
-                    }}
-                    className="w-full text-left p-2 text-xs bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 rounded hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors"
-                  >
-                    Does this candidate have experience with frontend, backend, and full-stack development?
-                  </button>
-                  <button
-                    onClick={() => {
-                      const message = "What do this candidate's GitHub contributions say about their teamwork or independence?";
-                      setMessages([{
-                        id: Date.now().toString(),
-                        role: 'user',
-                        content: message
-                      }]);
-                    }}
-                    className="w-full text-left p-2 text-xs bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 rounded hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors"
-                  >
-                    What do this candidate's GitHub contributions say about their teamwork or independence?
-                  </button>
-                </div>
-              </div>
-
-              {/* AI Features Quick Actions */}
-              <div className="grid grid-cols-2 gap-2 w-full max-w-xs">
-                <button
-                  onClick={() => {
-                    const message = "Can you analyze my GitHub profile and suggest improvements?";
-                    setMessages([{
-                      id: Date.now().toString(),
-                      role: 'user',
-                      content: message
-                    }]);
-                  }}
-                  className="flex items-center gap-2 p-2 text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
-                >
-                  <TrendingUp size={12} />
-                  Resume Analysis
-                </button>
-                <button
-                  onClick={() => {
-                    const message = "What project recommendations do you have for me?";
-                    setMessages([{
-                      id: Date.now().toString(),
-                      role: 'user',
-                      content: message
-                    }]);
-                  }}
-                  className="flex items-center gap-2 p-2 text-xs bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded hover:bg-green-200 dark:hover:bg-green-800 transition-colors"
-                >
-                  <Lightbulb size={12} />
-                  Project Ideas
-                </button>
-                <button
-                  onClick={() => {
-                    const message = "Generate AI descriptions for my projects";
-                    setMessages([{
-                      id: Date.now().toString(),
-                      role: 'user',
-                      content: message
-                    }]);
-                  }}
-                  className="flex items-center gap-2 p-2 text-xs bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors"
-                >
-                  <FileText size={12} />
-                  AI Descriptions
-                </button>
-                <button
-                  onClick={() => {
-                    const message = "What technologies should I learn next?";
-                    setMessages([{
-                      id: Date.now().toString(),
-                      role: 'user',
-                      content: message
-                    }]);
-                  }}
-                  className="flex items-center gap-2 p-2 text-xs bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 rounded hover:bg-orange-200 dark:hover:bg-orange-800 transition-colors"
-                >
-                  <Globe size={12} />
-                  Tech Suggestions
-                </button>
-              </div>
             </div>
           )}
         </div>

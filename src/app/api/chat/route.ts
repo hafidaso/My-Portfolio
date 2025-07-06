@@ -42,11 +42,11 @@ export async function POST(request: NextRequest) {
     }
     // Contact information requests
     else if (lastMessage.includes('contact') || lastMessage.includes('email') || lastMessage.includes('linkedin') || lastMessage.includes('reach out') || lastMessage.includes('get in touch')) {
-      response = "I'd love to connect with you! Here's how you can reach me:\n\n📧 Email: hafida.belayd@gmail.com\n💼 LinkedIn: linkedin.com/in/hafida-belayd\n\nFeel free to send me a message about your project, collaboration opportunities, or just to say hello!";
+      response = "I'd love to connect with you! Here's how you can reach me:\n\n📧 Email: hafidabelaidagnaoui@gmail.com\n💼 LinkedIn: linkedin.com/in/hafida-belayd\n\nFeel free to send me a message about your project, collaboration opportunities, or just to say hello!";
     }
     // Default response with contact information
     else {
-      response = "That's an interesting question! While I can help with many topics related to data analysis, technology, and my professional experience, some questions might be better answered through a direct conversation.\n\nI'd be happy to discuss this further! You can reach me at:\n\n📧 Email: hafida.belayd@gmail.com\n💼 LinkedIn: linkedin.com/in/hafida-belayd\n\nFeel free to send me a message, and I'll get back to you as soon as possible! 😊";
+      response = "That's an interesting question! While I can help with many topics related to data analysis, technology, and my professional experience, some questions might be better answered through a direct conversation.\n\nI'd be happy to discuss this further! You can reach me at:\n\n📧 Email: hafidabelaidagnaoui@gmail.com\n💼 LinkedIn: linkedin.com/in/hafida-belayd\n\nFeel free to send me a message, and I'll get back to you as soon as possible! 😊";
     }
 
     // Return the response in the format expected by useChat
