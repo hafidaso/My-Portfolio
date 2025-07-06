@@ -1,6 +1,6 @@
 ---
 title: "The Model Context Protocol: The New Standard for AI Integration"
-date: "2025-01-15"
+date: "2025-07-06"
 author: "Hafida Belayd"
 tags: ["AI", "Model Context Protocol", "MCP", "AI Integration", "Open Source", "Technology"]
 category: "Artificial Intelligence"
