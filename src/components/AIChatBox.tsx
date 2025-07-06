@@ -107,7 +107,7 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
     >
       <div className="flex h-[600px] flex-col border bg-background shadow-xl rounded-lg  overflow-hidden">
         <div className="flex items-center justify-between bg-black bg-opacity-30 p-4">
-          <h2 className="text-white font-bold">AI Assistant</h2>
+          <h2 className="text-white font-bold">Hafida Belayd</h2>
           <button onClick={onClose} className="text-white hover:text-gray-300 transition-colors">
             <XCircle size={24} />
           </button>
@@ -137,7 +137,7 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
                 {getLanguageGreeting(detectedLanguage as any)}
               </p>
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                Feel free to ask me anything about this website.
+                Hi! I'm Hafida Belayd, a Data Analyst and Creative Technologist. Ask me anything about my work, skills, or how I can help with your projects!
               </p>
               
               {/* Recruiter-Focused Questions */}
