@@ -1,18 +1,12 @@
-import { getSortedPostsData, getPostData, getAllPostIds } from '../../../../utils/markdown';
+import { getSortedPostsData, getPostData } from '../../../../utils/markdown';
 
 export const dynamic = 'force-static'
 
 // Generate static params for all blog posts
-export function generateStaticParams() {
-  return [
-    { id: 'building-ai-agents-nextjs-langchain' },
-    { id: 'complete_openai_api_guide' },
-    { id: 'how-to-protect-your-data-in-the-age-of-ai' },
-    { id: 'laravel-react-crash-course' },
-    { id: 'mastering-react-key-concepts-tips-beginners-2025' },
-    { id: 'model-context-protocol-ai-integration-standard' },
-    { id: 'python-playground-generative-ai-tutorial' }
-  ];
+import { getAllPostIds } from '../../../../utils/markdown';
+
+export async function generateStaticParams() {
+  return await getAllPostIds();
 }
 
 import Image from "next/image";
