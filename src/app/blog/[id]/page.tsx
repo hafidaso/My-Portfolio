@@ -21,8 +21,7 @@ import { Metadata } from 'next';
 import Link from "next/link";
 import { ArrowLeft, Calendar, Clock, Tag, User } from "lucide-react";
 import heroImage from "@/assets/hafida.jpeg";
-import dynamic from 'next/dynamic';
-const ArticleImage = dynamic(() => import('@/components/blog/ArticleImage'), { ssr: false });
+import ArticleImage from '@/components/blog/ArticleImage';
 
 // Use the same params type for metadata generation
 export async function generateMetadata({ 
