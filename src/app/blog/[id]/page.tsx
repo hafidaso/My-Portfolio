@@ -27,6 +27,7 @@ import { Metadata } from 'next';
 import Link from "next/link";
 import { ArrowLeft, Calendar, Clock, Tag, User } from "lucide-react";
 import heroImage from "@/assets/hafida.jpeg";
+import React from 'react';
 
 // Use the same params type for metadata generation
 export async function generateMetadata({ 
@@ -144,16 +145,8 @@ export default async function BlogPost({
               {postData.author}
             </span>
           </div>
-          <Image
-            src={`/images/${postData.id}.png`}
-            alt={postData.title}
-            width={800}
-            height={400}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 800px, 800px"
-            className="rounded-lg mb-8 object-cover w-full"
-            priority={true}
-            quality={90}
-          />
+          {/* Article Image */}
+          <ArticleImage postData={postData} />
           
           {/* Table of Contents - Mobile and tablet only */}
           <div className="block lg:hidden mb-8">
@@ -214,5 +207,32 @@ export default async function BlogPost({
       </div>
     </div>
     </>
+  );
+}
+
+function ArticleImage({ postData }: { postData: any }) {
+  const [srcIndex, setSrcIndex] = React.useState(0);
+  const extensions = [
+    postData.image ? null : `/images/${postData.id}.png`,
+    `/images/${postData.id}.jpg`,
+    `/images/${postData.id}.gif`,
+  ];
+  let src = postData.image || extensions[srcIndex];
+  const fallback = "/images/default.png";
+  return (
+    <Image
+      src={src}
+      alt={postData.title}
+      width={800}
+      height={400}
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 800px, 800px"
+      className="rounded-lg mb-8 object-cover w-full"
+      priority={true}
+      quality={90}
+      onError={() => {
+        if (srcIndex < extensions.length - 1) setSrcIndex(srcIndex + 1);
+        else if (src !== fallback) setSrcIndex(extensions.length); // fallback
+      }}
+    />
   );
 }
