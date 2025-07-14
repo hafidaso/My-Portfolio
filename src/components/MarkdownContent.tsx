@@ -6,6 +6,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import remarkGfm from 'remark-gfm';
 import { Components } from 'react-markdown';
+import Image from 'next/image';
 
 interface MarkdownContentProps {
   content: string;
@@ -86,6 +87,26 @@ const MarkdownContent: React.FC<MarkdownContentProps> = ({ content }) => {
     td: ({ node, ...props }) => (
       <td className="px-4 py-3 whitespace-nowrap" {...props} />
     ),
+    img: ({ node, src, alt, ...props }) => {
+      if (!src) return null;
+      
+      // Convert relative paths to absolute paths for public images
+      const imageSrc = src.startsWith('/') ? src : `/images/${src}`;
+      
+      return (
+        <div className="my-6 text-center">
+          <Image
+            src={imageSrc}
+            alt={alt || ''}
+            width={800}
+            height={450}
+            className="rounded-lg shadow-lg mx-auto"
+            style={{ maxWidth: '100%', height: 'auto' }}
+            {...props}
+          />
+        </div>
+      );
+    },
   };
 
   return (

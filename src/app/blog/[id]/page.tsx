@@ -7,6 +7,7 @@ export function generateStaticParams() {
   return [
     { id: 'building-ai-agents-nextjs-langchain' },
     { id: 'complete_openai_api_guide' },
+    { id: 'how-to-protect-your-data-in-the-age-of-ai' },
     { id: 'laravel-react-crash-course' },
     { id: 'mastering-react-key-concepts-tips-beginners-2025' },
     { id: 'model-context-protocol-ai-integration-standard' },
