@@ -6,7 +6,7 @@ description: "Discover six essential strategies to protect your data in the era 
 image: "/how-to-protect-your-data-in-the-age-of-ai.jpg"
 ---
 
-![How to Protect Your Data in the Age of AI](/how-to-protect-your-data-in-the-age-of-ai.jpg)
+![How to Protect Your Data in the Age of AI](/workspaces/My-Portfolio/public/images/how-to-protect-your-data-in-the-age-of-ai.jpg)
 
 # How to Protect Your Data in the Age of AI
 
