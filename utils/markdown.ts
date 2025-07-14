@@ -15,6 +15,7 @@ export interface PostData {
   category: string;
   description: string;
   author: string;
+  image?: string; // Add this line
 }
 
 export interface PostContent extends PostData {
