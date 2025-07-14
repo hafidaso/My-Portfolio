@@ -1,6 +1,6 @@
 ---
 title: "How to Protect Your Data in the Age of AI"
-date: "2024-06-09"
+date: "2025-07-14"
 tags: [AI, Data Security, Privacy, Cybersecurity, Best Practices, Compliance, Data Protection]
 description: "Discover six essential strategies to protect your data in the era of Artificial Intelligence. Learn about modern threats, governance, encryption, and real-world case studies to secure your business and gain a competitive edge."
 image: "/how-to-protect-your-data-in-the-age-of-ai.jpg"
