@@ -139,6 +139,23 @@ export default function RootLayout({
         <meta name="distribution" content="global" />
         <meta name="rating" content="general" />
         <meta name="generator" content="Next.js" />
+        
+        {/* LinkedIn-specific meta tags */}
+        <meta property="og:title" content="Hafida Belayd - Data Analyst & AI Specialist" />
+        <meta property="og:description" content="Hafida Belayd is a Data Analyst and AI Specialist based in Morocco. Expert in Python, Machine Learning, Power BI, and data visualization." />
+        <meta property="og:image" content="https://hafida-belayd.netlify.app/og-image.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Hafida Belayd - Data Analyst & AI Specialist Portfolio" />
+        <meta property="og:url" content="https://hafida-belayd.netlify.app" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Hafida Belayd Portfolio" />
+        <meta property="og:locale" content="en_US" />
+        
+        {/* Additional LinkedIn meta tags */}
+        <meta name="linkedin:owner" content="hafidaso" />
+        <meta name="linkedin:card" content="summary_large_image" />
+        
         <meta name="theme-color" content="#f97316" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
