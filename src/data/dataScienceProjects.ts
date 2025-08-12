@@ -92,7 +92,7 @@ The AI Counter-Propaganda Detector is an advanced media literacy tool that combi
 • Local analysis capabilities for sensitive content
 • Open-source transparency for security verification`,
     shortDescription: 'Advanced AI-powered web application detecting propaganda techniques, emotional manipulation, and ideological bias in text content with 95% accuracy using LLMs and NLP for media literacy education.',
-    image: '/images/ai.png',
+    image: '/images/Main-Interface.png',
     githubUrl: 'https://github.com/hafidaso/ai-counter-propaganda-detector',
     liveUrl: 'https://ai-counter-propaganda-detector.vercel.app/',
     technologies: ['Python', 'React', 'Flask', 'OpenRouter API', 'Mistral 7B', 'SpaCy', 'NLP', 'Machine Learning', 'Tailwind CSS', 'TypeScript'],
