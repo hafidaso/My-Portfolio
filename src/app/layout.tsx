@@ -66,18 +66,20 @@ export const metadata: Metadata = {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Hafida Belayd - Data Analyst & AI Specialist',
+        alt: 'Hafida Belayd - Data Analyst & AI Specialist Portfolio',
         type: 'image/png',
       },
     ],
+    countryName: 'Morocco',
+    emails: ['hafidabelaidagnaoui@gmail.com'],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Hafida Belayd - Data Analyst & AI Specialist',
     description: 'Hafida Belayd is a Data Analyst and AI Specialist based in Morocco. Expert in Python, Machine Learning, Power BI, and data visualization.',
     images: ['/og-image.png'],
-    creator: '@hafidaso',
-    site: '@hafidaso',
+    creator: 'hafidaso',
+    site: 'hafidaso',
   },
   robots: {
     index: true,
@@ -128,6 +130,15 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+        <meta name="description" content="Hafida Belayd is a Data Analyst and AI Specialist based in Morocco. Expert in Python, Machine Learning, Power BI, and data visualization." />
+        <meta name="keywords" content="Hafida Belayd, Data Analyst, AI Specialist, Python Developer, Machine Learning, Power BI, Data Science, Morocco, Data Visualization, Artificial Intelligence, Portfolio" />
+        <meta name="author" content="Hafida Belayd" />
+        <meta name="robots" content="index, follow" />
+        <meta name="language" content="English" />
+        <meta name="revisit-after" content="7 days" />
+        <meta name="distribution" content="global" />
+        <meta name="rating" content="general" />
+        <meta name="generator" content="Next.js" />
         <meta name="theme-color" content="#f97316" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
