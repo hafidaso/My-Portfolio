@@ -98,7 +98,7 @@ The AI Counter-Propaganda Detector is an advanced media literacy tool that combi
     technologies: ['Python', 'React', 'Flask', 'OpenRouter API', 'Mistral 7B', 'SpaCy', 'NLP', 'Machine Learning', 'Tailwind CSS', 'TypeScript'],
     category: 'nlp',
     featured: true,
-    year: 2024,
+    year: 2025,
     datasetSize: 'AI-powered text analysis with real-time processing',
     keyFindings: [
       '95% accuracy in propaganda technique identification using AI models',
