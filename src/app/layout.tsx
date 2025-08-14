@@ -5,10 +5,7 @@ import { NextUIProvider } from "@/components/NextUIProvider";
 import JsonLd from "@/components/JsonLd";
 import CustomCursor from "@/components/CustomCursor";
 import ParticleBackground from "@/components/ParticleBackground";
-<<<<<<< HEAD
 import BackToTop from "@/components/BackToTop";
-=======
->>>>>>> origin/main
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -17,17 +14,10 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-<<<<<<< HEAD
     template: "%s | Hafida Belayd — Data Analyst & AI Specialist",
     default: "Hafida Belayd — Data Analyst & AI Specialist | Portfolio",
   },
   description: "Hafida Belayd — Data Analyst & AI Specialist. Developer & Designer | Expert in Python, Machine Learning, and Data Visualization. Based in Morocco.",
-=======
-    template: "%s | Hafida Belayd - Data Analyst & AI Specialist",
-    default: "Hafida Belayd - Data Analyst & AI Specialist | Portfolio",
-  },
-  description: "Hafida Belayd is a Data Analyst and AI Specialist based in Morocco. Expert in Python, Machine Learning, Power BI, and data visualization. View projects, blog posts, and connect.",
->>>>>>> origin/main
   keywords: [
     "Hafida Belayd",
     "Data Analyst",
@@ -69,24 +59,15 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://hafida-belayd.netlify.app',
-<<<<<<< HEAD
     title: 'Hafida Belayd — Data Analyst & AI Specialist',
     description: 'Hafida Belayd — Data Analyst & AI Specialist. Developer & Designer | Expert in Python, Machine Learning, and Data Visualization. Based in Morocco.',
-=======
-    title: 'Hafida Belayd - Data Analyst & AI Specialist',
-    description: 'Hafida Belayd is a Data Analyst and AI Specialist based in Morocco. Expert in Python, Machine Learning, Power BI, and data visualization.',
->>>>>>> origin/main
     siteName: 'Hafida Belayd Portfolio',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-<<<<<<< HEAD
         alt: 'Hafida Belayd — Data Analyst & AI Specialist Portfolio',
-=======
-        alt: 'Hafida Belayd - Data Analyst & AI Specialist Portfolio',
->>>>>>> origin/main
         type: 'image/png',
       },
     ],
@@ -95,13 +76,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-<<<<<<< HEAD
     title: 'Hafida Belayd — Data Analyst & AI Specialist',
     description: 'Hafida Belayd — Data Analyst & AI Specialist. Developer & Designer | Expert in Python, Machine Learning, and Data Visualization. Based in Morocco.',
-=======
-    title: 'Hafida Belayd - Data Analyst & AI Specialist',
-    description: 'Hafida Belayd is a Data Analyst and AI Specialist based in Morocco. Expert in Python, Machine Learning, Power BI, and data visualization.',
->>>>>>> origin/main
     images: ['/og-image.png'],
     creator: 'hafidaso',
     site: 'hafidaso',
@@ -155,11 +131,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-<<<<<<< HEAD
         <meta name="description" content="Hafida Belayd — Data Analyst & AI Specialist. Developer & Designer | Expert in Python, Machine Learning, and Data Visualization. Based in Morocco." />
-=======
-        <meta name="description" content="Hafida Belayd is a Data Analyst and AI Specialist based in Morocco. Expert in Python, Machine Learning, Power BI, and data visualization." />
->>>>>>> origin/main
         <meta name="keywords" content="Hafida Belayd, Data Analyst, AI Specialist, Python Developer, Machine Learning, Power BI, Data Science, Morocco, Data Visualization, Artificial Intelligence, Portfolio" />
         <meta name="author" content="Hafida Belayd" />
         <meta name="robots" content="index, follow" />
@@ -170,21 +142,12 @@ export default function RootLayout({
         <meta name="generator" content="Next.js" />
         
         {/* LinkedIn-specific meta tags */}
-<<<<<<< HEAD
         <meta property="og:title" content="Hafida Belayd — Data Analyst & AI Specialist" />
         <meta property="og:description" content="Hafida Belayd — Data Analyst & AI Specialist. Developer & Designer | Expert in Python, Machine Learning, and Data Visualization. Based in Morocco." />
         <meta property="og:image" content="https://hafida-belayd.netlify.app/og-image.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content="Hafida Belayd — Data Analyst & AI Specialist Portfolio" />
-=======
-        <meta property="og:title" content="Hafida Belayd - Data Analyst & AI Specialist" />
-        <meta property="og:description" content="Hafida Belayd is a Data Analyst and AI Specialist based in Morocco. Expert in Python, Machine Learning, Power BI, and data visualization." />
-        <meta property="og:image" content="https://hafida-belayd.netlify.app/og-image.png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="Hafida Belayd - Data Analyst & AI Specialist Portfolio" />
->>>>>>> origin/main
         <meta property="og:url" content="https://hafida-belayd.netlify.app" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Hafida Belayd Portfolio" />
@@ -221,10 +184,7 @@ export default function RootLayout({
                 {children}
               </main>
               <Footer />
-<<<<<<< HEAD
               <BackToTop />
-=======
->>>>>>> origin/main
             </div>
           </NextUIProvider>
         </ThemeProvider>

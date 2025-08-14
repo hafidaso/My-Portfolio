@@ -8,11 +8,7 @@ export default function HomePageJsonLd() {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: resumeData.personalInfo.name,
-<<<<<<< HEAD
     jobTitle: 'Data Analyst & AI Specialist',
-=======
-    jobTitle: resumeData.personalInfo.title,
->>>>>>> origin/main
     email: resumeData.personalInfo.email,
     url: resumeData.personalInfo.website,
     sameAs: [
@@ -20,11 +16,7 @@ export default function HomePageJsonLd() {
       resumeData.personalInfo.linkedin
     ],
     image: resumeData.personalInfo.image,
-<<<<<<< HEAD
     description: 'Hafida Belayd — Data Analyst & AI Specialist. Developer & Designer | Expert in Python, Machine Learning, and Data Visualization. Based in Morocco.',
-=======
-    description: resumeData.personalInfo.summary,
->>>>>>> origin/main
     worksFor: {
       '@type': 'Organization',
       name: 'ePhilos AG',
@@ -43,11 +35,7 @@ export default function HomePageJsonLd() {
     },
     hasOccupation: {
       '@type': 'Occupation',
-<<<<<<< HEAD
       name: 'Data Analyst & AI Specialist',
-=======
-      name: 'Data Analyst',
->>>>>>> origin/main
       occupationLocation: {
         '@type': 'Place',
         name: 'Morocco'
@@ -58,13 +46,8 @@ export default function HomePageJsonLd() {
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-<<<<<<< HEAD
     name: 'Hafida Belayd — Data Analyst & AI Specialist Portfolio',
     description: 'Hafida Belayd — Data Analyst & AI Specialist. Developer & Designer | Expert in Python, Machine Learning, and Data Visualization. Based in Morocco.',
-=======
-    name: `${resumeData.personalInfo.name} - Portfolio`,
-    description: resumeData.personalInfo.summary,
->>>>>>> origin/main
     url: resumeData.personalInfo.website,
     author: {
       '@type': 'Person',
@@ -83,17 +66,10 @@ export default function HomePageJsonLd() {
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-<<<<<<< HEAD
     name: 'Hafida Belayd — Data Analyst & AI Specialist Portfolio',
     url: baseUrl,
     logo: `${baseUrl}/icons/icon-512x512.png`,
     description: 'Hafida Belayd — Data Analyst & AI Specialist. Developer & Designer | Expert in Python, Machine Learning, and Data Visualization. Based in Morocco.',
-=======
-    name: 'Hafida Belayd Portfolio',
-    url: baseUrl,
-    logo: `${baseUrl}/icons/icon-512x512.png`,
-    description: 'Professional portfolio showcasing data analysis and AI projects',
->>>>>>> origin/main
     founder: {
       '@type': 'Person',
       name: resumeData.personalInfo.name
@@ -131,11 +107,7 @@ export default function HomePageJsonLd() {
         name: 'What services does Hafida Belayd offer?',
         acceptedAnswer: {
           '@type': 'Answer',
-<<<<<<< HEAD
           text: 'Hafida Belayd offers data analysis, machine learning, AI development, Power BI dashboards, and data visualization services as a Data Analyst & AI Specialist.'
-=======
-          text: 'Hafida Belayd offers data analysis, machine learning, AI development, Power BI dashboards, and data visualization services.'
->>>>>>> origin/main
         }
       },
       {
@@ -160,22 +132,14 @@ export default function HomePageJsonLd() {
   const creativeWorkSchema = {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
-<<<<<<< HEAD
     name: 'Hafida Belayd — Data Analyst & AI Specialist Portfolio',
-=======
-    name: 'Hafida Belayd Portfolio',
->>>>>>> origin/main
     author: {
       '@type': 'Person',
       name: resumeData.personalInfo.name
     },
     dateCreated: '2024',
     dateModified: new Date().toISOString(),
-<<<<<<< HEAD
     description: 'Hafida Belayd — Data Analyst & AI Specialist. Developer & Designer | Expert in Python, Machine Learning, and Data Visualization. Based in Morocco.',
-=======
-    description: resumeData.personalInfo.summary,
->>>>>>> origin/main
     genre: 'Portfolio',
     inLanguage: 'en',
     isAccessibleForFree: true,
