@@ -9,6 +9,10 @@ const nextConfig = {
       { protocol: "https", hostname: "images.unsplash.com", pathname: "**" },
       { protocol: "https", hostname: "github-readme-stats.vercel.app", pathname: "**" },
     ],
+    // Disable image optimization to avoid sharp module issues
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   // Disable TypeScript type checking during build to work around Next.js 15.3.1 params type issue
   typescript: {
@@ -23,11 +27,32 @@ const nextConfig = {
     // Disable static generation for API routes during build
     workerThreads: false,
     cpus: 1,
+    // Optimize for deployment
+    optimizePackageImports: ['sharp'],
   },
   // Exclude API routes from static export
   distDir: 'out',
   // React configuration
   reactStrictMode: false,
+  // Webpack configuration for sharp module
+  webpack: (config, { isServer }) => {
+    // Handle sharp module for image processing
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        path: false,
+      };
+    }
+    
+    // Optimize sharp module loading
+    config.externals = config.externals || [];
+    config.externals.push({
+      'sharp': 'commonjs sharp'
+    });
+    
+    return config;
+  },
 };
 
 export default nextConfig;
