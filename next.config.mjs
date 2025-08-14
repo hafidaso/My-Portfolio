@@ -23,8 +23,6 @@ const nextConfig = {
     // Disable static generation for API routes during build
     workerThreads: false,
     cpus: 1,
-    // Suppress hydration warnings from browser extensions
-    suppressHydrationWarning: true,
   },
   // Exclude API routes from static export
   distDir: 'out',

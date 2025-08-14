@@ -98,22 +98,19 @@ html {
     --popover-foreground: 222.2 84% 4.9%;
     --primary: 221.2 83.2% 53.3%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 221.2 83.2% 53.3%;
     --radius: 0.5rem;
-<<<<<<< HEAD
     --color-blackest: #f97316;
-=======
->>>>>>> origin/main
   }
 
   .dark {
@@ -136,10 +133,7 @@ html {
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 224.3 76.3% 48%;
-<<<<<<< HEAD
     --color-blackest: #f97316;
-=======
->>>>>>> origin/main
   }
 }
 
@@ -176,7 +170,6 @@ html {
 .print-light-mode * {
   color: black !important;
   background-color: transparent !important;
-<<<<<<< HEAD
 }
 
 /* Back to top button animations */
@@ -208,22 +201,21 @@ html {
   animation: pulse 2s ease-in-out infinite;
 }
 
-/* Back to top button hover effects */
 .back-to-top-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
 }
 
 .back-to-top-hover:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
-/* Rainbow Back to Top Button */
+/* Rainbow back to top button */
 .rainbow-back-top {
+  opacity: 1;
   position: fixed;
   bottom: 30px;
   left: 30px;
-  cursor: pointer;
   width: 50px;
   height: 50px;
   line-height: 46px;
@@ -234,85 +226,103 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
   color: white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .rainbow-back-top:hover {
-  transform: scale(1.1);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(249, 115, 22, 0.4);
 }
 
-/* Theme-specific adjustments */
 .dark .rainbow-back-top {
   background-color: var(--color-blackest);
-  color: white;
-  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
-}
-
-.dark .rainbow-back-top:hover {
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4);
 }
 
 /* Footer Styles */
 .footer-sa {
-  position: relative;
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  color: #1f2937;
 }
 
 .dark .footer-sa {
-  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
 }
 
 .footer-sa .container {
   max-width: 1200px;
+  margin: 0 auto;
 }
 
 .footer-sa .section-padding {
-  padding-top: 4rem;
-  padding-bottom: 2rem;
+  padding: 4rem 0;
 }
 
 .footer-sa .sub-color {
-  color: #f97316;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  color: #64748b;
 }
 
 .dark .footer-sa .sub-color {
-  color: #fb923c;
+  color: #94a3b8;
 }
 
 .footer-sa .logo h2 {
-  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #f97316, #ea580c);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .dark .footer-sa .logo h2 {
-  background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .footer-sa .social-icon a {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+  color: #475569;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.dark .footer-sa .social-icon a {
+  background: linear-gradient(135deg, #334155, #1e293b);
+  color: #cbd5e1;
 }
 
 .footer-sa .social-icon a:hover {
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  color: white;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+  box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+}
+
+.dark .footer-sa .social-icon a:hover {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: #1e293b;
 }
 
 .footer-sa .links a {
-  position: relative;
+  color: #64748b;
+  text-decoration: none;
   transition: color 0.3s ease;
+  position: relative;
+}
+
+.dark .footer-sa .links a {
+  color: #94a3b8;
 }
 
 .footer-sa .links a::after {
@@ -322,12 +332,12 @@ html {
   height: 2px;
   bottom: -4px;
   left: 0;
-  background-color: #f97316;
+  background: linear-gradient(135deg, #f97316, #ea580c);
   transition: width 0.3s ease;
 }
 
 .dark .footer-sa .links a::after {
-  background-color: #fb923c;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
 }
 
 .footer-sa .links a:hover::after {
@@ -335,7 +345,13 @@ html {
 }
 
 .footer-sa .copy a {
+  color: #f97316;
+  text-decoration: none;
   transition: color 0.3s ease;
+}
+
+.dark .footer-sa .copy a {
+  color: #fbbf24;
 }
 
 .footer-sa .copy a:hover {
@@ -343,49 +359,21 @@ html {
 }
 
 .dark .footer-sa .copy a:hover {
-  color: #f97316;
+  color: #f59e0b;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .footer-sa .section-padding {
-    padding-top: 3rem;
-    padding-bottom: 1.5rem;
+    padding: 2rem 0;
   }
   
-  .footer-sa .social-icon {
-    justify-content: center;
+  .footer-sa .logo h2 {
+    font-size: 2rem;
   }
   
-  .footer-sa .links {
-    justify-content: center;
+  .footer-sa .social-icon a {
+    width: 2.5rem;
+    height: 2.5rem;
   }
-}
-
-/* Light mode specific styles */
-.footer-sa {
-  border-top: 1px solid #e5e7eb;
-}
-
-.footer-sa .sub-footer {
-  border-top: 1px solid #e5e7eb;
-}
-
-/* Dark mode specific styles */
-.dark .footer-sa {
-  border-top: 1px solid #374151;
-}
-
-.dark .footer-sa .sub-footer {
-  border-top: 1px solid #374151;
-}
-
-.dark .footer-sa .social-icon a {
-  background-color: #374151;
-}
-
-.dark .footer-sa .social-icon a:hover {
-  background-color: #f97316;
-=======
->>>>>>> origin/main
 }
