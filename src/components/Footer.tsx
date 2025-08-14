@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import AIChatButton from "./AIChatButton";
 import { Github, Linkedin, Mail, Phone, Heart } from "lucide-react";
 
@@ -88,7 +87,7 @@ export default function Footer() {
               <div className="lg:col-span-4 lg:text-right">
                 <div className="links text-gray-600 dark:text-gray-300 text-sm flex flex-wrap justify-center lg:justify-end space-x-6">
                   <a href="/websites" className="hover:text-orange-500 dark:hover:text-orange-400 transition-colors">Websites</a>
-                  <a href="/graphics" className="hover:text-orange-500 dark:hover:text-orange-400 transition-colors">Graphics</a>
+                  <a href="/graphics" className="hover:text-orange-400 transition-colors">Graphics</a>
                   <a href="/data-science" className="hover:text-orange-500 dark:hover:text-orange-400 transition-colors">My Planet in Data</a>
                 </div>
               </div>
@@ -103,14 +102,4 @@ export default function Footer() {
       </div>
     </>
   );
-=======
-import AIChatButton from "./AIChatButton";
-
-export default function Footer() {
-  return (
-    <footer className="fixed bottom-0 left-0 w-full bg-white">
-      <AIChatButton />
-    </footer>
-  );
->>>>>>> origin/main
 }
