@@ -278,7 +278,7 @@ html {
 }
 
 .dark .footer-sa .logo h2 {
-  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  background: linear-gradient(135deg, #fb8a33, #f59e0b);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -310,7 +310,7 @@ html {
 }
 
 .dark .footer-sa .social-icon a:hover {
-  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  background: linear-gradient(135deg, #fb8a33, #f59e0b);
   color: #1e293b;
 }
 
@@ -337,7 +337,7 @@ html {
 }
 
 .dark .footer-sa .links a::after {
-  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  background: linear-gradient(135deg, #fb8a33, #f59e0b);
 }
 
 .footer-sa .links a:hover::after {
@@ -351,7 +351,7 @@ html {
 }
 
 .dark .footer-sa .copy a {
-  color: #fbbf24;
+  color: #fb8a33;
 }
 
 .footer-sa .copy a:hover {
