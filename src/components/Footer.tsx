@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import AIChatButton from "./AIChatButton";
 import { Github, Linkedin, Mail, Phone, Heart } from "lucide-react";
 
@@ -102,4 +103,14 @@ export default function Footer() {
       </div>
     </>
   );
+=======
+import AIChatButton from "./AIChatButton";
+
+export default function Footer() {
+  return (
+    <footer className="fixed bottom-0 left-0 w-full bg-white">
+      <AIChatButton />
+    </footer>
+  );
+>>>>>>> origin/main
 }

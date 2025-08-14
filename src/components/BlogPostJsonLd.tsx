@@ -26,7 +26,10 @@ export default function BlogPostJsonLd({ post }: BlogPostJsonLdProps) {
     author: {
       '@type': 'Person',
       name: post.author,
+<<<<<<< HEAD
       jobTitle: 'Data Analyst & AI Specialist',
+=======
+>>>>>>> origin/main
       url: resumeData.personalInfo.website,
       sameAs: [
         resumeData.personalInfo.github,
@@ -35,7 +38,11 @@ export default function BlogPostJsonLd({ post }: BlogPostJsonLdProps) {
     },
     publisher: {
       '@type': 'Organization',
+<<<<<<< HEAD
       name: 'Hafida Belayd — Data Analyst & AI Specialist',
+=======
+      name: resumeData.personalInfo.name,
+>>>>>>> origin/main
       url: resumeData.personalInfo.website,
       logo: {
         '@type': 'ImageObject',
@@ -94,7 +101,11 @@ export default function BlogPostJsonLd({ post }: BlogPostJsonLdProps) {
     url: `${baseUrl}/blog/${post.id}`,
     isPartOf: {
       '@type': 'WebSite',
+<<<<<<< HEAD
       name: 'Hafida Belayd — Data Analyst & AI Specialist Portfolio',
+=======
+      name: `${resumeData.personalInfo.name} - Portfolio`,
+>>>>>>> origin/main
       url: baseUrl
     },
     breadcrumb: {
@@ -125,8 +136,12 @@ export default function BlogPostJsonLd({ post }: BlogPostJsonLdProps) {
       headline: post.title,
       author: {
         '@type': 'Person',
+<<<<<<< HEAD
         name: post.author,
         jobTitle: 'Data Analyst & AI Specialist'
+=======
+        name: post.author
+>>>>>>> origin/main
       },
       datePublished: post.date,
       dateModified: post.date
