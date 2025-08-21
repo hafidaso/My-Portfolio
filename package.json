@@ -11,7 +11,8 @@
     "lint": "next lint",
     "vercel-build": "npm run generate && next build",
     "netlify-build": "npm install --legacy-peer-deps && ./scripts/clear-cache.sh && next build",
-    "deploy-build": "npm install sharp --platform=linux --arch=x64 && next build",
+    "deploy": "npm run build",
+    "deploy-build": "npm run build",
     "clear-cache": "./scripts/clear-cache.sh",
     "dev-clean": "./scripts/clear-cache.sh && npm run dev",
     "dev-fresh": "rm -rf .next && npm run dev"

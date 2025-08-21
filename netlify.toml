@@ -1,6 +1,6 @@
 [build]
-  command = "npm run deploy-build"
-  publish = "out"
+  command = "npm run build"
+  publish = ".next"
   functions = "functions"
 
 [build.environment]

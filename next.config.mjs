@@ -42,35 +42,71 @@ const nextConfig = {
     // Number of pages that should be kept simultaneously without being disposed
     pagesBufferLength: 2,
   },
-  // Restore stable webpack configuration to fix module loading errors
-  webpack: (config, { isServer }) => {
+  // Simplified webpack configuration to fix module loading errors
+  webpack: (config, { isServer, dev }) => {
     // Handle sharp module for image processing
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
         fs: false,
         path: false,
+        crypto: false,
+        stream: false,
+        util: false,
+        buffer: false,
+        os: false,
+        url: false,
+        querystring: false,
+        http: false,
+        https: false,
+        zlib: false,
+        assert: false,
+        constants: false,
+        domain: false,
+        events: false,
+        punycode: false,
+        string_decoder: false,
+        sys: false,
+        timers: false,
+        tty: false,
       };
     }
-    
-    // Restore externals configuration for stable module loading
-    config.externals = config.externals || [];
-    config.externals.push({
-      'sharp': 'commonjs sharp'
-    });
-    
-    // Add additional optimizations for stable module loading
-    config.optimization = {
-      ...config.optimization,
-      moduleIds: 'deterministic',
-      chunkIds: 'deterministic',
-    };
     
     // Ensure proper module resolution
     config.resolve.modules = [
       'node_modules',
       ...(config.resolve.modules || [])
     ];
+    
+    // Better error handling for development
+    if (dev) {
+      config.optimization = {
+        ...config.optimization,
+        splitChunks: {
+          chunks: 'all',
+          cacheGroups: {
+            default: false,
+            vendors: false,
+            // Create a vendor chunk for better debugging
+            vendor: {
+              name: 'vendor',
+              chunks: 'all',
+              test: /node_modules/,
+              priority: 20,
+            },
+            // Common chunk for shared code
+            common: {
+              name: 'common',
+              minChunks: 2,
+              chunks: 'all',
+              priority: 10,
+              reuseExistingChunk: true,
+              enforce: true,
+            },
+          },
+        },
+      };
+    }
     
     return config;
   },
