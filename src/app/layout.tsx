@@ -4,7 +4,6 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { NextUIProvider } from "@/components/NextUIProvider";
 import JsonLd from "@/components/JsonLd";
 import CustomCursor from "@/components/CustomCursor";
-import ParticleBackground from "@/components/ParticleBackground";
 import BackToTop from "@/components/BackToTop";
 import HydrationErrorBoundary from "@/components/HydrationErrorBoundary";
 import type { Metadata } from "next";
@@ -145,7 +144,6 @@ export default function RootLayout({
           <NextUIProvider>
             <HydrationErrorBoundary>
               <div className="min-h-screen bg-background text-foreground">
-                <ParticleBackground />
                 <CustomCursor />
                 <Navbar />
                 <main className="py-8 px-4 md:px-6 mx-auto max-w-7xl">
