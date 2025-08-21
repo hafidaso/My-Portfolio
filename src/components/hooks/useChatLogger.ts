@@ -25,7 +25,7 @@ export const useChatLogger = (options: UseChatLoggerOptions = {}) => {
     isTouchDevice.current = (typeof window !== 'undefined') && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
   }, []);
 
-  // Generate new session ID
+  // Generate new session ID only on client side to prevent hydration mismatch
   const generateSessionId = useCallback(() => {
     const newSessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     setSessionId(newSessionId);
@@ -43,7 +43,7 @@ export const useChatLogger = (options: UseChatLoggerOptions = {}) => {
     return newSessionId;
   }, [sessionTimeout]);
 
-  // Initialize session on mount
+  // Initialize session on mount only on client side
   useEffect(() => {
     generateSessionId();
     

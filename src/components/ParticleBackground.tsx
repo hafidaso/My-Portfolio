@@ -17,6 +17,7 @@ const ParticleBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [particles, setParticles] = useState<Particle[]>([]);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [mounted, setMounted] = useState(false);
   const animationRef = useRef<number | undefined>(undefined);
   const lastMousePosition = useRef({ x: 0, y: 0 });
   const particlesRef = useRef<Particle[]>([]);
@@ -30,10 +31,16 @@ const ParticleBackground = () => {
     canvas.height = window.innerHeight;
   }, []);
 
-  // Memoize particle initialization
+  // Memoize particle initialization with seeded random for consistent hydration
   const initParticles = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+
+    // Use seeded random function for consistent initial state
+    const seededRandom = (seed: number) => {
+      const x = Math.sin(seed) * 10000;
+      return x - Math.floor(x);
+    };
 
     // Reduce particle count on mobile for better performance
     const isMobile = window.innerWidth < 768;
@@ -44,12 +51,12 @@ const ParticleBackground = () => {
     for (let i = 0; i < particleCount; i++) {
       newParticles.push({
         id: i,
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        size: Math.random() * 2 + 1,
-        opacity: Math.random() * 0.5 + 0.1,
+        x: seededRandom(i) * canvas.width,
+        y: seededRandom(i + 1000) * canvas.height,
+        vx: (seededRandom(i + 2000) - 0.5) * 0.5,
+        vy: (seededRandom(i + 3000) - 0.5) * 0.5,
+        size: seededRandom(i + 4000) * 2 + 1,
+        opacity: seededRandom(i + 5000) * 0.5 + 0.1,
       });
     }
     
@@ -63,6 +70,12 @@ const ParticleBackground = () => {
   }, []);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+    
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -139,24 +152,20 @@ const ParticleBackground = () => {
           Math.pow(particle.y - mousePosition.y, 2)
         );
 
-        if (mouseDistance < 150) {
-          const angle = Math.atan2(mousePosition.y - particle.y, mousePosition.x - particle.x);
-          const force = (150 - mouseDistance) / 150;
-          particle.vx -= Math.cos(angle) * force * 0.1;
-          particle.vy -= Math.sin(angle) * force * 0.1;
+        if (mouseDistance < 50) {
+          // Attract particles to mouse
+          const attraction = 0.02;
+          particle.vx += (mousePosition.x - particle.x) * attraction;
+          particle.vy += (mousePosition.y - particle.y) * attraction;
+          
+          // Limit velocity
+          particle.vx = Math.max(-2, Math.min(2, particle.vx));
+          particle.vy = Math.max(-2, Math.min(2, particle.vy));
         }
       });
 
-      // Update state only when mouse position changes significantly (prevents excessive re-renders)
-      if (Math.abs(mousePosition.x - lastMousePosition.current.x) > 10 || 
-          Math.abs(mousePosition.y - lastMousePosition.current.y) > 10) {
-        setParticles(updatedParticles);
-        particlesRef.current = updatedParticles;
-        lastMousePosition.current = mousePosition;
-      } else {
-        // Update ref without triggering re-render
-        particlesRef.current = updatedParticles;
-      }
+      // Update particles ref for next frame
+      particlesRef.current = updatedParticles;
 
       animationRef.current = requestAnimationFrame(animate);
     };
@@ -170,7 +179,12 @@ const ParticleBackground = () => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [resizeCanvas, initParticles, handleMouseMove]);
+  }, [mounted, resizeCanvas, initParticles, handleMouseMove]);
+
+  // Don't render until mounted to prevent hydration mismatch
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <motion.canvas

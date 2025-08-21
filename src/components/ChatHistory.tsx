@@ -1,52 +1,40 @@
 import React, { useState, useEffect } from 'react';
+import { MessageSquare, Search, Filter, Calendar, User, Bot, Clock, Trash2 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { useChatLogger } from './hooks/useChatLogger';
-import { ConversationHistory, RecentConversation } from '../lib/chatLogger';
-import { Bot, User, Clock, MessageSquare, Trash2, RefreshCw, Filter, Search } from 'lucide-react';
-import { cn } from '../lib/utils';
 
 interface ChatHistoryProps {
+  className?: string;
   sessionId?: string;
   userId?: string;
-  className?: string;
-  showSessionSelector?: boolean;
-  showSearch?: boolean;
-  showFilters?: boolean;
-  maxHeight?: string;
 }
 
-export default function ChatHistory({
-  sessionId,
-  userId,
-  className,
-  showSessionSelector = true,
-  showSearch = true,
-  showFilters = true,
-  maxHeight = '600px'
-}: ChatHistoryProps) {
+export default function ChatHistory({ className, sessionId, userId }: ChatHistoryProps) {
   const {
-    conversationHistory,
-    recentConversations,
-    isLoading,
-    error,
     sessionId: currentSessionId,
-    loadConversationHistory,
-    loadRecentConversations,
-    loadHistoryBySession,
+    error,
+    isLogging,
+    logUserMessage,
+    logBotMessage,
     clearSession,
-    refresh
+    refreshSession
   } = useChatLogger({
-    sessionId,
-    userId,
-    autoLoadHistory: true
+    enableRealTime: true,
+    sessionTimeout: 30 * 60 * 1000
   });
 
   const [selectedSession, setSelectedSession] = useState<string>(currentSessionId);
   const [searchTerm, setSearchTerm] = useState('');
   const [roleFilter, setRoleFilter] = useState<'all' | 'user' | 'bot'>('all');
   const [dateFilter, setDateFilter] = useState<'all' | 'today' | 'week' | 'month'>('all');
+  
+  // Mock data for demonstration - replace with actual data from your backend
+  const [conversationHistory, setConversationHistory] = useState<any[]>([]);
+  const [recentConversations, setRecentConversations] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Filter messages based on search and filters
-  const filteredMessages = conversationHistory.filter(message => {
+  const filteredMessages = (conversationHistory || []).filter((message: any) => {
     // Search filter
     if (searchTerm && !message.content.toLowerCase().includes(searchTerm.toLowerCase())) {
       return false;
@@ -83,9 +71,13 @@ export default function ChatHistory({
   // Load conversation when session changes
   useEffect(() => {
     if (selectedSession && selectedSession !== currentSessionId) {
-      loadHistoryBySession(selectedSession);
+      // Mock loading - replace with actual API call
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
     }
-  }, [selectedSession, currentSessionId, loadHistoryBySession]);
+  }, [selectedSession, currentSessionId]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -117,7 +109,7 @@ export default function ChatHistory({
           <span className="text-sm">Error loading chat history: {error}</span>
         </div>
         <button
-          onClick={refresh}
+          onClick={refreshSession}
           className="mt-2 text-xs text-red-600 hover:text-red-800 underline"
         >
           Try again
@@ -135,21 +127,21 @@ export default function ChatHistory({
             <MessageSquare size={20} className="text-purple-500" />
             <h3 className="font-semibold text-gray-900 dark:text-white">Chat History</h3>
             {isLoading && (
-              <RefreshCw size={16} className="animate-spin text-gray-500" />
+              <Clock size={16} className="animate-spin text-gray-500" />
             )}
           </div>
           <div className="flex items-center gap-2">
             <button
-              onClick={refresh}
+              onClick={refreshSession}
               className="p-1 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
               title="Refresh"
             >
-              <RefreshCw size={16} />
+              <Clock size={16} />
             </button>
             <button
               onClick={clearSession}
-              className="p-1 text-gray-500 hover:text-red-500 transition-colors"
-              title="Clear history"
+              className="p-1 text-gray-500 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+              title="Clear session"
             >
               <Trash2 size={16} />
             </button>
@@ -157,7 +149,7 @@ export default function ChatHistory({
         </div>
 
         {/* Session Selector */}
-        {showSessionSelector && recentConversations.length > 0 && (
+        {recentConversations.length > 0 && (
           <div className="mt-3">
             <select
               value={selectedSession}
@@ -175,55 +167,53 @@ export default function ChatHistory({
 
         {/* Search and Filters */}
         <div className="mt-3 space-y-2">
-          {showSearch && (
-            <div className="relative">
-              <Search size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search messages..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-              />
-            </div>
-          )}
+          {/* Search */}
+          <div className="relative">
+            <Search size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search messages..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+            />
+          </div>
 
-          {showFilters && (
-            <div className="flex gap-2">
-              <select
-                value={roleFilter}
-                onChange={(e) => setRoleFilter(e.target.value as 'all' | 'user' | 'bot')}
-                className="flex-1 p-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-              >
-                <option value="all">All messages</option>
-                <option value="user">User messages</option>
-                <option value="bot">Bot messages</option>
-              </select>
-              <select
-                value={dateFilter}
-                onChange={(e) => setDateFilter(e.target.value as 'all' | 'today' | 'week' | 'month')}
-                className="flex-1 p-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-              >
-                <option value="all">All time</option>
-                <option value="today">Today</option>
-                <option value="week">This week</option>
-                <option value="month">This month</option>
-              </select>
-            </div>
-          )}
+          {/* Filters */}
+          <div className="flex gap-2">
+            <select
+              value={roleFilter}
+              onChange={(e) => setRoleFilter(e.target.value as 'all' | 'user' | 'bot')}
+              className="flex-1 p-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+            >
+              <option value="all">All messages</option>
+              <option value="user">User messages</option>
+              <option value="bot">Bot messages</option>
+            </select>
+            <select
+              value={dateFilter}
+              onChange={(e) => setDateFilter(e.target.value as 'all' | 'today' | 'week' | 'month')}
+              className="flex-1 p-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+            >
+              <option value="all">All time</option>
+              <option value="today">Today</option>
+              <option value="week">This week</option>
+              <option value="month">This month</option>
+            </select>
+          </div>
         </div>
       </div>
 
       {/* Messages */}
       <div 
         className="overflow-y-auto p-4"
-        style={{ maxHeight }}
+        style={{ maxHeight: 'calc(100vh - 300px)' }}
       >
         {filteredMessages.length === 0 ? (
           <div className="text-center py-8 text-gray-500 dark:text-gray-400">
             {isLoading ? (
               <div className="flex items-center justify-center gap-2">
-                <RefreshCw size={20} className="animate-spin" />
+                <Clock size={20} className="animate-spin" />
                 <span>Loading messages...</span>
               </div>
             ) : (

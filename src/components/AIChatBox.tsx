@@ -20,8 +20,20 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
   const [isTyping, setIsTyping] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [showLoggingStatus, setShowLoggingStatus] = useState(false);
-  const [sessionId, setSessionId] = useState<string>(() => `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
+  const [sessionId, setSessionId] = useState<string>('');
   const [smartSuggestions, setSmartSuggestions] = useState<FollowUpSuggestion[]>([]);
+  const [idCounter, setIdCounter] = useState(0);
+
+  // Generate unique IDs on client side to prevent hydration mismatch
+  const generateId = useCallback(() => {
+    setIdCounter(prev => prev + 1);
+    return `msg_${idCounter}_${Date.now()}`;
+  }, [idCounter]);
+
+  // Generate session ID only on client side to prevent hydration mismatch
+  useEffect(() => {
+    setSessionId(`session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
+  }, []);
 
   // Enhanced close function with debugging - memoized to prevent unnecessary re-renders
   const handleClose = useCallback(() => {
@@ -116,7 +128,7 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
       console.error("Chat error:", error);
       setIsTyping(false);
       const errorMessage: Message = {
-        id: Date.now().toString(),
+        id: generateId(),
         role: 'assistant',
         content: `An error occurred: ${error?.message || 'Something went wrong. Please try refreshing the page if this persists.'}`,
       };
@@ -172,7 +184,7 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
         
         // Add user message to chat
         const userMessage: Message = {
-          id: Date.now().toString(),
+          id: generateId(),
           role: "user", 
           content: messageToSend
         };
@@ -194,7 +206,7 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
         if (response.ok) {
           const aiResponse = await response.text();
           const aiMessage: Message = {
-            id: (Date.now() + 1).toString(),
+            id: generateId(),
             role: "assistant",
             content: aiResponse
           };
@@ -217,7 +229,7 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
       console.error("Failed to send message:", err);
       setIsTyping(false);
       const errorMessage: Message = {
-        id: Date.now().toString(),
+        id: generateId(),
         role: 'assistant',
         content: `Failed to send message: ${err?.message || 'Please try again.'}`,
       };

@@ -33,8 +33,15 @@ const nextConfig = {
   },
   // Remove distDir to fix dynamic routing issues
   // distDir: 'out',
-  // React configuration
-  reactStrictMode: false,
+  // React configuration - Enable strict mode for better error detection
+  reactStrictMode: true,
+  // Suppress hydration warnings from browser extensions
+  onDemandEntries: {
+    // Period (in ms) where the server will keep pages in the buffer
+    maxInactiveAge: 25 * 1000,
+    // Number of pages that should be kept simultaneously without being disposed
+    pagesBufferLength: 2,
+  },
   // Restore stable webpack configuration to fix module loading errors
   webpack: (config, { isServer }) => {
     // Handle sharp module for image processing
