@@ -3,53 +3,85 @@
 /**
  * Icon Generation Script
  * 
- * This script creates placeholder icon files for the PWA manifest.
- * In a real implementation, you would generate proper icons from your logo.
+ * This script provides guidance on creating the missing icon files for your portfolio.
+ * 
+ * MISSING ICONS TO CREATE:
+ * - /public/icons/icon-16x16.png
+ * - /public/icons/icon-32x32.png  
+ * - /public/icons/icon-72x72.png
+ * - /public/icons/icon-96x96.png
+ * - /public/icons/icon-128x128.png
+ * - /public/icons/icon-144x144.png
+ * - /public/icons/icon-152x152.png
+ * - /public/icons/icon-192x192.png
+ * - /public/icons/icon-384x384.png
+ * - /public/icons/icon-512x512.png
+ * 
+ * HOW TO CREATE ICONS:
+ * 
+ * Option 1: Use Online Icon Generators
+ * - https://favicon.io/ (recommended)
+ * - https://realfavicongenerator.net/
+ * - https://www.favicon-generator.org/
+ * 
+ * Option 2: Use Design Software
+ * - Figma (free)
+ * - Canva (free)
+ * - Adobe Illustrator
+ * - GIMP (free)
+ * 
+ * Option 3: Use Command Line Tools
+ * - ImageMagick: convert logo.png -resize 16x16 icon-16x16.png
+ * - GraphicsMagick: gm convert logo.png -resize 16x16 icon-16x16.png
+ * 
+ * ICON DESIGN TIPS:
+ * - Use your initials "HB" or a simple logo
+ * - Keep it simple and recognizable at small sizes
+ * - Use high contrast colors
+ * - Test how it looks at 16x16 pixels
+ * - Ensure it's readable on both light and dark backgrounds
+ * 
+ * RECOMMENDED ICON CONTENT:
+ * - Your initials "HB" in a modern font
+ * - A simple geometric shape with your initials
+ * - Your logo if you have one
+ * - A data/tech related symbol (graphs, charts, etc.)
  */
 
 const fs = require('fs');
 const path = require('path');
 
-const iconSizes = [
-  { size: 16, name: 'icon-16x16.png' },
-  { size: 32, name: 'icon-32x32.png' },
-  { size: 72, name: 'icon-72x72.png' },
-  { size: 96, name: 'icon-96x96.png' },
-  { size: 128, name: 'icon-128x128.png' },
-  { size: 144, name: 'icon-144x144.png' },
-  { size: 152, name: 'icon-152x152.png' },
-  { size: 192, name: 'icon-192x192.png' },
-  { size: 384, name: 'icon-384x384.png' },
-  { size: 512, name: 'icon-512x512.png' },
-  { size: 150, name: 'icon-150x150.png' },
-  { size: 310, name: 'icon-310x310.png' }
-];
-
+const iconSizes = [16, 32, 72, 96, 128, 144, 152, 192, 384, 512];
 const iconsDir = path.join(__dirname, '../public/icons');
 
-// Create icons directory if it doesn't exist
-if (!fs.existsSync(iconsDir)) {
-  fs.mkdirSync(iconsDir, { recursive: true });
-}
+console.log('🎨 Icon Generation Guide for Hafida Belayd Portfolio');
+console.log('==================================================\n');
 
-// Create a simple SVG icon as placeholder
-const createSVGIcon = (size) => {
-  const color = '#f97316'; // Orange color matching the theme
-  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">
-  <rect width="${size}" height="${size}" fill="${color}" rx="${size * 0.1}"/>
-  <text x="50%" y="50%" text-anchor="middle" dy="0.35em" fill="white" font-family="Arial, sans-serif" font-size="${size * 0.4}" font-weight="bold">HB</text>
-</svg>`;
-};
-
-// Generate icons
-iconSizes.forEach(({ size, name }) => {
-  const svgContent = createSVGIcon(size);
-  const filePath = path.join(iconsDir, name.replace('.png', '.svg'));
-  
-  fs.writeFileSync(filePath, svgContent);
-  console.log(`✅ Generated ${name.replace('.png', '.svg')} (${size}x${size})`);
+// Check which icons are missing
+console.log('📋 Missing Icon Files:');
+iconSizes.forEach(size => {
+  const iconPath = path.join(iconsDir, `icon-${size}x${size}.png`);
+  if (!fs.existsSync(iconPath)) {
+    console.log(`   ❌ icon-${size}x${size}.png`);
+  } else {
+    console.log(`   ✅ icon-${size}x${size}.png`);
+  }
 });
 
-console.log('\n🎉 Icon generation complete!');
-console.log('📝 Note: These are placeholder SVG icons. For production, replace with proper PNG icons.');
-console.log('💡 You can use tools like https://realfavicongenerator.net/ to generate proper icons from your logo.'); 
+console.log('\n🚀 Quick Start Options:');
+console.log('1. Visit https://favicon.io/ and upload your logo');
+console.log('2. Download the generated icon pack');
+console.log('3. Place the PNG files in /public/icons/ directory');
+console.log('4. Restart your development server');
+
+console.log('\n💡 Alternative: Use your existing favicon.ico');
+console.log('   - Copy favicon.ico to /public/icons/icon-16x16.png');
+console.log('   - Copy favicon.ico to /public/icons/icon-32x32.png');
+console.log('   - And so on for other sizes...');
+
+console.log('\n🔧 After creating icons:');
+console.log('   npm run dev-clean');
+console.log('   # or');
+console.log('   npm run clear-cache && npm run dev');
+
+console.log('\n✨ Your portfolio will look much more professional with proper icons!'); 

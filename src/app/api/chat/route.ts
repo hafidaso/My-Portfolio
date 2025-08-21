@@ -16,22 +16,55 @@ interface ChatRequest {
 
 export async function POST(request: NextRequest) {
   try {
+    // Validate request body
+    const body = await request.json();
+    
+    // Input validation
+    if (!body.messages || !Array.isArray(body.messages)) {
+      return new Response('Invalid request format: messages array is required', { 
+        status: 400,
+        headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+      });
+    }
+    
+    const lastMessage = body.messages[body.messages.length - 1];
+    if (!lastMessage?.content || typeof lastMessage.content !== 'string') {
+      return new Response('Invalid message content: content string is required', { 
+        status: 400,
+        headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+      });
+    }
+    
+    // Sanitize input
+    const sanitizedContent = lastMessage.content.trim().slice(0, 1000);
+    if (!sanitizedContent) {
+      return new Response('Message content cannot be empty', { 
+        status: 400,
+        headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+      });
+    }
+    
     const { 
       messages, 
       interactionHistory = [], 
       userPreferences = [],
       sessionId 
-    }: ChatRequest = await request.json();
-    
-    // Get the latest user message
-    const lastMessage = messages[messages.length - 1]?.content || '';
+    }: ChatRequest = body;
     
     // Generate or use existing session ID
     const currentSessionId = sessionId || uuidv4();
     
+    // Validate session ID format
+    if (sessionId && typeof sessionId !== 'string') {
+      return new Response('Invalid session ID format', { 
+        status: 400,
+        headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+      });
+    }
+    
     // Use AI Chat Service to generate intelligent response
     const response = await aiChatService.generateResponse(
-      lastMessage,
+      sanitizedContent,
       currentSessionId,
       {
         includeContext: true,

@@ -1,34 +1,31 @@
 #!/bin/bash
 
-# Clear all cache directories
-echo "🧹 Clearing all cache directories..."
+echo "🧹 Clearing Next.js cache and build artifacts..."
 
-# Remove Next.js build cache
-if [ -d ".next" ]; then
-    rm -rf .next
-    echo "✅ Removed .next cache"
-fi
+# Remove Next.js build directories
+rm -rf .next
+rm -rf out
+rm -rf dist
 
-# Remove static export directory
-if [ -d "out" ]; then
-    rm -rf out
-    echo "✅ Removed out directory"
-fi
+# Remove node_modules (optional - uncomment if needed)
+# echo "⚠️  Removing node_modules (this will require npm install after)"
+# rm -rf node_modules
 
-# Remove node_modules cache
-if [ -d "node_modules/.cache" ]; then
-    rm -rf node_modules/.cache
-    echo "✅ Removed node_modules/.cache"
-fi
+# Clear npm cache
+echo "📦 Clearing npm cache..."
+npm cache clean --force
 
-# Remove any other potential cache directories
-if [ -d ".cache" ]; then
-    rm -rf .cache
-    echo "✅ Removed .cache directory"
-fi
+# Clear Next.js cache
+echo "🗑️  Clearing Next.js cache..."
+npx next clear
 
-# Clear npm cache (optional, uncomment if needed)
-# npm cache clean --force
-# echo "✅ Cleared npm cache"
-
-echo "🎉 Cache clearing complete!" 
+echo "✅ Cache cleared successfully!"
+echo ""
+echo "📋 Next steps:"
+echo "1. Run: npm install (if you removed node_modules)"
+echo "2. Run: npm run dev"
+echo ""
+echo "💡 If issues persist, try:"
+echo "   - Restart your development server"
+echo "   - Check browser console for errors"
+echo "   - Verify all dependencies are properly installed" 

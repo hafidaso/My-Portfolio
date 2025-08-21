@@ -1,13 +1,7 @@
 {
-<<<<<<< HEAD
   "name": "Hafida Belayd — Data Analyst & AI Specialist",
   "short_name": "Hafida Portfolio",
   "description": "Hafida Belayd — Data Analyst & AI Specialist. Developer & Designer | Expert in Python, Machine Learning, and Data Visualization. Based in Morocco.",
-=======
-  "name": "Hafida Belayd - Data Analyst & AI Specialist",
-  "short_name": "Hafida Portfolio",
-  "description": "Data Analyst and AI Specialist portfolio showcasing Python, Machine Learning, Power BI, and data visualization projects",
->>>>>>> origin/main
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -72,11 +66,7 @@
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
-<<<<<<< HEAD
       "label": "Hafida Belayd — Data Analyst & AI Specialist Portfolio Homepage"
-=======
-      "label": "Hafida Belayd Portfolio Homepage"
->>>>>>> origin/main
     }
   ]
 } 

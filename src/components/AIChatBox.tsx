@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Message, useChat } from "ai/react";
 import { Bot, SendHorizontal, Trash, XCircle, Sparkles, History, Database } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 import { useChatLogger } from "./hooks/useChatLogger";
 import ChatHistory from "./ChatHistory";
@@ -23,8 +23,8 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
   const [sessionId, setSessionId] = useState<string>(() => `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
   const [smartSuggestions, setSmartSuggestions] = useState<FollowUpSuggestion[]>([]);
 
-  // Enhanced close function with debugging
-  const handleClose = () => {
+  // Enhanced close function with debugging - memoized to prevent unnecessary re-renders
+  const handleClose = useCallback(() => {
     console.log('🔒 ChatBox close function called');
     try {
       onClose();
@@ -32,7 +32,7 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
     } catch (error) {
       console.error('❌ Error closing ChatBox:', error);
     }
-  };
+  }, [onClose]);
 
   // Initialize chat logger
   const {
@@ -204,15 +204,15 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
             topics: Array.from(conversationTopics),
             responseLength: aiResponse.length
           });
+        } else {
+          throw new Error('API call failed');
+        }
       } else {
-        throw new Error('API call failed');
+        // Use the normal flow for regular input
+        await originalHandleSubmit(e);
       }
-    } else {
-      // Use the normal flow for regular input
-      await originalHandleSubmit(e);
-    }
     
-    setIsTyping(false);
+      setIsTyping(false);
     } catch (err: any) {
       console.error("Failed to send message:", err);
       setIsTyping(false);
@@ -290,7 +290,7 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
     }
   }, [open]);
 
-  // Add click outside handler for better mobile/tablet experience
+  // Add click outside handler for better mobile/tablet experience - fixed memory leak
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       const target = event.target as Element;
@@ -317,7 +317,23 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
     };
-  }, [open]);
+  }, [open, handleClose]);
+
+  // Add passive touch events for better mobile performance
+  useEffect(() => {
+    const handleTouchStart = (e: TouchEvent) => {
+      // Prevent default only when necessary
+      if (e.target && (e.target as Element).closest('button')) {
+        e.preventDefault();
+      }
+    };
+
+    document.addEventListener('touchstart', handleTouchStart, { passive: false });
+    
+    return () => {
+      document.removeEventListener('touchstart', handleTouchStart);
+    };
+  }, []);
 
   // Determine if the last message is from the user
   const lastMessageIsUser = messages[messages.length - 1]?.role === "user";

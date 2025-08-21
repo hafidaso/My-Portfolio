@@ -22,12 +22,19 @@ const Technologies: React.FC = () => {
               key={index}
               className="flex flex-col items-center justify-center p-3 bg-gray-50 dark:bg-[#1E2330] rounded-lg transition-all hover:scale-105 hover:bg-gray-100 dark:hover:bg-[#252B3B] group"
             >
-              {IconComponent && (
+              {IconComponent ? (
                 <div 
                   className="w-8 h-8 mb-2 text-gray-600 dark:text-gray-400 group-hover:text-[#000000] dark:group-hover:text-white transition-colors"
                   style={{ color: skill.color }}
                 >
                   <IconComponent className="w-full h-full" />
+                </div>
+              ) : (
+                <div 
+                  className="w-8 h-8 mb-2 text-gray-600 dark:text-gray-400 group-hover:text-[#000000] dark:group-hover:text-white transition-colors flex items-center justify-center"
+                  style={{ color: skill.color }}
+                >
+                  <span className="text-lg">⚡</span>
                 </div>
               )}
               <span className="text-xs font-medium text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">

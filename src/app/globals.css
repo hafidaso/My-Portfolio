@@ -31,6 +31,31 @@ p, div, span, h1, h2, h3, h4, h5, h6 {
   cursor: default;
 }
 
+/* Enable text selection and copying */
+* {
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
+}
+
+/* Ensure text content is selectable */
+p, div, span, h1, h2, h3, h4, h5, h6, li, td, th, label, code, pre {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Allow code blocks to be easily copied */
+code, pre {
+  -webkit-user-select: all;
+  -moz-user-select: all;
+  -ms-user-select: all;
+  user-select: all;
+  cursor: text;
+}
+
 /* Ensure navigation elements are clickable */
 nav, nav *, .navbar, .navbar * {
   cursor: pointer !important;
@@ -146,13 +171,11 @@ html {
   /* Ensure navigation works on touch devices */
   nav, .mobile-navigation {
     touch-action: manipulation;
-    -webkit-touch-callout: none;
   }
   
   /* Prevent touch gestures from interfering with navigation */
   a[href], button[type="button"], button[type="submit"] {
     touch-action: manipulation;
-    -webkit-touch-callout: none;
   }
 }
 
@@ -172,7 +195,6 @@ html {
   
   /* Improve button touch response on iPad */
   button {
-    -webkit-touch-callout: none;
     touch-action: manipulation;
   }
   
@@ -185,14 +207,12 @@ html {
   /* Ensure navigation works on iPad */
   nav a, .mobile-navigation a {
     touch-action: manipulation;
-    -webkit-touch-callout: none;
   }
 }
 
 /* Touch manipulation utility */
 .touch-manipulation {
   touch-action: manipulation;
-  -webkit-touch-callout: none;
 }
 
 /* Chat box specific optimizations */
@@ -211,7 +231,6 @@ nav a, .mobile-navigation a, a[href] {
   /* Ensure navigation links are always clickable */
   pointer-events: auto !important;
   touch-action: manipulation !important;
-  -webkit-touch-callout: none;
 }
 
 /* Prevent chat box from blocking navigation */
@@ -226,7 +245,6 @@ nav a, .mobile-navigation a, a[href] {
 /* Ensure form elements are properly interactive */
 input, textarea, select, button {
   touch-action: manipulation;
-  -webkit-touch-callout: none;
 }
 
 /* Chatbot link styling and functionality */

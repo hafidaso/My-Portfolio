@@ -94,9 +94,9 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'your-google-verification-code',
-    yandex: 'your-yandex-verification-code',
-    yahoo: 'your-yahoo-verification-code',
+    google: process.env.GOOGLE_VERIFICATION_CODE || '',
+    yandex: process.env.YANDEX_VERIFICATION_CODE || '',
+    yahoo: process.env.YAHOO_VERIFICATION_CODE || '',
   },
   other: {
     'application-name': 'Hafida Portfolio',
@@ -113,11 +113,10 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   icons: {
     icon: [
-      { url: '/icons/icon-192x192.png', sizes: '192x192', type: 'image/png' },
-      { url: '/icons/icon-512x512.png', sizes: '512x512', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any', type: 'image/x-icon' },
     ],
     apple: [
-      { url: '/icons/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any', type: 'image/x-icon' },
     ],
   },
 };
@@ -131,39 +130,6 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        <meta name="description" content="Hafida Belayd — Data Analyst & AI Specialist. Developer & Designer | Expert in Python, Machine Learning, and Data Visualization. Based in Morocco." />
-        <meta name="keywords" content="Hafida Belayd, Data Analyst, AI Specialist, Python Developer, Machine Learning, Power BI, Data Science, Morocco, Data Visualization, Artificial Intelligence, Portfolio" />
-        <meta name="author" content="Hafida Belayd" />
-        <meta name="robots" content="index, follow" />
-        <meta name="language" content="English" />
-        <meta name="revisit-after" content="7 days" />
-        <meta name="distribution" content="global" />
-        <meta name="rating" content="general" />
-        <meta name="generator" content="Next.js" />
-        
-        {/* LinkedIn-specific meta tags */}
-        <meta property="og:title" content="Hafida Belayd — Data Analyst & AI Specialist" />
-        <meta property="og:description" content="Hafida Belayd — Data Analyst & AI Specialist. Developer & Designer | Expert in Python, Machine Learning, and Data Visualization. Based in Morocco." />
-        <meta property="og:image" content="https://hafida-belayd.netlify.app/og-image.png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="Hafida Belayd — Data Analyst & AI Specialist Portfolio" />
-        <meta property="og:url" content="https://hafida-belayd.netlify.app" />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Hafida Belayd Portfolio" />
-        <meta property="og:locale" content="en_US" />
-        
-        {/* Additional LinkedIn meta tags */}
-        <meta name="linkedin:owner" content="hafidaso" />
-        <meta name="linkedin:card" content="summary_large_image" />
-        
-        <meta name="theme-color" content="#f97316" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Hafida Portfolio" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="msapplication-TileColor" content="#f97316" />
-        <meta name="msapplication-tap-highlight" content="no" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png" />

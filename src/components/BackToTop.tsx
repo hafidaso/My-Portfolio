@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowUp } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useTheme } from "next-themes";
 
 export default function BackToTop() {
@@ -13,26 +13,35 @@ export default function BackToTop() {
     setMounted(true);
   }, []);
 
+  // Memoize scroll handler to prevent unnecessary re-renders
+  const toggleVisibility = useCallback(() => {
+    if (window.pageYOffset > 300) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  }, []);
+
   useEffect(() => {
     if (!mounted) return;
     
-    const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
-
-    window.addEventListener("scroll", toggleVisibility);
+    // Use passive listener for better performance
+    window.addEventListener("scroll", toggleVisibility, { passive: true });
     return () => window.removeEventListener("scroll", toggleVisibility);
-  }, [mounted]);
+  }, [mounted, toggleVisibility]);
 
-  const scrollToTop = () => {
+  const scrollToTop = useCallback(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
+  }, []);
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      scrollToTop();
+    }
   };
 
   // Don't render until mounted to prevent hydration mismatch
@@ -41,13 +50,14 @@ export default function BackToTop() {
   return (
     <button
       onClick={scrollToTop}
-      className="rainbow-back-top"
+      onKeyDown={handleKeyDown}
+      className="rainbow-back-top focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background transition-all duration-200 hover:scale-105 active:scale-95"
       style={{ opacity: 1 }}
       aria-label="Back to top"
       title="Back to top"
       suppressHydrationWarning
     >
-      <ArrowUp className="h-5 w-5" />
+      <ArrowUp className="h-5 w-5" aria-hidden="true" />
     </button>
   );
 }

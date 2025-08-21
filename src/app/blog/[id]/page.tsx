@@ -5,12 +5,19 @@ import { getSortedPostsData, getPostData } from '@/lib/markdown';
 // Generate static params for all blog posts
 import { getAllPostIds } from '@/lib/markdown';
 
+export async function generateStaticParams() {
+  try {
+    const postIds = await getAllPostIds();
+    console.log('generateStaticParams: Generated post IDs:', postIds);
+    return postIds;
+  } catch (error) {
+    console.error('generateStaticParams: Error generating post IDs:', error);
+    return [];
+  }
+}
+
 import BlogCTAs from '@/components/blog/BlogCTAs';
 import BackToTop from '@/components/blog/BackToTop';
-
-export async function generateStaticParams() {
-  return await getAllPostIds();
-}
 
 import Image from "next/image";
 import MarkdownContent from '@/components/MarkdownContent';

@@ -90,6 +90,10 @@ export class AIChatService {
   private conversationMemory: Map<string, ChatContext> = new Map();
   private embeddingService: EmbeddingService;
   private embeddedKnowledgeReady: boolean = false;
+  
+  // Memory management constants
+  private readonly MAX_SESSIONS = 100;
+  private readonly MAX_MEMORY_SIZE = 50 * 1024 * 1024; // 50MB
 
   constructor(config: Partial<ChatConfig> = {}) {
     this.config = { ...DEFAULT_CONFIG, ...config };
@@ -121,18 +125,37 @@ export class AIChatService {
       contextLimit?: number;
     } = {}
   ): Promise<string> {
+    // Input validation and sanitization
+    if (!userMessage?.trim()) {
+      throw new Error('User message is required');
+    }
+    
+    if (userMessage.length > 1000) {
+      throw new Error('User message too long (max 1000 characters)');
+    }
+    
+    if (!sessionId?.trim()) {
+      throw new Error('Session ID is required');
+    }
+    
     const { includeContext = true, searchQuery, contextLimit = 5 } = options;
+    
+    // Sanitize context limit
+    const safeContextLimit = Math.min(Math.max(contextLimit, 1), 20);
+    
+    // Sanitize user message
+    const sanitizedMessage = userMessage.trim().slice(0, 1000);
 
     try {
       // Get or create conversation context
       const context = this.getOrCreateContext(sessionId);
       
       // Search relevant knowledge using semantic or keyword search
-      const query = searchQuery || userMessage;
-      const relevantKnowledge = await this.searchRelevantKnowledge(query, contextLimit);
+      const query = searchQuery || sanitizedMessage;
+      const relevantKnowledge = await this.searchRelevantKnowledge(query, safeContextLimit);
       
       // Build dynamic context
-      const dynamicContext = this.buildDynamicContext(userMessage, relevantKnowledge, context);
+      const dynamicContext = this.buildDynamicContext(sanitizedMessage, relevantKnowledge, context);
       
       // Prepare messages for Mistral AI
       const messages: ChatMessage[] = [
@@ -145,7 +168,7 @@ export class AIChatService {
         ...context.conversationHistory.slice(-6), // Last 6 messages for context
         {
           role: 'user',
-          content: userMessage
+          content: sanitizedMessage
         }
       ];
 
@@ -153,13 +176,16 @@ export class AIChatService {
       const response = await this.callMistral(messages);
       
       // Update conversation context
-      this.updateContext(sessionId, userMessage, response, relevantKnowledge);
+      this.updateContext(sessionId, sanitizedMessage, response, relevantKnowledge);
+      
+      // Cleanup memory if needed
+      this.cleanupMemory();
       
       return response;
 
     } catch (error) {
       console.error('Mistral AI Chat Service Error:', error);
-      return this.getFallbackResponse(userMessage);
+      return this.getFallbackResponse(sanitizedMessage);
     }
   }
 
@@ -298,6 +324,24 @@ export class AIChatService {
     }
     if (context.topicsDiscussed.length > 10) {
       context.topicsDiscussed = context.topicsDiscussed.slice(-10);
+    }
+  }
+
+  // Memory management to prevent memory leaks
+  private cleanupMemory(): void {
+    if (this.conversationMemory.size > this.MAX_SESSIONS) {
+      const entries = Array.from(this.conversationMemory.entries());
+      const sortedEntries = entries.sort((a, b) => {
+        const aTime = a[1].conversationHistory[a[1].conversationHistory.length - 1]?.timestamp?.getTime() || 0;
+        const bTime = b[1].conversationHistory[b[1].conversationHistory.length - 1]?.timestamp?.getTime() || 0;
+        return aTime - bTime;
+      });
+      
+      // Remove oldest sessions
+      const toRemove = sortedEntries.slice(0, this.conversationMemory.size - this.MAX_SESSIONS);
+      toRemove.forEach(([sessionId]) => this.conversationMemory.delete(sessionId));
+      
+      console.log(`Cleaned up ${toRemove.length} old sessions`);
     }
   }
 

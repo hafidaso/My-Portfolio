@@ -12,7 +12,8 @@ const nextConfig = {
     // Disable image optimization to avoid sharp module issues
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Simplified CSP to avoid module loading conflicts while allowing text selection
+    contentSecurityPolicy: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';",
   },
   // Disable TypeScript type checking during build to work around Next.js 15.3.1 params type issue
   typescript: {
@@ -27,14 +28,14 @@ const nextConfig = {
     // Disable static generation for API routes during build
     workerThreads: false,
     cpus: 1,
-    // Optimize for deployment
-    optimizePackageImports: ['sharp'],
+    // Temporarily disable optimizePackageImports to fix module loading issues
+    // optimizePackageImports: ['sharp'],
   },
-  // Exclude API routes from static export
-  distDir: 'out',
+  // Remove distDir to fix dynamic routing issues
+  // distDir: 'out',
   // React configuration
   reactStrictMode: false,
-  // Webpack configuration for sharp module
+  // Restore stable webpack configuration to fix module loading errors
   webpack: (config, { isServer }) => {
     // Handle sharp module for image processing
     if (!isServer) {
@@ -45,11 +46,24 @@ const nextConfig = {
       };
     }
     
-    // Optimize sharp module loading
+    // Restore externals configuration for stable module loading
     config.externals = config.externals || [];
     config.externals.push({
       'sharp': 'commonjs sharp'
     });
+    
+    // Add additional optimizations for stable module loading
+    config.optimization = {
+      ...config.optimization,
+      moduleIds: 'deterministic',
+      chunkIds: 'deterministic',
+    };
+    
+    // Ensure proper module resolution
+    config.resolve.modules = [
+      'node_modules',
+      ...(config.resolve.modules || [])
+    ];
     
     return config;
   },
