@@ -6,8 +6,6 @@ import JsonLd from "@/components/JsonLd";
 import CustomCursor from "@/components/CustomCursor";
 import BackToTop from "@/components/BackToTop";
 import HydrationErrorBoundary from "@/components/HydrationErrorBoundary";
-import PerformanceHead from "@/components/PerformanceHead";
-import ClientPerformanceWrapper from "@/components/ClientPerformanceWrapper";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -100,77 +98,63 @@ export const metadata: Metadata = {
     yandex: process.env.YANDEX_VERIFICATION_CODE || '',
     yahoo: process.env.YAHOO_VERIFICATION_CODE || '',
   },
+  other: {
+    'application-name': 'Hafida Portfolio',
+    'apple-mobile-web-app-capable': 'yes',
+    'apple-mobile-web-app-status-bar-style': 'default',
+    'apple-mobile-web-app-title': 'Hafida Portfolio',
+    'format-detection': 'telephone=no',
+    'mobile-web-app-capable': 'yes',
+    'msapplication-config': '/browserconfig.xml',
+    'msapplication-TileColor': '#f97316',
+    'msapplication-tap-highlight': 'no',
+    'theme-color': '#f97316',
+  },
+  manifest: '/manifest.json',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any', type: 'image/x-icon' },
+    ],
+    apple: [
+      { url: '/favicon.ico', sizes: 'any', type: 'image/x-icon' },
+    ],
+  },
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Performance optimizations */}
-        <PerformanceHead
-          preloadImages={[
-            '/og-image.png',
-            '/icons/icon-192x192.png',
-            '/icons/icon-512x512.png',
-            '/assets/hafida.jpeg'
-          ]}
-          preloadFonts={[
-            'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'
-          ]}
-          preconnectDomains={[
-            'https://fonts.googleapis.com',
-            'https://fonts.gstatic.com',
-            'https://github-readme-stats.vercel.app',
-            'https://res.cloudinary.com'
-          ]}
-          dnsPrefetch={[
-            '//fonts.googleapis.com',
-            '//fonts.gstatic.com',
-            '//github-readme-stats.vercel.app',
-            '//res.cloudinary.com'
-          ]}
-          criticalCSS={`
-            /* Critical CSS for above-the-fold content */
-            body { 
-              margin: 0; 
-              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; 
-              -webkit-font-smoothing: antialiased; 
-              -moz-osx-font-smoothing: grayscale; 
-            }
-            * { box-sizing: border-box; }
-            .min-h-screen { min-height: 100vh; }
-            .container { 
-              width: 100%; 
-              margin-left: auto; 
-              margin-right: auto; 
-              padding-left: 1rem; 
-              padding-right: 1rem; 
-            }
-            @media (min-width: 640px) { .container { max-width: 640px; } }
-            @media (min-width: 768px) { .container { max-width: 768px; } }
-            @media (min-width: 1024px) { .container { max-width: 1024px; } }
-            @media (min-width: 1280px) { .container { max-width: 1280px; } }
-          `}
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="canonical" href="https://hafida-belayd.netlify.app" />
+        <link rel="alternate" type="application/rss+xml" title="Hafida Belayd Blog RSS" href="/rss.xml" />
+        <link rel="alternate" type="application/atom+xml" title="Hafida Belayd Blog Atom" href="/atom.xml" />
       </head>
-      <body className={inter.className}>
-        <HydrationErrorBoundary>
-          <ThemeProvider>
-            <NextUIProvider>
-              <CustomCursor />
-              <Navbar />
-              {children}
-              <Footer />
-              <BackToTop />
-              {/* Client-side only performance components */}
-              <ClientPerformanceWrapper />
-            </NextUIProvider>
-          </ThemeProvider>
-        </HydrationErrorBoundary>
+      <body className={`${inter.className} antialiased`} suppressHydrationWarning>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+          <NextUIProvider>
+            <HydrationErrorBoundary>
+              <div className="min-h-screen bg-background text-foreground">
+                <CustomCursor />
+                <Navbar />
+                <main className="py-8 px-4 md:px-6 mx-auto max-w-7xl">
+                  {children}
+                </main>
+                <Footer />
+                <BackToTop />
+              </div>
+            </HydrationErrorBoundary>
+          </NextUIProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

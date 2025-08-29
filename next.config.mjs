@@ -1,56 +1,49 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Enable image optimization for better performance
+  // Removed output: 'export' to enable API routes
+  // trailingSlash: true, // Temporarily disabled to fix blog routing
   images: {
-    unoptimized: false, // Enable image optimization
+    unoptimized: true,
     remotePatterns: [
       { protocol: "https", hostname: "res.cloudinary.com", pathname: "**" },
       { protocol: "https", hostname: "images.unsplash.com", pathname: "**" },
       { protocol: "https", hostname: "github-readme-stats.vercel.app", pathname: "**" },
     ],
+    // Disable image optimization to avoid sharp module issues
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
-    // Enable modern image formats
-    formats: ['image/webp', 'image/avif'],
-    // Enable responsive images
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Simplified CSP to avoid module loading conflicts while allowing text selection
+    contentSecurityPolicy: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';",
   },
-  
-  // Temporarily disable TypeScript and ESLint to focus on performance
+  // Disable TypeScript type checking during build to work around Next.js 15.3.1 params type issue
   typescript: {
     ignoreBuildErrors: true,
   },
-  
+  // Suppress ESLint warnings in build output
   eslint: {
     ignoreDuringBuilds: true,
   },
-  
-  // Configure experimental features for better performance
+  // Configure experimental features to fix build issues
   experimental: {
-    // Enable optimized package imports
-    optimizePackageImports: ['@nextui-org/react', 'framer-motion', 'lucide-react'],
-    // Enable webpack 5 features
-    webpackBuildWorker: true,
+    // Disable static generation for API routes during build
+    workerThreads: false,
+    cpus: 1,
+    // Temporarily disable optimizePackageImports to fix module loading issues
+    // optimizePackageImports: ['sharp'],
   },
-  
-  // React configuration
+  // Remove distDir to fix dynamic routing issues
+  // distDir: 'out',
+  // React configuration - Enable strict mode for better error detection
   reactStrictMode: true,
-  
-  // Performance optimizations
+  // Suppress hydration warnings from browser extensions
   onDemandEntries: {
+    // Period (in ms) where the server will keep pages in the buffer
     maxInactiveAge: 25 * 1000,
+    // Number of pages that should be kept simultaneously without being disposed
     pagesBufferLength: 2,
   },
-  
-  // Enable compression
-  compress: true,
-  
-  // Enable powered by header removal
-  poweredByHeader: false,
-  
-  // Webpack configuration for better performance
-  webpack: (config, { isServer, dev, webpack }) => {
+  // Simplified webpack configuration to fix module loading errors
+  webpack: (config, { isServer, dev }) => {
     // Handle sharp module for image processing
     if (!isServer) {
       config.resolve.fallback = {
@@ -85,8 +78,8 @@ const nextConfig = {
       ...(config.resolve.modules || [])
     ];
     
-    // Better bundle splitting for production
-    if (!dev) {
+    // Better error handling for development
+    if (dev) {
       config.optimization = {
         ...config.optimization,
         splitChunks: {
@@ -94,13 +87,12 @@ const nextConfig = {
           cacheGroups: {
             default: false,
             vendors: false,
-            // Vendor chunk for better caching
+            // Create a vendor chunk for better debugging
             vendor: {
               name: 'vendor',
               chunks: 'all',
               test: /node_modules/,
               priority: 20,
-              reuseExistingChunk: true,
             },
             // Common chunk for shared code
             common: {
@@ -111,67 +103,9 @@ const nextConfig = {
               reuseExistingChunk: true,
               enforce: true,
             },
-            // Separate NextUI components
-            nextui: {
-              name: 'nextui',
-              test: /[\\/]node_modules[\\/]@nextui-org[\\/]/,
-              chunks: 'all',
-              priority: 30,
-            },
-            // Separate Framer Motion
-            framer: {
-              name: 'framer',
-              test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
-              chunks: 'all',
-              priority: 30,
-            },
-          },
-        },
-        // Enable tree shaking
-        usedExports: true,
-        // Enable side effects optimization
-        sideEffects: false,
-      };
-    }
-    
-    // Development optimizations
-    if (dev) {
-      config.optimization = {
-        ...config.optimization,
-        splitChunks: {
-          chunks: 'all',
-          cacheGroups: {
-            default: false,
-            vendors: false,
-            vendor: {
-              name: 'vendor',
-              chunks: 'all',
-              test: /node_modules/,
-              priority: 20,
-            },
-            common: {
-              name: 'common',
-              minChunks: 2,
-              chunks: 'all',
-              priority: 10,
-              reuseExistingChunk: true,
-              enforce: true,
-            },
           },
         },
       };
-    }
-    
-    // Add bundle analyzer in development
-    if (dev && process.env.ANALYZE === 'true') {
-      const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-      config.plugins.push(
-        new BundleAnalyzerPlugin({
-          analyzerMode: 'server',
-          analyzerPort: 8888,
-          openAnalyzer: true,
-        })
-      );
     }
     
     return config;

@@ -1,29 +1,14 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import AboutMe from '@/components/AboutMe';
 import Technologies from '@/components/Technologies';
+import FeaturedProjects from '@/components/FeaturedProjects';
+import LatestPosts from '@/components/LatestPosts';
+import GitHubStats from '@/components/GitHubStats';
+import Timeline from '@/components/Timeline';
+import Languages from '@/components/Languages';
+import Hobbies from '@/components/Hobbies';
 import HomePageJsonLd from '@/components/HomePageJsonLd';
 import { getSortedPostsData } from '@/lib/markdown';
-
-// Lazy load heavy components to reduce initial bundle size
-const FeaturedProjects = React.lazy(() => import('@/components/FeaturedProjects'));
-const LatestPosts = React.lazy(() => import('@/components/LatestPosts'));
-const Timeline = React.lazy(() => import('@/components/Timeline'));
-const Languages = React.lazy(() => import('@/components/Languages'));
-const Hobbies = React.lazy(() => import('@/components/Hobbies'));
-const GitHubStats = React.lazy(() => import('@/components/GitHubStats'));
-
-// Loading fallback component with better performance
-const ComponentLoader = ({ children }: { children: React.ReactNode }) => (
-  <Suspense fallback={
-    <div className="bg-[#F8FAFC] dark:bg-[#151B28] rounded-lg p-4 h-full transition-colors animate-pulse">
-      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-2"></div>
-      <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded mb-1"></div>
-      <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-2/3"></div>
-    </div>
-  }>
-    {children}
-  </Suspense>
-);
 
 const HomePage: React.FC = async () => {
   try {
@@ -43,9 +28,7 @@ const HomePage: React.FC = async () => {
             <AboutMe />
           </div>
           <div>
-            <ComponentLoader>
-              <GitHubStats />
-            </ComponentLoader>
+            <GitHubStats />
           </div>
         </div>
 
@@ -53,9 +36,7 @@ const HomePage: React.FC = async () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-2">
           {/* Featured Projects - Spans 2 columns */}
           <div className="lg:col-span-2">
-            <ComponentLoader>
-              <FeaturedProjects />
-            </ComponentLoader>
+            <FeaturedProjects />
           </div>
 
           {/* Technologies Stack */}
@@ -65,43 +46,92 @@ const HomePage: React.FC = async () => {
 
           {/* Timeline - Spans full width */}
           <div className="lg:col-span-3">
-            <ComponentLoader>
-              <Timeline />
-            </ComponentLoader>
+            <Timeline />
           </div>
 
-          {/* Latest Posts and Languages - Side by side */}
+          {/* Latest Posts */}
           <div className="lg:col-span-2">
-            <ComponentLoader>
-              <LatestPosts posts={latestPosts} />
-            </ComponentLoader>
+            <LatestPosts posts={latestPosts} />
           </div>
 
+          {/* Languages */}
           <div>
-            <ComponentLoader>
-              <Languages />
-            </ComponentLoader>
+            <Languages />
           </div>
 
-          {/* Hobbies - Full width */}
+          {/* Hobbies */}
           <div className="lg:col-span-3">
-            <ComponentLoader>
-              <Hobbies />
-            </ComponentLoader>
+            <Hobbies />
           </div>
         </div>
-        </main>
+      </main>
       </>
     );
   } catch (error) {
-    console.error('Error loading HomePage:', error);
+    console.error('HomePage: Error loading posts:', error);
+    
+    // Fallback without posts
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-red-600 mb-4">Error Loading Page</h1>
-          <p className="text-gray-600">Please try refreshing the page.</p>
+      <>
+        <HomePageJsonLd />
+        <main className="min-h-screen p-2 max-w-7xl mx-auto space-y-2">
+        {/* Hero Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-2">
+          <div className="lg:col-span-2">
+            <AboutMe />
+          </div>
+          <div>
+            <GitHubStats />
+          </div>
         </div>
-      </div>
+
+        {/* Main Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-2">
+          {/* Featured Projects - Spans 2 columns */}
+          <div className="lg:col-span-2">
+            <FeaturedProjects />
+          </div>
+
+          {/* Technologies Stack */}
+          <div>
+            <Technologies />
+          </div>
+
+          {/* Timeline - Spans full width */}
+          <div className="lg:col-span-3">
+            <Timeline />
+          </div>
+
+          {/* Latest Posts - Show error state */}
+          <div className="lg:col-span-2">
+            <div className="bg-[#F8FAFC] dark:bg-[#151B28] rounded-lg p-4 h-full transition-colors">
+              <h2 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-600 mb-6">
+                Latest Posts
+              </h2>
+              <div className="text-center py-8">
+                <p className="text-gray-500 dark:text-gray-400 mb-4">Unable to load posts at the moment.</p>
+                <a 
+                  href="/blog" 
+                  className="inline-flex items-center text-sm px-4 py-2 rounded-lg bg-orange-100 dark:bg-orange-500/10 text-orange-700 dark:text-orange-400 hover:bg-orange-200 dark:hover:bg-orange-500/20 transition-all"
+                >
+                  Visit Blog
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Languages */}
+          <div>
+            <Languages />
+          </div>
+
+          {/* Hobbies */}
+          <div className="lg:col-span-3">
+            <Hobbies />
+          </div>
+        </div>
+      </main>
+      </>
     );
   }
 };

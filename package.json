@@ -15,14 +15,7 @@
     "deploy-build": "npm run build",
     "clear-cache": "./scripts/clear-cache.sh",
     "dev-clean": "./scripts/clear-cache.sh && npm run dev",
-    "dev-fresh": "rm -rf .next && npm run dev",
-    "analyze": "ANALYZE=true npm run build",
-    "analyze:server": "ANALYZE=true npm run build && npx @next/bundle-analyzer .next/static/chunks/*.js",
-    "analyze:browser": "ANALYZE=true npm run build && npx @next/bundle-analyzer .next/static/chunks/*.js",
-    "performance:audit": "npm run build && npx lighthouse http://localhost:3000 --output=html --output-path=./lighthouse-report.html",
-    "bundle:check": "npx depcheck",
-    "bundle:prune": "npx ts-prune",
-    "performance:test": "npm run build && npm run start & sleep 10 && npm run performance:audit && pkill -f 'next start'"
+    "dev-fresh": "rm -rf .next && npm run dev"
   },
   "dependencies": {
     "@huggingface/inference": "^4.3.2",
@@ -79,17 +72,6 @@
     "eslint": "^8",
     "eslint-config-next": "15.3.1",
     "eslint-config-prettier": "^9.1.0",
-    "ts-prune": "^0.10.3",
-    "webpack-bundle-analyzer": "^4.10.1",
-    "lighthouse": "^11.6.0"
-  },
-  "browserslist": [
-    ">0.3%",
-    "not dead",
-    "not op_mini all"
-  ],
-  "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=8.0.0"
+    "ts-prune": "^0.10.3"
   }
 }
