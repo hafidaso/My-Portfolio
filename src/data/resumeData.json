@@ -1,0 +1,285 @@
+{
+  "personalInfo": {
+    "name": "Hafida Belayd",
+    "title": "Data Scientist",
+    "email": "hafidabelaidagnaoui@gmail.com",
+    "location": "Salé, Morocco",
+    "github": "https://github.com/hafidaso",
+    "linkedin": "https://linkedin.com/in/hafida-belayd",
+    "website": "https://hafida-belayd.netlify.app/",
+    "summary": "Data Scientist with a strong background in data science, specializing in turning raw data into meaningful insights that drive smart decisions. From building dashboards to running predictive models, I love exploring data to uncover patterns and trends that matter. Passionate about using AI and advanced analytics to solve real-world problems and create value for businesses and communities.",
+    "image": "https://avatars.githubusercontent.com/u/40724828?v=4"
+  },
+  "experience": [
+    {
+      "company": "Yma Digital",
+      "position": "Data Scientist",
+      "startDate": "Jan 2022",
+      "endDate": "Present",
+      "description": "Constructed algorithms using statistical methods to analyze large datasets and deliver business insights using Python and Power BI. Applied machine learning techniques for predictive modeling and business analysis.",
+      "location": "Casablanca-Settat, Morocco",
+      "technologies": ["Python", "Power BI", "SQL", "Analytics", "Business Analysis", "Market Research", "NLP", "TensorFlow", "Machine Learning"]
+    },
+    {
+      "company": "alx_africa",
+      "position": "Software Engineer (Internship)",
+      "startDate": "Jun 2023",
+      "endDate": "Jun 2024",
+      "description": "Completed intensive software engineering training covering front-end, back-end, DevOps, and mobile development roles, with 70 hours/week commitment.",
+      "location": "Casablanca-Settat, Morocco",
+      "technologies": ["React.js", "Flask", "Python", "JavaScript", "SQL", "Git", "C", "Emacs", "GitHub"]
+    },
+    {
+      "company": "MeriSKILL",
+      "position": "Data Analyst Intern",
+      "startDate": "Sep 2023",
+      "endDate": "Oct 2023",
+      "description": "Performed data analysis and visualization using Power BI and Excel. Applied strategic thinking to draw insights from data.",
+      "location": "Noida, India",
+      "technologies": ["Power BI", "Excel", "Python", "Strategic Thinking"]
+    },
+    {
+      "company": "Virtually MC",
+      "position": "WordPress Developer",
+      "startDate": "May 2022",
+      "endDate": "Aug 2023",
+      "description": "Developed WordPress websites using HTML5, CSS3, JS, and PHP. Implemented SEO strategies and ensured cross-browser compatibility.",
+      "location": "Monaco",
+      "technologies": ["WordPress", "HTML", "CSS", "PHP", "SEO", "CRM", "UX/UI"]
+    },
+    {
+      "company": "Ennova Group Inc",
+      "position": "Senior Graphic Designer",
+      "startDate": "May 2024",
+      "endDate": "Sep 2024",
+      "description": "Contributed to B2B marketing strategy and brand awareness through visual content creation and social media materials.",
+      "location": "Casablanca-Settat, Morocco",
+      "technologies": ["Adobe InDesign", "Photoshop", "Illustrator", "Premiere Pro", "SEO", "Agile Methodologies"]
+    },
+    {
+      "company": "BTOBExchange",
+      "position": "Senior Graphic Designer",
+      "startDate": "May 2024",
+      "endDate": "Sep 2024",
+      "description": "Created multimedia content for branding and marketing initiatives, contributed to SEO and video production strategies.",
+      "location": "Casablanca-Settat, Morocco",
+      "technologies": ["Video Editing", "SEO", "Strategic Communication", "Social Media", "Illustrator", "Premiere Pro"]
+    },
+    {
+      "company": "COCOFIELD",
+      "position": "Senior Graphic Designer",
+      "startDate": "Aug 2021",
+      "endDate": "Nov 2021",
+      "description": "Led a design team and increased online engagement by 15% through compelling visual content.",
+      "location": "Casablanca, Morocco",
+      "technologies": ["Design", "Branding", "Adobe Creative Suite", "Video Production", "Web Design"]
+    },
+    {
+      "company": "Hello",
+      "position": "Social Media Designer",
+      "startDate": "May 2021",
+      "endDate": "Nov 2021",
+      "description": "Created social media content, increasing engagement by 30%. Analyzed trends and adapted visuals accordingly.",
+      "location": "Casablanca, Morocco",
+      "technologies": ["Social Media", "Branding", "Photoshop", "Graphic Design"]
+    },
+    {
+      "company": "Premium Prestige Tours",
+      "position": "Art Director",
+      "startDate": "Jan 2020",
+      "endDate": "Apr 2021",
+      "description": "Oversaw visual identity, branding, and digital campaigns using analytics and creative tools.",
+      "location": "Casablanca, Morocco",
+      "technologies": ["Google Analytics", "Branding", "Design", "Photoshop"]
+    }
+  ],
+  "education": [
+    {
+      "institution": "University of the People",
+      "degree": "Associate's degree, Computer Science",
+      "startDate": "Mar 2024",
+      "endDate": "May 2026",
+      "description": "Comprehensive associate's program in Computer Science focusing on software development and computer systems. Maintained a GPA of 3.52 while gaining proficiency in web development and core CS fundamentals.",
+      "technologies": ["JavaScript", "React", "Python", "SQL", "Algebra"]
+    },
+    {
+      "institution": "ExploreAI Academy",
+      "degree": "Diploma in Data Science",
+      "startDate": "May 2023",
+      "endDate": "Jul 2024",
+      "description": "In-depth data science training focused on data visualization, Python programming, machine learning, and professional development. Emphasizes both technical and soft skills to prepare for real-world data roles and interviews.",
+      "technologies": ["Python", "Statistics", "Power BI", "Excel", "Tableau", "Problem Solving", "Mind Mapping", "Skill Development"]
+    },
+    {
+      "institution": "Udacity",
+      "degree": "AI Programming with Python Nanodegree",
+      "startDate": "Oct 2023",
+      "endDate": "Feb 2024",
+      "description": "Specialized program in Artificial Intelligence focused on foundational Python programming, NumPy, pandas, and building simple neural networks.",
+      "technologies": ["Python"]
+    },
+    {
+      "institution": "Ecole Privée",
+      "degree": "Diploma in Graphic Design",
+      "startDate": "Oct 2013",
+      "endDate": "Jul 2015",
+      "description": "Formal training in graphic design and branding. Focused on creative software tools and visual communication principles.",
+      "technologies": ["Design", "Adobe Photoshop", "Adobe Illustrator", "Branding"]
+    }
+  ],
+  "skills": [
+    "Python",
+    "MySQL",
+    "Git",
+    "Machine Learning",
+    "Statistics",
+    "Power BI",
+    "Excel",
+    "Mathematics",
+    "OpenAI",
+    "Generative AI",
+    "JavaScript",
+    "React",
+    "Next.js",
+    "Node.js",
+    "VSCode",
+    "SQL",
+    "Data Analysis",
+    "Data Visualization",
+    "NLP",
+    "TensorFlow",
+    "Business Analysis",
+    "Market Research",
+    "Flask",
+    "C",
+    "WordPress",
+    "HTML",
+    "CSS",
+    "PHP",
+    "SEO",
+    "Adobe Creative Suite",
+    "Video Editing",
+    "Strategic Communication"
+  ],
+  "languages": [
+    {
+      "language": "Arabic",
+      "proficiency": "Native"
+    },
+    {
+      "language": "Berber",
+      "proficiency": "Native"
+    },
+    {
+      "language": "French",
+      "proficiency": "Fluent"
+    },
+    {
+      "language": "English",
+      "proficiency": "Professional"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Educational_Tutor_AI_Assistant_Code_Walkthrough",
+      "description": "Educational Tutor AI Assistant using Google's Gemini language model. The assistant includes features like generating quizzes, creating flashcards, providing grammar corrections, and offering project guidance.",
+      "technologies": ["crewai", "gemini", "python"],
+      "stars": 6,
+      "forks": 2,
+      "link": "https://github.com/hafidaso/Educational_Tutor_AI_Assistant_Code_Walkthrough"
+    },
+    {
+      "name": "Education-Trends-and-Disparities-A-Focus-on-Morocco",
+      "description": "Morocco's education system comprises various levels, including primary, secondary, and tertiary education. It is structured to provide universal access to education for its citizens.",
+      "technologies": ["data-science", "python"],
+      "stars": 3,
+      "forks": 0,
+      "link": "https://github.com/hafidaso/Education-Trends-and-Disparities-A-Focus-on-Morocco"
+    },
+    {
+      "name": "CodeTransEval",
+      "description": "Code Project Converter is a lightweight tool that translates code projects between different programming languages. It supports converting C projects to Python, Python to JavaScript, and Python to Java.",
+      "technologies": ["agent", "ai", "python"],
+      "stars": 2,
+      "forks": 1,
+      "link": "https://github.com/hafidaso/CodeTransEval"
+    },
+    {
+      "name": "Insights-into-Luxury-Fashion",
+      "description": "This project conducts a comprehensive analysis of a dataset containing product listings from SSENSE, a renowned retailer in designer fashion and high-end streetwear.",
+      "technologies": ["data-science", "python"],
+      "stars": 2,
+      "forks": 1,
+      "link": "https://github.com/hafidaso/Insights-into-Luxury-Fashion"
+    }
+  ],
+  "githubStats": {
+    "repositories": 68,
+    "stars": 43,
+    "followers": 59,
+    "following": 97,
+    "topLanguages": [
+      { "language": "Jupyter Notebook", "percentage": 52 },
+      { "language": "Python", "percentage": 21 },
+      { "language": "C", "percentage": 10 },
+      { "language": "JavaScript", "percentage": 9 },
+      { "language": "HTML", "percentage": 9 }
+    ]
+  },
+  "certifications": [
+    {
+      "name": "McKinsey Forward Program",
+      "issuer": "McKinsey & Company",
+      "date": "Dec 2024",
+      "description": "Leadership and problem-solving skills for young professionals in the digital age."
+    },
+    {
+      "name": "Machine Learning Fundamentals",
+      "issuer": "Udacity",
+      "date": "Apr 2024",
+      "description": "Explored ML, NLP, deep learning, and AWS Lambda."
+    },
+    {
+      "name": "AWS Machine Learning Fundamentals Nanodegree",
+      "issuer": "Udacity",
+      "date": "Apr 2024",
+      "description": "Completed AWS ML Nanodegree through scholarship program."
+    },
+    {
+      "name": "AI Programming with Python",
+      "issuer": "Udacity",
+      "date": "Nov 2023",
+      "description": "Python, data analysis, visualization, wrangling, and neural networks."
+    },
+    {
+      "name": "Data Strategy",
+      "issuer": "365 Data Science",
+      "date": "Nov 2022",
+      "description": "Understanding of strategic roles and planning in data-driven organizations."
+    },
+    {
+      "name": "Google Business Intelligence Certificate",
+      "issuer": "Coursera",
+      "date": "Sep 2023",
+      "expired": "Nov 2023",
+      "description": "Training in BI using Excel, Tableau, and analytics fundamentals."
+    }
+  ],
+  "interests": [
+    "AI and Machine Learning",
+    "Data Science and Analytics",
+    "Open Source Contributions",
+    "Problem Solving and Logical Thinking",
+    "Creative Design and Branding",
+    "Business Intelligence"
+  ],
+  "softSkills": [
+    "Problem Solving",
+    "Strategic Thinking",
+    "Leadership",
+    "Teamwork",
+    "Communication",
+    "Analytical Thinking",
+    "Creative Problem Solving"
+  ]
+}

@@ -1,0 +1,668 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS for 3D effects */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+/* Normal cursor behavior - custom cursor disabled */
+body {
+  cursor: auto; /* Restore normal browser cursor */
+}
+
+/* Show default cursor for touch devices */
+@media (hover: none) and (pointer: coarse) {
+  body {
+    cursor: auto;
+  }
+}
+
+/* Ensure all interactive elements work properly */
+a, button, [role="button"], input, select, textarea, nav, nav * {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
+}
+
+/* Fallback cursor for non-interactive elements */
+p, div, span, h1, h2, h3, h4, h5, h6 {
+  cursor: default;
+}
+
+/* Enable text selection and copying */
+* {
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
+}
+
+/* Ensure text content is selectable */
+p, div, span, h1, h2, h3, h4, h5, h6, li, td, th, label, code, pre {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Allow code blocks to be easily copied */
+code, pre {
+  -webkit-user-select: all;
+  -moz-user-select: all;
+  -ms-user-select: all;
+  user-select: all;
+  cursor: text;
+}
+
+/* Ensure navigation elements are clickable */
+nav, nav *, .navbar, .navbar * {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Static background with subtle gradient */
+body {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.dark body {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #f97316, #a855f7);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #ea580c, #9333ea);
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  /* Disable custom cursor on mobile */
+  body {
+    cursor: auto !important;
+  }
+  
+  /* Optimize touch targets */
+  button, a, [role="button"], input[type="submit"], input[type="button"] {
+    min-height: 48px;
+    min-width: 48px;
+  }
+  
+  /* Improve scrolling performance */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Optimize animations for mobile */
+  .animate-pulse {
+    animation-duration: 2s;
+  }
+  
+  /* Reduce particle count on mobile */
+  canvas {
+    opacity: 0.2;
+  }
+  
+  /* Prevent zoom on form inputs */
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+  
+  /* Improve chat box mobile layout */
+  .fixed.bottom-16 {
+    bottom: 1rem !important;
+    left: 1rem;
+    right: 1rem;
+    width: auto !important;
+    max-width: none !important;
+  }
+  
+  /* Better mobile navigation */
+  .md\:hidden {
+    display: block !important;
+  }
+  
+  /* Ensure navigation links are clickable */
+  nav a, .mobile-navigation a {
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Disable hover effects on touch devices */
+  .hover\:scale-105:hover {
+    transform: none;
+  }
+  
+  .hover\:shadow-lg:hover {
+    box-shadow: none;
+  }
+  
+  /* Optimize for touch scrolling */
+  .overflow-y-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Better touch feedback */
+  button, a, [role="button"] {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    tap-highlight-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Improve form interactions on touch */
+  input, textarea, select {
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 8px;
+  }
+  
+  /* Ensure navigation works on touch devices */
+  nav, .mobile-navigation {
+    touch-action: manipulation;
+  }
+  
+  /* Prevent touch gestures from interfering with navigation */
+  a[href], button[type="button"], button[type="submit"] {
+    touch-action: manipulation;
+  }
+}
+
+/* iPad-specific optimizations */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+  
+  /* Ensure proper touch handling on iPad */
+  .chat-box-container {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  
+  /* Improve button touch response on iPad */
+  button {
+    touch-action: manipulation;
+  }
+  
+  /* Better iPad scrolling */
+  .overflow-y-auto {
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+  }
+  
+  /* Ensure navigation works on iPad */
+  nav a, .mobile-navigation a {
+    touch-action: manipulation;
+  }
+}
+
+/* Touch manipulation utility */
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
+/* Chat box specific optimizations */
+.chat-box-container {
+  /* Ensure chat box doesn't block navigation */
+  pointer-events: auto;
+}
+
+.chat-box-container * {
+  /* Ensure all elements inside chat box are interactive */
+  pointer-events: auto;
+}
+
+/* Navigation link protection */
+nav a, .mobile-navigation a, a[href] {
+  /* Ensure navigation links are always clickable */
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
+}
+
+/* Prevent chat box from blocking navigation */
+.chat-box-container:not(.open) {
+  pointer-events: none;
+}
+
+.chat-box-container.open {
+  pointer-events: auto;
+}
+
+/* Ensure form elements are properly interactive */
+input, textarea, select, button {
+  touch-action: manipulation;
+}
+
+/* Chatbot link styling and functionality */
+.chat-box-container a,
+.chat-box-container .prose a {
+  /* Ensure links are clickable */
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  touch-action: manipulation !important;
+  
+  /* Visual styling */
+  color: #2563eb !important; /* blue-600 */
+  text-decoration: underline !important;
+  font-weight: 500 !important;
+  
+  /* Hover effects */
+  transition: all 0.2s ease-in-out !important;
+}
+
+.chat-box-container a:hover,
+.chat-box-container .prose a:hover {
+  color: #1d4ed8 !important; /* blue-700 */
+  background-color: rgba(59, 130, 246, 0.1) !important; /* blue-50 */
+  border-radius: 4px !important;
+  padding: 2px 4px !important;
+}
+
+/* Dark mode link styling */
+.dark .chat-box-container a,
+.dark .chat-box-container .prose a {
+  color: #60a5fa !important; /* blue-400 */
+}
+
+.dark .chat-box-container a:hover,
+.dark .chat-box-container .prose a:hover {
+  color: #3b82f6 !important; /* blue-500 */
+  background-color: rgba(59, 130, 246, 0.2) !important; /* blue-900/20 */
+}
+
+/* Ensure ReactMarkdown links are properly rendered */
+.prose a {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  touch-action: manipulation !important;
+}
+
+/* Force link visibility and interaction */
+a[href] {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  touch-action: manipulation !important;
+}
+
+/* Chatbot responsive improvements */
+@media (max-width: 640px) {
+  .chat-box-container {
+    bottom: 1rem !important;
+    left: 1rem !important;
+    right: 1rem !important;
+    width: auto !important;
+    max-width: none !important;
+    padding: 0.75rem !important;
+  }
+  
+  .chat-box-container .flex.h-\[600px\] {
+    height: 80vh !important;
+    max-height: 600px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .chat-box-container {
+    bottom: 1.25rem !important;
+    left: 1rem !important;
+    right: 1rem !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+}
+
+/* iPad specific optimizations */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+  
+  .chat-box-container {
+    bottom: 2rem !important;
+    left: 2rem !important;
+    right: 2rem !important;
+    width: auto !important;
+    max-width: 600px !important;
+  }
+  
+  .chat-box-container .flex.h-\[600px\] {
+    height: 70vh !important;
+    max-height: 600px !important;
+  }
+}
+
+/* Ensure navigation works on all devices */
+nav, nav *, .navbar, .navbar * {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
+}
+
+/* Ensure links and interactive elements work properly */
+a, button, [role="button"], input, select, textarea {
+  pointer-events: auto !important;
+}
+
+/* Exception for background elements that should not be interactive */
+.particle-background,
+canvas.fixed {
+  pointer-events: none !important;
+}
+
+.chat-box-container .non-interactive,
+.prose .non-interactive {
+  pointer-events: none !important;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+    --color-blackest: #f97316;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+    --color-blackest: #f97316;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-down {
+  animation: fadeInDown 0.5s ease-out;
+}
+
+.print-light-mode {
+  background-color: white !important;
+  color: black !important;
+}
+
+.print-light-mode * {
+  color: black !important;
+  background-color: transparent !important;
+}
+
+/* Back to top button animations */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.back-to-top-hover {
+  transition: all 0.3s ease;
+}
+
+.back-to-top-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Rainbow back to top button */
+.rainbow-back-top {
+  opacity: 1;
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  width: 50px;
+  height: 50px;
+  line-height: 46px;
+  border-radius: 50%;
+  text-align: center;
+  z-index: 999 !important;
+  background-color: var(--color-blackest);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.rainbow-back-top:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(249, 115, 22, 0.4);
+}
+
+.dark .rainbow-back-top {
+  background-color: var(--color-blackest);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4);
+}
+
+/* Footer Styles */
+.footer-sa {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.dark .footer-sa {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+}
+
+.footer-sa .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-sa .section-padding {
+  padding: 4rem 0;
+}
+
+.footer-sa .sub-color {
+  color: #64748b;
+}
+
+.dark .footer-sa .sub-color {
+  color: #94a3b8;
+}
+
+.footer-sa .logo h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dark .footer-sa .logo h2 {
+  background: linear-gradient(135deg, #fb8a33, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footer-sa .social-icon a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+  color: #475569;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.dark .footer-sa .social-icon a {
+  background: linear-gradient(135deg, #334155, #1e293b);
+  color: #cbd5e1;
+}
+
+.footer-sa .social-icon a:hover {
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+}
+
+.dark .footer-sa .social-icon a:hover {
+  background: linear-gradient(135deg, #fb8a33, #f59e0b);
+  color: #1e293b;
+}
+
+.footer-sa .links a {
+  color: #64748b;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.dark .footer-sa .links a {
+  color: #94a3b8;
+}
+
+.footer-sa .links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  transition: width 0.3s ease;
+}
+
+.dark .footer-sa .links a::after {
+  background: linear-gradient(135deg, #fb8a33, #f59e0b);
+}
+
+.footer-sa .links a:hover::after {
+  width: 100%;
+}
+
+.footer-sa .copy a {
+  color: #f97316;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.dark .footer-sa .copy a {
+  color: #fb8a33;
+}
+
+.footer-sa .copy a:hover {
+  color: #ea580c;
+}
+
+.dark .footer-sa .copy a:hover {
+  color: #f59e0b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footer-sa .section-padding {
+    padding: 2rem 0;
+  }
+  
+  .footer-sa .logo h2 {
+    font-size: 2rem;
+  }
+  
+  .footer-sa .social-icon a {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
