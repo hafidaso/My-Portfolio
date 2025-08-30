@@ -16,10 +16,31 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+  const [locked, setLocked] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Lock background scroll when menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
+  // Debounce toggle to prevent rapid state changes
+  const handleToggle = () => {
+    if (locked) return;
+    setLocked(true);
+    onToggle();
+    setTimeout(() => setLocked(false), 350); // match animation duration
+  };
 
   const navItems = [
     { href: '/', label: 'Home', icon: Home },
@@ -41,7 +62,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
       {/* Mobile Menu Button */}
       <motion.button
         className="md:hidden fixed top-4 right-4 z-50 p-3 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 min-h-[48px] min-w-[48px] touch-manipulation"
-        onClick={onToggle}
+        onClick={handleToggle}
         whileTap={{ scale: 0.95 }}
         whileHover={{ scale: 1.05 }}
         aria-label="Toggle mobile menu"
@@ -71,6 +92,21 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
           )}
         </AnimatePresence>
       </motion.button>
+
+      {/* Backdrop for closing menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="fixed inset-0 z-40 bg-black/30 md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={handleToggle}
+            aria-label="Close menu backdrop"
+          />
+        )}
+      </AnimatePresence>
 
       {/* Mobile Menu Content */}
       <AnimatePresence>
@@ -104,7 +140,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
                 )}
                 {/* Close Button */}
                 <button
-                  onClick={onToggle}
+                  onClick={handleToggle}
                   className="p-2 rounded-lg bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 transition-colors shadow-md"
                 >
                   <X className="w-5 h-5 text-white" />
@@ -118,10 +154,8 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
                 <Link
                   key={item.href}
                   href={item.href}
-                  onClick={(e) => {
-                    // Close menu immediately for better UX
-                    onToggle();
-                    // Let Next.js handle the navigation naturally
+                  onClick={() => {
+                    handleToggle();
                   }}
                   className={`flex items-center space-x-3 p-3 rounded-lg transition-all duration-200 min-h-[48px] touch-manipulation ${
                     pathname === item.href
@@ -152,7 +186,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={onToggle}
+                    onClick={handleToggle}
                     className="flex items-center space-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
                   >
                     <link.icon className="w-4 h-4" />
@@ -176,4 +210,4 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
   );
 };
 
-export default MobileNavigation; 
+export default MobileNavigation;
