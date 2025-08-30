@@ -43,7 +43,7 @@ const nextConfig = {
   
   // Enhanced image optimization
   images: {
-    unoptimized: false, // Enable Next.js image optimization
+    unoptimized: true, // Temporarily disable Next.js image optimization
     formats: ['image/webp', 'image/avif'],
     minimumCacheTTL: 31536000, // 1 year cache
     dangerouslyAllowSVG: true,
