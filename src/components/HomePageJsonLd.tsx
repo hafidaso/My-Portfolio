@@ -1,9 +1,8 @@
 import React from 'react';
 import resumeData from '@/data/resumeData.json';
-import { safeJsonStringify } from '@/lib/json-serializer';
 
 export default function HomePageJsonLd() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hafida-belayd.me/';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hafida-belayd.netlify.app';
 
   const personSchema = {
     '@context': 'https://schema.org',
@@ -151,44 +150,32 @@ export default function HomePageJsonLd() {
     React.createElement('script', {
       key: 'person-schema',
       type: 'application/ld+json',
-      dangerouslySetInnerHTML: { 
-        __html: safeJsonStringify(personSchema)
-      }
+      dangerouslySetInnerHTML: { __html: JSON.stringify(personSchema) }
     }),
     React.createElement('script', {
       key: 'website-schema',
       type: 'application/ld+json',
-      dangerouslySetInnerHTML: { 
-        __html: safeJsonStringify(websiteSchema)
-      }
+      dangerouslySetInnerHTML: { __html: JSON.stringify(websiteSchema) }
     }),
     React.createElement('script', {
       key: 'organization-schema',
       type: 'application/ld+json',
-      dangerouslySetInnerHTML: { 
-        __html: safeJsonStringify(organizationSchema)
-      }
+      dangerouslySetInnerHTML: { __html: JSON.stringify(organizationSchema) }
     }),
     React.createElement('script', {
       key: 'breadcrumb-schema',
       type: 'application/ld+json',
-      dangerouslySetInnerHTML: { 
-        __html: safeJsonStringify(breadcrumbSchema)
-      }
+      dangerouslySetInnerHTML: { __html: JSON.stringify(breadcrumbSchema) }
     }),
     React.createElement('script', {
       key: 'faq-schema',
       type: 'application/ld+json',
-      dangerouslySetInnerHTML: { 
-        __html: safeJsonStringify(faqSchema)
-      }
+      dangerouslySetInnerHTML: { __html: JSON.stringify(faqSchema) }
     }),
     React.createElement('script', {
       key: 'creative-work-schema',
       type: 'application/ld+json',
-      dangerouslySetInnerHTML: { 
-        __html: safeJsonStringify(creativeWorkSchema)
-      }
+      dangerouslySetInnerHTML: { __html: JSON.stringify(creativeWorkSchema) }
     })
   ]);
 } 

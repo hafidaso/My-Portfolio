@@ -142,7 +142,7 @@ const WebsitesGrid: React.FC = () => {
               {website.image ? (
                 <img
                   src={website.image}
-                  alt={`Screenshot of ${website.title} - ${website.category} project built with ${website.technologies.slice(0, 3).join(', ')}${website.technologies.length > 3 ? ' and more' : ''}`}
+                  alt={website.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   onError={(e) => {
                     // Fallback to placeholder if image fails to load

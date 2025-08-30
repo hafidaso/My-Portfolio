@@ -150,7 +150,7 @@ const DataScienceProjectsGrid: React.FC = () => {
                 {project.image ? (
                   <img
                     src={project.image}
-                    alt={`Data science project: ${project.title} - ${project.category} analysis using ${project.technologies.slice(0, 3).join(', ')}${project.technologies.length > 3 ? ' and more tools' : ''}`}
+                    alt={project.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     onError={(e) => {
                       // Fallback to placeholder if image fails to load

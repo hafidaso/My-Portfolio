@@ -1,13 +1,11 @@
 import React from 'react';
 import { skills } from '../data/skills';
 import * as Si from 'react-icons/si';
-import { safeObjectKeys } from '../lib/safeUtils';
 
 const Technologies: React.FC = () => {
   // Create a mapping of icon names to actual components
   const iconComponents: { [key: string]: React.ElementType } = {};
-  const iconKeys = safeObjectKeys(Si);
-  iconKeys.forEach(key => {
+  Object.keys(Si).forEach(key => {
     iconComponents[key] = (Si as any)[key];
   });
 

@@ -4,7 +4,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Projects - Data Analysis & AI Portfolio",
-  description: "Explore Hafida Belayd's data science projects, AI applications, and web development work. Python, machine learning, and data visualization.",
+  description: "Explore Hafida Belayd's data analysis and AI projects. View Python, Machine Learning, Power BI, and data visualization projects with GitHub links and live demos. Professional portfolio showcasing technical expertise.",
   keywords: [
     "Data Analysis Projects",
     "Python Projects",
@@ -21,18 +21,18 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "Projects - Data Analysis & AI Portfolio | Hafida Belayd",
-    description: "Explore Hafida Belayd's data science projects, AI applications, and web development work. Python, machine learning, and data visualization.",
-    url: "https://hafida-belayd.me//projects",
+    description: "Explore Hafida Belayd's data analysis and AI projects. View Python, Machine Learning, Power BI, and data visualization projects with GitHub links and live demos.",
+    url: "https://hafida-belayd.netlify.app/projects",
     type: "website",
     siteName: "Hafida Belayd Portfolio",
   },
   twitter: {
     title: "Projects - Data Analysis & AI Portfolio | Hafida Belayd",
-    description: "Explore Hafida Belayd's data science projects, AI applications, and web development work. Python, machine learning, and data visualization.",
+    description: "Explore Hafida Belayd's data analysis and AI projects. View Python, Machine Learning, Power BI, and data visualization projects with GitHub links and live demos.",
     card: "summary_large_image",
   },
   alternates: {
-    canonical: "https://hafida-belayd.me//projects",
+    canonical: "https://hafida-belayd.netlify.app/projects",
   },
 };
 

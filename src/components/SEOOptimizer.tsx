@@ -1,6 +1,5 @@
 import React from 'react';
 import Head from 'next/head';
-import { safeJsonStringify } from '@/lib/json-serializer';
 
 interface SEOOptimizerProps {
   title?: string;
@@ -35,7 +34,7 @@ export default function SEOOptimizer({
   nofollow = false,
   canonical,
 }: SEOOptimizerProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hafida-belayd.me/';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hafida-belayd.netlify.app';
   const defaultImage = `${baseUrl}/og-image.png`;
   const defaultTitle = 'Hafida Belayd - Data Analyst & AI Specialist';
   const defaultDescription = 'Hafida Belayd is a Data Analyst and AI Specialist based in Morocco. Expert in Python, Machine Learning, Power BI, and data visualization.';
@@ -107,7 +106,7 @@ export default function SEOOptimizer({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: safeJsonStringify({
+            __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Article',
               headline: metaTitle,

@@ -57,7 +57,7 @@ YOUR EXPERTISE:
 YOUR CONTACT INFORMATION:
 - Email: hafidabelaidagnaoui@gmail.com
 - LinkedIn: https://www.linkedin.com/in/hafida-belayd
-- Portfolio: https://hafida-belayd.me//
+- Portfolio: https://hafida-belayd.netlify.app/
 - GitHub: https://github.com/hafidaso
 
 IMPORTANT LINK FORMATTING:
@@ -400,7 +400,7 @@ export class AIChatService {
 🌐 **Web Development:** Modern portfolio sites, e-commerce platforms, and WordPress solutions
 🎨 **Creative Design:** Brand identity work, social media content, video production, and 3D modeling
 
-Which area interests you most? You can also view her complete portfolio at https://hafida-belayd.me// or reach out directly at hafidabelaidagnaoui@gmail.com.`;
+Which area interests you most? You can also view her complete portfolio at https://hafida-belayd.netlify.app/ or reach out directly at hafidabelaidagnaoui@gmail.com.`;
     }
 
     if (messageLower.includes('skill') || messageLower.includes('expertise')) {
@@ -423,7 +423,7 @@ What specific skills or projects would you like to know more about?`;
 
 📧 **Email:** hafidabelaidagnaoui@gmail.com
 💼 **LinkedIn:** [LinkedIn](https://www.linkedin.com/in/hafida-belayd)
-🌐 **Portfolio:** [My Portfolio](https://hafida-belayd.me//)
+🌐 **Portfolio:** [My Portfolio](https://hafida-belayd.netlify.app/)
 💻 **GitHub:** [GitHub](https://github.com/hafidaso)
 
 I'm always interested in discussing new projects and collaboration opportunities across data science, web development, and creative design. Feel free to reach out directly!`;

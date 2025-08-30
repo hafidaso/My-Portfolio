@@ -2,27 +2,21 @@ import React from 'react';
 import AboutMe from '@/components/AboutMe';
 import Technologies from '@/components/Technologies';
 import FeaturedProjects from '@/components/FeaturedProjects';
-import {
-  LazyGitHubStats,
-  LazyTimeline,
-  LazyLatestPosts,
-  LazyLanguages,
-  LazyHobbies
-} from '@/components/LazyClientComponents';
+import LatestPosts from '@/components/LatestPosts';
+import GitHubStats from '@/components/GitHubStats';
+import Timeline from '@/components/Timeline';
+import Languages from '@/components/Languages';
+import Hobbies from '@/components/Hobbies';
 import HomePageJsonLd from '@/components/HomePageJsonLd';
 import { getSortedPostsData } from '@/lib/markdown';
-import { sanitizeForSerialization } from '@/lib/json-serializer';
 
 const HomePage: React.FC = async () => {
   try {
     const allPosts = await getSortedPostsData();
     console.log('HomePage: All posts loaded:', allPosts);
     
-    // Thoroughly sanitize posts for serialization
-    const rawPosts = allPosts.slice(0, 3);
-    const serializedPosts = sanitizeForSerialization(rawPosts);
-    
-    console.log('HomePage: Serialized posts for display:', serializedPosts);
+    const latestPosts = allPosts.slice(0, 3);
+    console.log('HomePage: Latest posts for display:', latestPosts);
     
     return (
       <>
@@ -34,7 +28,7 @@ const HomePage: React.FC = async () => {
             <AboutMe />
           </div>
           <div>
-            <LazyGitHubStats />
+            <GitHubStats />
           </div>
         </div>
 
@@ -52,22 +46,22 @@ const HomePage: React.FC = async () => {
 
           {/* Timeline - Spans full width */}
           <div className="lg:col-span-3">
-            <LazyTimeline />
+            <Timeline />
           </div>
 
           {/* Latest Posts */}
           <div className="lg:col-span-2">
-            <LazyLatestPosts posts={serializedPosts} />
+            <LatestPosts posts={latestPosts} />
           </div>
 
           {/* Languages */}
           <div>
-            <LazyLanguages />
+            <Languages />
           </div>
 
           {/* Hobbies */}
           <div className="lg:col-span-3">
-            <LazyHobbies />
+            <Hobbies />
           </div>
         </div>
       </main>
@@ -87,7 +81,7 @@ const HomePage: React.FC = async () => {
             <AboutMe />
           </div>
           <div>
-            <LazyGitHubStats />
+            <GitHubStats />
           </div>
         </div>
 
@@ -105,7 +99,7 @@ const HomePage: React.FC = async () => {
 
           {/* Timeline - Spans full width */}
           <div className="lg:col-span-3">
-            <LazyTimeline />
+            <Timeline />
           </div>
 
           {/* Latest Posts - Show error state */}
@@ -128,12 +122,12 @@ const HomePage: React.FC = async () => {
 
           {/* Languages */}
           <div>
-            <LazyLanguages />
+            <Languages />
           </div>
 
           {/* Hobbies */}
           <div className="lg:col-span-3">
-            <LazyHobbies />
+            <Hobbies />
           </div>
         </div>
       </main>

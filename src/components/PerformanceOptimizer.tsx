@@ -14,7 +14,7 @@ export default function PerformanceOptimizer({
   preconnectDomains = [],
   dnsPrefetch = [],
 }: PerformanceOptimizerProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hafida-belayd.me/';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hafida-belayd.netlify.app';
 
   return (
     <Head>

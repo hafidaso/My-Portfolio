@@ -164,7 +164,7 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 
 - **Email**: [hafidabelaidagnaoui@gmail.com](mailto:hafidabelaidagnaoui@gmail.com)
 - **LinkedIn**: [hafida-belayd](https://www.linkedin.com/in/hafida-belayd)
-- **Portfolio**: [hafida-belayd.netlify.app](https://hafida-belayd.me/)
+- **Portfolio**: [hafida-belayd.netlify.app](https://hafida-belayd.netlify.app)
 - **GitHub**: [hafidaso](https://github.com/hafidaso)
 
 ---

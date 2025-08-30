@@ -67,8 +67,8 @@ export async function analyzeRepository(owner: string, repoName: string): Promis
            const content = Buffer.from(packageJson.data.content, 'base64').toString('utf-8');
            const pkg = JSON.parse(content);
            dependencies = [
-             ...(pkg.dependencies ? Object.keys(pkg.dependencies) : []),
-             ...(pkg.devDependencies ? Object.keys(pkg.devDependencies) : [])
+             ...Object.keys(pkg.dependencies || {}),
+             ...Object.keys(pkg.devDependencies || {})
            ];
          }
       } catch (error) {

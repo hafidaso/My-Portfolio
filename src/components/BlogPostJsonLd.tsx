@@ -1,6 +1,5 @@
 import React from 'react';
 import resumeData from '@/data/resumeData.json';
-import { safeJsonStringify } from '@/lib/json-serializer';
 
 interface BlogPostJsonLdProps {
   post: {
@@ -16,7 +15,7 @@ interface BlogPostJsonLdProps {
 }
 
 export default function BlogPostJsonLd({ post }: BlogPostJsonLdProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hafida-belayd.me/';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hafida-belayd.netlify.app';
   
   const articleSchema = {
     '@context': 'https://schema.org',
@@ -138,17 +137,17 @@ export default function BlogPostJsonLd({ post }: BlogPostJsonLdProps) {
     React.createElement('script', {
       key: 'article-schema',
       type: 'application/ld+json',
-      dangerouslySetInnerHTML: { __html: safeJsonStringify(articleSchema) }
+      dangerouslySetInnerHTML: { __html: JSON.stringify(articleSchema) }
     }),
     React.createElement('script', {
       key: 'breadcrumb-schema',
       type: 'application/ld+json',
-      dangerouslySetInnerHTML: { __html: safeJsonStringify(breadcrumbSchema) }
+      dangerouslySetInnerHTML: { __html: JSON.stringify(breadcrumbSchema) }
     }),
     React.createElement('script', {
       key: 'webpage-schema',
       type: 'application/ld+json',
-      dangerouslySetInnerHTML: { __html: safeJsonStringify(webPageSchema) }
+      dangerouslySetInnerHTML: { __html: JSON.stringify(webPageSchema) }
     })
   ]);
 } 

@@ -5,7 +5,7 @@ import { getSortedPostsData, getAllCategories, getAllTags } from "@/lib/markdown
 
 export const metadata: Metadata = {
   title: "Blog - Data Science & AI Articles",
-  description: "Data science articles and AI tutorials by Hafida Belayd. Python programming, machine learning insights, and data analysis guides.",
+  description: "Read Hafida Belayd's blog posts about data science, Python programming, machine learning, AI, and data analysis. Expert insights and tutorials for data professionals.",
   keywords: [
     "Data Science Blog",
     "Python Tutorials",
@@ -22,18 +22,18 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "Blog - Data Science & AI Articles | Hafida Belayd",
-    description: "Data science articles and AI tutorials by Hafida Belayd. Python programming, machine learning insights, and data analysis guides.",
-    url: "https://hafida-belayd.me//blog",
+    description: "Read Hafida Belayd's blog posts about data science, Python programming, machine learning, AI, and data analysis. Expert insights and tutorials.",
+    url: "https://hafida-belayd.netlify.app/blog",
     type: "website",
     siteName: "Hafida Belayd Portfolio",
   },
   twitter: {
     title: "Blog - Data Science & AI Articles | Hafida Belayd",
-    description: "Data science articles and AI tutorials by Hafida Belayd. Python programming, machine learning insights, and data analysis guides.",
+    description: "Read Hafida Belayd's blog posts about data science, Python programming, machine learning, AI, and data analysis. Expert insights and tutorials.",
     card: "summary_large_image",
   },
   alternates: {
-    canonical: "https://hafida-belayd.me//blog",
+    canonical: "https://hafida-belayd.netlify.app/blog",
   },
 };
 
