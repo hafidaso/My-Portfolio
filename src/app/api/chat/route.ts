@@ -140,7 +140,7 @@ Would you like to know more about any specific area of my expertise?`;
 **Contact Me:**
 📧 hafidabelaidagnaoui@gmail.com
 💼 [LinkedIn](https://www.linkedin.com/in/hafida-belayd)
-🌐 Portfolio: https://hafida-belayd.netlify.app/
+🌐 Portfolio: https://hafida-belayd.me/
 
 How can I help you with your project?`;
 }

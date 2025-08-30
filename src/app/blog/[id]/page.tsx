@@ -68,7 +68,7 @@ export async function generateMetadata({
       title: postData.title,
       description: postData.description,
       type: 'article',
-      url: `https://hafida-belayd.netlify.app/blog/${id}`,
+      url: `https://hafida-belayd.me/blog/${id}`,
       images: [
         {
           url: `/images/${id}.png`,

@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Projects - Data Analysis & AI Portfolio | Hafida Belayd",
     description: "Explore Hafida Belayd's data analysis and AI projects. View Python, Machine Learning, Power BI, and data visualization projects with GitHub links and live demos.",
-    url: "https://hafida-belayd.netlify.app/projects",
+    url: "https://hafida-belayd.me/projects",
     type: "website",
     siteName: "Hafida Belayd Portfolio",
   },
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
   },
   alternates: {
-    canonical: "https://hafida-belayd.netlify.app/projects",
+    canonical: "https://hafida-belayd.me/projects",
   },
 };
 

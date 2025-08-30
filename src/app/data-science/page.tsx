@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "MY PLANET IN DATA - Data Science Projects | Hafida Belayd",
     description: "Explore Hafida Belayd's data science and data analysis projects. Discover insights from comprehensive datasets covering renewable energy, machine learning, and statistical analysis.",
-    url: "https://hafida-belayd.netlify.app/data-science",
+    url: "https://hafida-belayd.me/data-science",
     type: "website",
     siteName: "Hafida Belayd Portfolio",
   },
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
   },
   alternates: {
-    canonical: "https://hafida-belayd.netlify.app/data-science",
+    canonical: "https://hafida-belayd.me/data-science",
   },
 };
 
