@@ -2,7 +2,7 @@ import React from 'react';
 import resumeData from '@/data/resumeData.json';
 
 export default function HomePageJsonLd() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hafida-belayd.netlify.app';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hafida-belayd.me/';
 
   const personSchema = {
     '@context': 'https://schema.org',

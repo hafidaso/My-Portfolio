@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     "Data Engineering",
     "Deep Learning"
   ],
-  authors: [{ name: "Hafida Belayd", url: "https://hafida-belayd.netlify.app" }],
+  authors: [{ name: "Hafida Belayd", url: "https://hafida-belayd.me/" }],
   creator: "Hafida Belayd",
   publisher: "Hafida Belayd",
   formatDetection: {
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://hafida-belayd.netlify.app'),
+  metadataBase: new URL('https://hafida-belayd.me/'),
   alternates: {
     canonical: '/',
     languages: {
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://hafida-belayd.netlify.app',
+    url: 'https://hafida-belayd.me/',
     title: 'Hafida Belayd — Data Analyst & AI Specialist',
     description: 'Hafida Belayd — Data Analyst & AI Specialist. Developer & Designer | Expert in Python, Machine Learning, and Data Visualization. Based in Morocco.',
     siteName: 'Hafida Belayd Portfolio',
@@ -136,7 +136,7 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png" />
         <link rel="shortcut icon" href="/favicon.ico" />
-        <link rel="canonical" href="https://hafida-belayd.netlify.app" />
+        <link rel="canonical" href="https://hafida-belayd.me/" />
         <link rel="alternate" type="application/rss+xml" title="Hafida Belayd Blog RSS" href="/rss.xml" />
         <link rel="alternate" type="application/atom+xml" title="Hafida Belayd Blog Atom" href="/atom.xml" />
         {/* Google tag (gtag.js) */}

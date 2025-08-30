@@ -34,7 +34,7 @@ export default function SEOOptimizer({
   nofollow = false,
   canonical,
 }: SEOOptimizerProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hafida-belayd.netlify.app';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hafida-belayd.me/';
   const defaultImage = `${baseUrl}/og-image.png`;
   const defaultTitle = 'Hafida Belayd - Data Analyst & AI Specialist';
   const defaultDescription = 'Hafida Belayd is a Data Analyst and AI Specialist based in Morocco. Expert in Python, Machine Learning, Power BI, and data visualization.';
