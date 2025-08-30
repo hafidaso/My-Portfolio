@@ -55,8 +55,8 @@ const ProjectsGrid: React.FC = () => {
     if (matchedSkill) {
       return {
         name: matchedSkill.name,
-        icon: matchedSkill.icon,
-        color: matchedSkill.color
+        icon: matchedSkill.icon || 'SiGithub',
+        color: matchedSkill.color || '#6e7681'
       };
     }
 
@@ -76,7 +76,11 @@ const ProjectsGrid: React.FC = () => {
 
     const defaultTech = defaultMappings[topic.toLowerCase()];
     if (defaultTech) {
-      return defaultTech;
+      return {
+        name: defaultTech.name,
+        icon: defaultTech.icon,
+        color: defaultTech.color
+      };
     }
 
     // For unknown technologies, create a generic entry
@@ -106,19 +110,22 @@ const ProjectsGrid: React.FC = () => {
         );
 
         const getValidDateString = (dateString: string | null | undefined): string => {
-          if (dateString && !isNaN(Date.parse(dateString))) {
-            return new Date(dateString).toISOString();
+          if (!dateString) return new Date().toISOString();
+          try {
+            const date = new Date(dateString);
+            return isNaN(date.getTime()) ? new Date().toISOString() : date.toISOString();
+          } catch {
+            return new Date().toISOString();
           }
-          return new Date().toISOString();
         };
 
         const latestCommitDate = commits[0]?.commit?.author?.date || repo.updated_at;
 
-        return {
-          title: repo.name,
+        const project: Project = {
+          title: repo.name || 'Untitled Project',
           description: repo.description || 'No description available',
           technologies: (repo.topics || []).map(mapTopicToTechnology),
-          githubLink: repo.html_url,
+          githubLink: repo.html_url || '',
           liveLink: repo.homepage || undefined,
           stars: repo.stargazers_count || 0,
           forks: repo.forks_count || 0,
@@ -126,6 +133,8 @@ const ProjectsGrid: React.FC = () => {
           latestCommitDate: getValidDateString(latestCommitDate),
           isOwn: !repo.fork,
         };
+
+        return project;
       }));
 
       const sortedProjects = allProjects.sort((a, b) =>
@@ -311,7 +320,17 @@ const ProjectsGrid: React.FC = () => {
         ) : (
           <>
             {visibleItems.map((project, index) => (
-              <ProjectCard key={index} {...project} />
+              <ProjectCard 
+                key={`${project.title}-${index}`}
+                title={project.title}
+                description={project.description}
+                technologies={project.technologies}
+                githubLink={project.githubLink}
+                liveLink={project.liveLink}
+                stars={project.stars}
+                forks={project.forks}
+                lastUpdated={project.lastUpdated}
+              />
             ))}
             {hasMore && (
               <div className="col-span-full flex justify-center py-4">
