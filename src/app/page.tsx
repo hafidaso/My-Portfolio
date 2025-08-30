@@ -1,24 +1,16 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import AboutMe from '@/components/AboutMe';
 import Technologies from '@/components/Technologies';
 import FeaturedProjects from '@/components/FeaturedProjects';
-import LoadingAnimation from '@/components/LoadingAnimation';
-import { LazyOnScroll } from '@/components/LazyComponent';
+import {
+  LazyGitHubStats,
+  LazyTimeline,
+  LazyLatestPosts,
+  LazyLanguages,
+  LazyHobbies
+} from '@/components/LazyClientComponents';
 import HomePageJsonLd from '@/components/HomePageJsonLd';
 import { getSortedPostsData } from '@/lib/markdown';
-
-// Lazy load non-critical components
-const LatestPosts = React.lazy(() => import('@/components/LatestPosts'));
-const GitHubStats = React.lazy(() => import('@/components/GitHubStats'));
-const Timeline = React.lazy(() => import('@/components/Timeline'));
-const Languages = React.lazy(() => import('@/components/Languages'));
-const Hobbies = React.lazy(() => import('@/components/Hobbies'));
-
-const LoadingFallback = ({ height = "200px" }: { height?: string }) => (
-  <div className="flex justify-center items-center" style={{ minHeight: height }}>
-    <LoadingAnimation type="spinner" size="md" color="primary" />
-  </div>
-);
 
 const HomePage: React.FC = async () => {
   try {
@@ -38,11 +30,7 @@ const HomePage: React.FC = async () => {
             <AboutMe />
           </div>
           <div>
-            <LazyOnScroll fallback={<LoadingFallback height="300px" />}>
-              <Suspense fallback={<LoadingFallback height="300px" />}>
-                <GitHubStats />
-              </Suspense>
-            </LazyOnScroll>
+            <LazyGitHubStats />
           </div>
         </div>
 
@@ -60,38 +48,22 @@ const HomePage: React.FC = async () => {
 
           {/* Timeline - Spans full width */}
           <div className="lg:col-span-3">
-            <LazyOnScroll fallback={<LoadingFallback height="400px" />}>
-              <Suspense fallback={<LoadingFallback height="400px" />}>
-                <Timeline />
-              </Suspense>
-            </LazyOnScroll>
+            <LazyTimeline />
           </div>
 
           {/* Latest Posts */}
           <div className="lg:col-span-2">
-            <LazyOnScroll fallback={<LoadingFallback height="300px" />}>
-              <Suspense fallback={<LoadingFallback height="300px" />}>
-                <LatestPosts posts={latestPosts} />
-              </Suspense>
-            </LazyOnScroll>
+            <LazyLatestPosts posts={latestPosts} />
           </div>
 
           {/* Languages */}
           <div>
-            <LazyOnScroll fallback={<LoadingFallback height="300px" />}>
-              <Suspense fallback={<LoadingFallback height="300px" />}>
-                <Languages />
-              </Suspense>
-            </LazyOnScroll>
+            <LazyLanguages />
           </div>
 
           {/* Hobbies */}
           <div className="lg:col-span-3">
-            <LazyOnScroll fallback={<LoadingFallback height="250px" />}>
-              <Suspense fallback={<LoadingFallback height="250px" />}>
-                <Hobbies />
-              </Suspense>
-            </LazyOnScroll>
+            <LazyHobbies />
           </div>
         </div>
       </main>
@@ -111,7 +83,7 @@ const HomePage: React.FC = async () => {
             <AboutMe />
           </div>
           <div>
-            <GitHubStats />
+            <LazyGitHubStats />
           </div>
         </div>
 
@@ -129,7 +101,7 @@ const HomePage: React.FC = async () => {
 
           {/* Timeline - Spans full width */}
           <div className="lg:col-span-3">
-            <Timeline />
+            <LazyTimeline />
           </div>
 
           {/* Latest Posts - Show error state */}
@@ -152,12 +124,12 @@ const HomePage: React.FC = async () => {
 
           {/* Languages */}
           <div>
-            <Languages />
+            <LazyLanguages />
           </div>
 
           {/* Hobbies */}
           <div className="lg:col-span-3">
-            <Hobbies />
+            <LazyHobbies />
           </div>
         </div>
       </main>
