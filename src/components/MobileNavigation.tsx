@@ -17,50 +17,24 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
   const [locked, setLocked] = useState(false);
-  const [debugInfo, setDebugInfo] = useState({
-    isMobile: false,
-    touchSupported: false,
-    viewportWidth: 0,
-    viewportHeight: 0,
-    lastClickTime: 0,
-    clickCount: 0
-  });
+  const [isMobile, setIsMobile] = useState(false);
+  const [lastClickTime, setLastClickTime] = useState(0);
 
   useEffect(() => {
     setMounted(true);
     
-    // Enhanced debugging information
-    const updateDebugInfo = () => {
-      const isMobile = window.innerWidth <= 768;
-      const touchSupported = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-      
-      setDebugInfo({
-        isMobile,
-        touchSupported,
-        viewportWidth: window.innerWidth,
-        viewportHeight: window.innerHeight,
-        lastClickTime: debugInfo.lastClickTime,
-        clickCount: debugInfo.clickCount
-      });
-      
-      console.log('[MobileNavigation] Debug Info:', {
-        isMobile,
-        touchSupported,
-        viewportWidth: window.innerWidth,
-        viewportHeight: window.innerHeight,
-        userAgent: navigator.userAgent,
-        pathname
-      });
+    // Check if mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
     };
 
-    updateDebugInfo();
-    window.addEventListener('resize', updateDebugInfo);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
     
-    console.log('[MobileNavigation] Mounted with props:', { isOpen, pathname });
+
     
     return () => {
-      window.removeEventListener('resize', updateDebugInfo);
-      console.log('[MobileNavigation] Unmounted');
+      window.removeEventListener('resize', checkMobile);
     };
   }, [isOpen, pathname]);
 
@@ -70,11 +44,11 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
       if (isOpen) {
         document.body.style.overflow = 'hidden';
         document.body.classList.add('menu-open');
-        console.log('[MobileNavigation] Menu opened, body overflow hidden');
+
       } else {
         document.body.style.overflow = '';
         document.body.classList.remove('menu-open');
-        console.log('[MobileNavigation] Menu closed, body overflow reset');
+
       }
     } catch (error) {
       console.error('[MobileNavigation] Error setting body overflow:', error);
@@ -84,7 +58,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
       try {
         document.body.style.overflow = '';
         document.body.classList.remove('menu-open');
-        console.log('[MobileNavigation] Cleanup: body overflow reset');
+
       } catch (error) {
         console.error('[MobileNavigation] Error in cleanup:', error);
       }
@@ -95,41 +69,30 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
   const handleToggle = (event?: React.MouseEvent | React.TouchEvent) => {
     try {
       const now = Date.now();
-      const timeSinceLastClick = now - debugInfo.lastClickTime;
+      const timeSinceLastClick = now - lastClickTime;
       
-      console.log('[MobileNavigation] handleToggle called', {
-        isOpen,
-        locked,
-        timeSinceLastClick,
-        eventType: event?.type,
-        target: event?.target,
-        currentTarget: event?.currentTarget
-      });
+
 
       if (locked) {
-        console.log('[MobileNavigation] Toggle locked, ignoring click');
+
         return;
       }
 
       // Prevent rapid clicking
       if (timeSinceLastClick < 100) {
-        console.log('[MobileNavigation] Click too fast, ignoring');
+
         return;
       }
 
       setLocked(true);
-      setDebugInfo(prev => ({
-        ...prev,
-        lastClickTime: now,
-        clickCount: prev.clickCount + 1
-      }));
+      setLastClickTime(now);
 
-      console.log('[MobileNavigation] Calling onToggle, current isOpen:', isOpen);
+
       onToggle();
       
       setTimeout(() => {
         setLocked(false);
-        console.log('[MobileNavigation] Lock released');
+
       }, 350); // match animation duration
       
     } catch (error) {
@@ -140,17 +103,11 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
 
   // Handle touch events specifically
   const handleTouchStart = (event: React.TouchEvent) => {
-    console.log('[MobileNavigation] Touch start detected', {
-      touches: event.touches.length,
-      target: event.target
-    });
+    // Touch event handling
   };
 
   const handleTouchEnd = (event: React.TouchEvent) => {
-    console.log('[MobileNavigation] Touch end detected', {
-      touches: event.touches.length,
-      target: event.target
-    });
+    // Touch event handling
   };
 
   const navItems = [
@@ -169,8 +126,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
   ];
 
   // Don't render on desktop
-  if (!debugInfo.isMobile && mounted) {
-    console.log('[MobileNavigation] Not rendering on desktop');
+  if (!isMobile && mounted) {
     return null;
   }
 
@@ -287,7 +243,6 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
                   key={item.href}
                   href={item.href}
                   onClick={() => {
-                    console.log('[MobileNavigation] Navigation item clicked:', item.href);
                     handleToggle();
                   }}
                   onTouchStart={handleTouchStart}
@@ -323,7 +278,6 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => {
-                      console.log('[MobileNavigation] Social link clicked:', link.href);
                       handleToggle();
                     }}
                     onTouchStart={handleTouchStart}
