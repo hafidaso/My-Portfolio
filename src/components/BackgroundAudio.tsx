@@ -1,18 +1,34 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 
-const AUDIO_SRC = "/beethoven-fur-elise-relaxing-classical-piano-268551.mp3"; // Place your Beethoven music file in public/
+const AUDIO_SRC = "/beethoven-fur-elise-relaxing-classical-piano-268551.mp3";
+
+const isDesktop = () => typeof window !== 'undefined' && window.innerWidth >= 768;
 
 const BackgroundAudio: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [showAudio, setShowAudio] = useState(isDesktop());
 
   useEffect(() => {
+    const handleResize = () => {
+      const desktop = isDesktop();
+      setShowAudio(desktop);
+      if (!desktop && audioRef.current) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (!showAudio) return;
     const audio = audioRef.current;
     if (audio) {
-      audio.volume = 0.08; // slightly lower volume
+      audio.volume = 0.08;
       audio.loop = true;
-      // Try to autoplay after user gesture
       const playAudio = () => {
         if (!isPlaying) {
           audio.play().then(() => setIsPlaying(true)).catch(() => {});
@@ -23,12 +39,11 @@ const BackgroundAudio: React.FC = () => {
       window.addEventListener('click', playAudio);
       window.addEventListener('keydown', playAudio);
     }
-    // Cleanup
     return () => {
       window.removeEventListener('click', () => {});
       window.removeEventListener('keydown', () => {});
     };
-  }, [isPlaying]);
+  }, [isPlaying, showAudio]);
 
   const handlePlayPause = () => {
     const audio = audioRef.current;
@@ -40,6 +55,8 @@ const BackgroundAudio: React.FC = () => {
       audio.play().then(() => setIsPlaying(true)).catch(() => {});
     }
   };
+
+  if (!showAudio) return null;
 
   return (
     <>
