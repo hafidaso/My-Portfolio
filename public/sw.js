@@ -2,17 +2,8 @@ const CACHE_NAME = 'my-portfolio-v1';
 const ASSETS_TO_CACHE = [
   '/',
   '/manifest.json',
-  '/favicon.ico',
-  '/vercel.svg',
-  // CSS & JS (add your actual CSS/JS files if different)
-  '/styles.css',
-  '/main.js',
-  // Manifest icons
-  '/icons/icon-16x16.png',
-  '/icons/icon-32x32.png',
   '/icons/icon-192x192.png',
   '/icons/icon-512x512.png',
-  // Audio
   '/beethoven-fur-elise-relaxing-classical-piano-268551.mp3',
   // Add more assets as needed
 ];
@@ -41,6 +32,7 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     fetch(event.request)
       .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
         const clone = response.clone();
         caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
         return response;
@@ -52,9 +44,10 @@ self.addEventListener('fetch', event => {
             return caches.match('/icons/icon-192x192.png');
           }
           if (event.request.destination === 'audio') {
+            // Return a silent mp3 or empty response
             return new Response('', { status: 200 });
           }
-          return new Response('Offline', { status: 503 });
+          return new Response('Resource not available offline', { status: 404 });
         })
       )
   );
