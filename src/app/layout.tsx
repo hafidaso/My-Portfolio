@@ -7,6 +7,7 @@ import JsonLd from "@/components/JsonLd";
 import CustomCursor from "@/components/CustomCursor";
 import BackToTop from "@/components/BackToTop";
 import HydrationErrorBoundary from "@/components/HydrationErrorBoundary";
+import MobileDebugger from "@/components/MobileDebugger";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -163,6 +164,7 @@ export default function RootLayout({
                 </main>
                 <Footer />
                 <BackToTop />
+                <MobileDebugger />
               </div>
             </HydrationErrorBoundary>
           </NextUIProvider>

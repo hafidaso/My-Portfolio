@@ -94,57 +94,65 @@ body {
   background: linear-gradient(45deg, #ea580c, #9333ea);
 }
 
-/* Mobile-specific styles */
+/* Mobile Navigation Fixes */
 @media (max-width: 768px) {
-  /* Disable custom cursor on mobile */
-  body {
-    cursor: auto !important;
+  /* Ensure mobile navigation has highest priority */
+  .mobile-navigation,
+  .md\:hidden.fixed {
+    z-index: 9999 !important;
+    position: fixed !important;
   }
   
-  /* Optimize touch targets */
-  button, a, [role="button"], input[type="submit"], input[type="button"] {
-    min-height: 48px;
-    min-width: 48px;
+  /* Prevent other elements from interfering with mobile nav */
+  .fixed.bottom-4.right-4 {
+    z-index: 40 !important;
   }
   
-  /* Improve scrolling performance */
-  * {
-    -webkit-overflow-scrolling: touch;
+  .fixed.bottom-8.right-8 {
+    z-index: 50 !important;
   }
   
-  /* Optimize animations for mobile */
-  .animate-pulse {
-    animation-duration: 2s;
-  }
-  
-  /* Reduce particle count on mobile */
-  canvas {
-    opacity: 0.2;
-  }
-  
-  /* Prevent zoom on form inputs */
-  input, textarea, select {
-    font-size: 16px !important;
-  }
-  
-  /* Improve chat box mobile layout */
-  .fixed.bottom-16 {
-    bottom: 1rem !important;
-    left: 1rem;
-    right: 1rem;
-    width: auto !important;
-    max-width: none !important;
-  }
-  
-  /* Better mobile navigation */
-  .md\:hidden {
-    display: block !important;
-  }
-  
-  /* Ensure navigation links are clickable */
-  nav a, .mobile-navigation a {
+  /* Ensure mobile menu button is always clickable */
+  button[aria-label="Toggle mobile menu"] {
+    z-index: 9999 !important;
+    position: fixed !important;
     pointer-events: auto !important;
     touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+    user-select: none !important;
+  }
+  
+  /* Ensure backdrop doesn't interfere with button */
+  .fixed.inset-0.z-40 {
+    z-index: 40 !important;
+  }
+  
+  /* Ensure mobile menu content is above everything */
+  .fixed.top-0.right-0.z-50 {
+    z-index: 9999 !important;
+  }
+  
+  /* Prevent body scroll when menu is open */
+  body.menu-open {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+  }
+  
+  /* Ensure all interactive elements work on mobile */
+  button, a, [role="button"] {
+    min-height: 48px !important;
+    min-width: 48px !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+  
+  /* Fix for iOS Safari */
+  @supports (-webkit-touch-callout: none) {
+    button, a, [role="button"] {
+      -webkit-appearance: none !important;
+      appearance: none !important;
+    }
   }
 }
 

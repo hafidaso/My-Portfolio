@@ -17,36 +17,140 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
   const [locked, setLocked] = useState(false);
+  const [debugInfo, setDebugInfo] = useState({
+    isMobile: false,
+    touchSupported: false,
+    viewportWidth: 0,
+    viewportHeight: 0,
+    lastClickTime: 0,
+    clickCount: 0
+  });
 
   useEffect(() => {
     setMounted(true);
-    console.log('[MobileNavigation] Mounted');
-  }, []);
+    
+    // Enhanced debugging information
+    const updateDebugInfo = () => {
+      const isMobile = window.innerWidth <= 768;
+      const touchSupported = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      
+      setDebugInfo({
+        isMobile,
+        touchSupported,
+        viewportWidth: window.innerWidth,
+        viewportHeight: window.innerHeight,
+        lastClickTime: debugInfo.lastClickTime,
+        clickCount: debugInfo.clickCount
+      });
+      
+      console.log('[MobileNavigation] Debug Info:', {
+        isMobile,
+        touchSupported,
+        viewportWidth: window.innerWidth,
+        viewportHeight: window.innerHeight,
+        userAgent: navigator.userAgent,
+        pathname
+      });
+    };
+
+    updateDebugInfo();
+    window.addEventListener('resize', updateDebugInfo);
+    
+    console.log('[MobileNavigation] Mounted with props:', { isOpen, pathname });
+    
+    return () => {
+      window.removeEventListener('resize', updateDebugInfo);
+      console.log('[MobileNavigation] Unmounted');
+    };
+  }, [isOpen, pathname]);
 
   // Lock background scroll when menu is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-      console.log('[MobileNavigation] Menu opened');
-    } else {
-      document.body.style.overflow = '';
-      console.log('[MobileNavigation] Menu closed');
+    try {
+      if (isOpen) {
+        document.body.style.overflow = 'hidden';
+        document.body.classList.add('menu-open');
+        console.log('[MobileNavigation] Menu opened, body overflow hidden');
+      } else {
+        document.body.style.overflow = '';
+        document.body.classList.remove('menu-open');
+        console.log('[MobileNavigation] Menu closed, body overflow reset');
+      }
+    } catch (error) {
+      console.error('[MobileNavigation] Error setting body overflow:', error);
     }
+    
     return () => {
-      document.body.style.overflow = '';
+      try {
+        document.body.style.overflow = '';
+        document.body.classList.remove('menu-open');
+        console.log('[MobileNavigation] Cleanup: body overflow reset');
+      } catch (error) {
+        console.error('[MobileNavigation] Error in cleanup:', error);
+      }
     };
   }, [isOpen]);
 
-  // Debounce toggle to prevent rapid state changes
-  const handleToggle = () => {
-    if (locked) {
-      console.log('[MobileNavigation] Toggle locked, ignoring click');
-      return;
+  // Enhanced toggle handler with better error handling
+  const handleToggle = (event?: React.MouseEvent | React.TouchEvent) => {
+    try {
+      const now = Date.now();
+      const timeSinceLastClick = now - debugInfo.lastClickTime;
+      
+      console.log('[MobileNavigation] handleToggle called', {
+        isOpen,
+        locked,
+        timeSinceLastClick,
+        eventType: event?.type,
+        target: event?.target,
+        currentTarget: event?.currentTarget
+      });
+
+      if (locked) {
+        console.log('[MobileNavigation] Toggle locked, ignoring click');
+        return;
+      }
+
+      // Prevent rapid clicking
+      if (timeSinceLastClick < 100) {
+        console.log('[MobileNavigation] Click too fast, ignoring');
+        return;
+      }
+
+      setLocked(true);
+      setDebugInfo(prev => ({
+        ...prev,
+        lastClickTime: now,
+        clickCount: prev.clickCount + 1
+      }));
+
+      console.log('[MobileNavigation] Calling onToggle, current isOpen:', isOpen);
+      onToggle();
+      
+      setTimeout(() => {
+        setLocked(false);
+        console.log('[MobileNavigation] Lock released');
+      }, 350); // match animation duration
+      
+    } catch (error) {
+      console.error('[MobileNavigation] Error in handleToggle:', error);
+      setLocked(false);
     }
-    setLocked(true);
-    console.log('[MobileNavigation] handleToggle called, isOpen:', isOpen);
-    onToggle();
-    setTimeout(() => setLocked(false), 350); // match animation duration
+  };
+
+  // Handle touch events specifically
+  const handleTouchStart = (event: React.TouchEvent) => {
+    console.log('[MobileNavigation] Touch start detected', {
+      touches: event.touches.length,
+      target: event.target
+    });
+  };
+
+  const handleTouchEnd = (event: React.TouchEvent) => {
+    console.log('[MobileNavigation] Touch end detected', {
+      touches: event.touches.length,
+      target: event.target
+    });
   };
 
   const navItems = [
@@ -64,16 +168,29 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
     { href: 'https://linkedin.com/in/hafida-belayd', label: 'LinkedIn', icon: Linkedin },
   ];
 
+  // Don't render on desktop
+  if (!debugInfo.isMobile && mounted) {
+    console.log('[MobileNavigation] Not rendering on desktop');
+    return null;
+  }
+
   return (
     <>
       {/* Mobile Menu Button */}
       <motion.button
         className="md:hidden fixed top-4 right-4 z-50 p-3 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 min-h-[48px] min-w-[48px] touch-manipulation"
         onClick={handleToggle}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
         whileTap={{ scale: 0.95 }}
         whileHover={{ scale: 1.05 }}
         aria-label="Toggle mobile menu"
         type="button"
+        style={{ 
+          touchAction: 'manipulation',
+          WebkitTapHighlightColor: 'transparent',
+          userSelect: 'none'
+        }}
       >
         <AnimatePresence mode="wait">
           {isOpen ? (
@@ -110,7 +227,10 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={handleToggle}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
             aria-label="Close menu backdrop"
+            style={{ touchAction: 'manipulation' }}
           />
         )}
       </AnimatePresence>
@@ -124,6 +244,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            style={{ touchAction: 'manipulation' }}
           >
             {/* Header */}
             <div className="p-4 border-b border-gray-200 dark:border-gray-600 flex justify-between items-center bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
@@ -137,6 +258,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
                     onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                     className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                     aria-label="Toggle theme"
+                    style={{ touchAction: 'manipulation' }}
                   >
                     {theme === 'dark' ? (
                       <Sun className="w-4 h-4 text-gray-600 dark:text-gray-300" />
@@ -148,7 +270,10 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
                 {/* Close Button */}
                 <button
                   onClick={handleToggle}
+                  onTouchStart={handleTouchStart}
+                  onTouchEnd={handleTouchEnd}
                   className="p-2 rounded-lg bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 transition-colors shadow-md"
+                  style={{ touchAction: 'manipulation' }}
                 >
                   <X className="w-5 h-5 text-white" />
                 </button>
@@ -162,13 +287,17 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
                   key={item.href}
                   href={item.href}
                   onClick={() => {
+                    console.log('[MobileNavigation] Navigation item clicked:', item.href);
                     handleToggle();
                   }}
+                  onTouchStart={handleTouchStart}
+                  onTouchEnd={handleTouchEnd}
                   className={`flex items-center space-x-3 p-3 rounded-lg transition-all duration-200 min-h-[48px] touch-manipulation ${
                     pathname === item.href
                       ? 'bg-orange-500 text-white shadow-md'
                       : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 active:bg-gray-200 dark:active:bg-gray-600'
                   }`}
+                  style={{ touchAction: 'manipulation' }}
                 >
                   <item.icon className="w-4 h-4 flex-shrink-0" />
                   <span className="font-medium text-sm flex-1">{item.label}</span>
@@ -193,8 +322,14 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={handleToggle}
+                    onClick={() => {
+                      console.log('[MobileNavigation] Social link clicked:', link.href);
+                      handleToggle();
+                    }}
+                    onTouchStart={handleTouchStart}
+                    onTouchEnd={handleTouchEnd}
                     className="flex items-center space-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
+                    style={{ touchAction: 'manipulation' }}
                   >
                     <link.icon className="w-4 h-4" />
                     <span className="font-medium text-sm">{link.label}</span>

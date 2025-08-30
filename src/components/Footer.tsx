@@ -97,9 +97,7 @@ export default function Footer() {
       </footer>
       
       {/* AI Chat Button - Fixed at bottom */}
-      <div className="fixed bottom-0 left-0 w-full bg-white dark:bg-gray-900">
-        <AIChatButton />
-      </div>
+      <AIChatButton />
     </>
   );
 }
