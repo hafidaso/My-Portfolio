@@ -34,13 +34,28 @@ export const LazyTimeline = () => (
   </LazyOnScroll>
 );
 
-export const LazyLatestPosts = ({ posts }: { posts: any[] }) => (
-  <LazyOnScroll fallback={<LoadingFallback height="300px" />}>
-    <Suspense fallback={<LoadingFallback height="300px" />}>
-      <LatestPosts posts={posts} />
-    </Suspense>
-  </LazyOnScroll>
-);
+export const LazyLatestPosts = ({ posts }: { posts: any[] }) => {
+  // Ensure posts data is properly serialized and clean
+  const serializedPosts = posts.map(post => ({
+    id: String(post.id || ''),
+    title: String(post.title || ''),
+    description: String(post.description || ''),
+    date: String(post.date || ''),
+    readTime: String(post.readTime || ''),
+    category: String(post.category || ''),
+    tags: Array.isArray(post.tags) ? post.tags.map(tag => String(tag)) : [],
+    author: String(post.author || ''),
+    image: post.image ? String(post.image) : undefined
+  }));
+
+  return (
+    <LazyOnScroll fallback={<LoadingFallback height="300px" />}>
+      <Suspense fallback={<LoadingFallback height="300px" />}>
+        <LatestPosts posts={serializedPosts} />
+      </Suspense>
+    </LazyOnScroll>
+  );
+};
 
 export const LazyLanguages = () => (
   <LazyOnScroll fallback={<LoadingFallback height="300px" />}>
