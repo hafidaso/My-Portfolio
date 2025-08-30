@@ -1,7 +1,6 @@
 'use client';
 
 import React, { Suspense } from 'react';
-import LoadingAnimation from './LoadingAnimation';
 import { LazyOnScroll } from './LazyComponent';
 
 // Lazy load components on the client side
@@ -13,7 +12,7 @@ const Hobbies = React.lazy(() => import('./Hobbies'));
 
 const LoadingFallback = ({ height = "200px" }: { height?: string }) => (
   <div className="flex justify-center items-center" style={{ minHeight: height }}>
-    <LoadingAnimation type="spinner" size="md" color="primary" />
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
   </div>
 );
 
@@ -35,23 +34,47 @@ export const LazyTimeline = () => (
 );
 
 export const LazyLatestPosts = ({ posts }: { posts: any[] }) => {
-  // Ensure posts data is properly serialized and clean
-  const serializedPosts = posts.map(post => ({
-    id: String(post.id || ''),
-    title: String(post.title || ''),
-    description: String(post.description || ''),
-    date: String(post.date || ''),
-    readTime: String(post.readTime || ''),
-    category: String(post.category || ''),
-    tags: Array.isArray(post.tags) ? post.tags.map(tag => String(tag)) : [],
-    author: String(post.author || ''),
-    image: post.image ? String(post.image) : undefined
-  }));
+  // Comprehensive data sanitization to prevent React error #130
+  const safePost = (post: any) => {
+    if (!post || typeof post !== 'object') {
+      return null;
+    }
+    
+    try {
+      return {
+        id: String(post.id || ''),
+        title: String(post.title || ''),
+        description: String(post.description || ''),
+        date: String(post.date || ''),
+        readTime: String(post.readTime || ''),
+        category: String(post.category || ''),
+        tags: Array.isArray(post.tags) 
+          ? post.tags.map((tag: any) => String(tag)) 
+          : [],
+        author: String(post.author || ''),
+        image: post.image ? String(post.image) : undefined
+      };
+    } catch (error) {
+      console.error('Error sanitizing post:', post, error);
+      return null;
+    }
+  };
+
+  const safePosts = React.useMemo(() => {
+    if (!Array.isArray(posts)) {
+      console.warn('LazyLatestPosts: posts is not an array:', posts);
+      return [];
+    }
+    
+    return posts
+      .map(safePost)
+      .filter(post => post !== null);
+  }, [posts]);
 
   return (
     <LazyOnScroll fallback={<LoadingFallback height="300px" />}>
       <Suspense fallback={<LoadingFallback height="300px" />}>
-        <LatestPosts posts={serializedPosts} />
+        <LatestPosts posts={safePosts} />
       </Suspense>
     </LazyOnScroll>
   );

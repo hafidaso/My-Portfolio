@@ -1,4 +1,5 @@
 import React from 'react';
+import { safeJsonStringify } from '@/lib/json-serializer';
 
 interface PersonSchema {
   name: string;
@@ -65,7 +66,7 @@ export default function JsonLd({ type, data }: JsonLdProps) {
 
   return React.createElement('script', {
     type: 'application/ld+json',
-    dangerouslySetInnerHTML: { __html: JSON.stringify(schema) }
+    dangerouslySetInnerHTML: { __html: safeJsonStringify(schema) }
   });
 }
 

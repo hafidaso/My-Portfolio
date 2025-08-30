@@ -1,5 +1,6 @@
 import React from 'react';
 import resumeData from '@/data/resumeData.json';
+import { safeJsonStringify } from '@/lib/json-serializer';
 
 export default function HomePageJsonLd() {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hafida-belayd.me/';
@@ -150,32 +151,44 @@ export default function HomePageJsonLd() {
     React.createElement('script', {
       key: 'person-schema',
       type: 'application/ld+json',
-      dangerouslySetInnerHTML: { __html: JSON.stringify(personSchema) }
+      dangerouslySetInnerHTML: { 
+        __html: safeJsonStringify(personSchema)
+      }
     }),
     React.createElement('script', {
       key: 'website-schema',
       type: 'application/ld+json',
-      dangerouslySetInnerHTML: { __html: JSON.stringify(websiteSchema) }
+      dangerouslySetInnerHTML: { 
+        __html: safeJsonStringify(websiteSchema)
+      }
     }),
     React.createElement('script', {
       key: 'organization-schema',
       type: 'application/ld+json',
-      dangerouslySetInnerHTML: { __html: JSON.stringify(organizationSchema) }
+      dangerouslySetInnerHTML: { 
+        __html: safeJsonStringify(organizationSchema)
+      }
     }),
     React.createElement('script', {
       key: 'breadcrumb-schema',
       type: 'application/ld+json',
-      dangerouslySetInnerHTML: { __html: JSON.stringify(breadcrumbSchema) }
+      dangerouslySetInnerHTML: { 
+        __html: safeJsonStringify(breadcrumbSchema)
+      }
     }),
     React.createElement('script', {
       key: 'faq-schema',
       type: 'application/ld+json',
-      dangerouslySetInnerHTML: { __html: JSON.stringify(faqSchema) }
+      dangerouslySetInnerHTML: { 
+        __html: safeJsonStringify(faqSchema)
+      }
     }),
     React.createElement('script', {
       key: 'creative-work-schema',
       type: 'application/ld+json',
-      dangerouslySetInnerHTML: { __html: JSON.stringify(creativeWorkSchema) }
+      dangerouslySetInnerHTML: { 
+        __html: safeJsonStringify(creativeWorkSchema)
+      }
     })
   ]);
 } 

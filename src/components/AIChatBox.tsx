@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { Message, useChat } from "ai/react";
 import { Bot, SendHorizontal, Trash, XCircle, Sparkles, History, Database } from "lucide-react";
 import { useEffect, useRef, useState, useCallback } from "react";
+import { safeJsonStringify } from '@/lib/json-serializer';
 
 import { useChatLogger } from "./hooks/useChatLogger";
 import ChatHistory from "./ChatHistory";
@@ -197,7 +198,7 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
         const response = await fetch('/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
+          body: safeJsonStringify({
             messages: updatedMessages.map(m => ({ role: m.role, content: m.content })),
             sessionId: sessionId
           })

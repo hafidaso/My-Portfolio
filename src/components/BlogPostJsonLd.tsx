@@ -1,5 +1,6 @@
 import React from 'react';
 import resumeData from '@/data/resumeData.json';
+import { safeJsonStringify } from '@/lib/json-serializer';
 
 interface BlogPostJsonLdProps {
   post: {
@@ -137,17 +138,17 @@ export default function BlogPostJsonLd({ post }: BlogPostJsonLdProps) {
     React.createElement('script', {
       key: 'article-schema',
       type: 'application/ld+json',
-      dangerouslySetInnerHTML: { __html: JSON.stringify(articleSchema) }
+      dangerouslySetInnerHTML: { __html: safeJsonStringify(articleSchema) }
     }),
     React.createElement('script', {
       key: 'breadcrumb-schema',
       type: 'application/ld+json',
-      dangerouslySetInnerHTML: { __html: JSON.stringify(breadcrumbSchema) }
+      dangerouslySetInnerHTML: { __html: safeJsonStringify(breadcrumbSchema) }
     }),
     React.createElement('script', {
       key: 'webpage-schema',
       type: 'application/ld+json',
-      dangerouslySetInnerHTML: { __html: JSON.stringify(webPageSchema) }
+      dangerouslySetInnerHTML: { __html: safeJsonStringify(webPageSchema) }
     })
   ]);
 } 

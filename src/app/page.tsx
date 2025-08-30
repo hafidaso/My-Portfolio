@@ -11,14 +11,18 @@ import {
 } from '@/components/LazyClientComponents';
 import HomePageJsonLd from '@/components/HomePageJsonLd';
 import { getSortedPostsData } from '@/lib/markdown';
+import { sanitizeForSerialization } from '@/lib/json-serializer';
 
 const HomePage: React.FC = async () => {
   try {
     const allPosts = await getSortedPostsData();
     console.log('HomePage: All posts loaded:', allPosts);
     
-    const latestPosts = allPosts.slice(0, 3);
-    console.log('HomePage: Latest posts for display:', latestPosts);
+    // Thoroughly sanitize posts for serialization
+    const rawPosts = allPosts.slice(0, 3);
+    const serializedPosts = sanitizeForSerialization(rawPosts);
+    
+    console.log('HomePage: Serialized posts for display:', serializedPosts);
     
     return (
       <>
@@ -53,7 +57,7 @@ const HomePage: React.FC = async () => {
 
           {/* Latest Posts */}
           <div className="lg:col-span-2">
-            <LazyLatestPosts posts={latestPosts} />
+            <LazyLatestPosts posts={serializedPosts} />
           </div>
 
           {/* Languages */}

@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import { safeJsonStringify } from '@/lib/json-serializer';
 
 interface SEOOptimizerProps {
   title?: string;
@@ -106,7 +107,7 @@ export default function SEOOptimizer({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
+            __html: safeJsonStringify({
               '@context': 'https://schema.org',
               '@type': 'Article',
               headline: metaTitle,

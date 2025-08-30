@@ -1,4 +1,5 @@
 import React from 'react';
+import { safeJsonStringify } from '@/lib/json-serializer';
 
 interface ProjectJsonLdProps {
   project: {
@@ -47,7 +48,7 @@ export default function ProjectJsonLd({ project }: ProjectJsonLdProps) {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonStringify(jsonLd) }}
     />
   );
 }
