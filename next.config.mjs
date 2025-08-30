@@ -54,18 +54,6 @@ const nextConfig = {
   },
   // Simplified webpack configuration to fix module loading errors
   webpack: (config, { isServer, dev }) => {
-    // Bundle analyzer - only add in development for analysis
-    if (process.env.ANALYZE && !isServer) {
-      // Use a simpler approach - the analyzer will be available when needed
-      config.plugins.push({
-        apply: (compiler) => {
-          if (process.env.NODE_ENV === 'production') {
-            console.log('Bundle analysis enabled - check .next/analyze/ for reports');
-          }
-        }
-      });
-    }
-
     // Handle sharp module for image processing
     if (!isServer) {
       config.resolve.fallback = {

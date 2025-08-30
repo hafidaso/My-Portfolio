@@ -15,10 +15,7 @@
     "deploy-build": "npm run build",
     "clear-cache": "./scripts/clear-cache.sh",
     "dev-clean": "./scripts/clear-cache.sh && npm run dev",
-    "dev-fresh": "rm -rf .next && npm run dev",
-    "analyze": "ANALYZE=true npm run build",
-    "analyze:server": "ANALYZE=server npm run build",
-    "analyze:browser": "ANALYZE=browser npm run build"
+    "dev-fresh": "rm -rf .next && npm run dev"
   },
   "dependencies": {
     "@huggingface/inference": "^4.3.2",
@@ -65,11 +62,8 @@
   "devDependencies": {
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
-    "depcheck": "^1.4.7",
     "eslint": "^8",
     "eslint-config-next": "15.3.1",
-    "eslint-config-prettier": "^9.1.0",
-    "ts-prune": "^0.10.3",
-    "webpack-bundle-analyzer": "^4.10.2"
+    "eslint-config-prettier": "^9.1.0"
   }
 }
