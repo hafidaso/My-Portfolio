@@ -20,14 +20,17 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
 
   useEffect(() => {
     setMounted(true);
+    console.log('[MobileNavigation] Mounted');
   }, []);
 
   // Lock background scroll when menu is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      console.log('[MobileNavigation] Menu opened');
     } else {
       document.body.style.overflow = '';
+      console.log('[MobileNavigation] Menu closed');
     }
     return () => {
       document.body.style.overflow = '';
@@ -36,8 +39,12 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
 
   // Debounce toggle to prevent rapid state changes
   const handleToggle = () => {
-    if (locked) return;
+    if (locked) {
+      console.log('[MobileNavigation] Toggle locked, ignoring click');
+      return;
+    }
     setLocked(true);
+    console.log('[MobileNavigation] handleToggle called, isOpen:', isOpen);
     onToggle();
     setTimeout(() => setLocked(false), 350); // match animation duration
   };
