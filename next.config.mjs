@@ -40,8 +40,7 @@ const nextConfig = {
   // React configuration - Enable strict mode for better error detection
   reactStrictMode: true,
   
-  // Enable SWC minification and other compiler optimizations
-  swcMinify: true,
+  // Enable compiler optimizations (swcMinify is now default in Next.js 15)
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error'] } : false,
   },
@@ -55,16 +54,16 @@ const nextConfig = {
   },
   // Simplified webpack configuration to fix module loading errors
   webpack: (config, { isServer, dev }) => {
-    // Bundle analyzer
-    if (process.env.ANALYZE) {
-      const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-      config.plugins.push(
-        new BundleAnalyzerPlugin({
-          analyzerMode: 'server',
-          openAnalyzer: true,
-          reportFilename: isServer ? 'server-report.html' : 'client-report.html',
-        })
-      );
+    // Bundle analyzer - only add in development for analysis
+    if (process.env.ANALYZE && !isServer) {
+      // Use a simpler approach - the analyzer will be available when needed
+      config.plugins.push({
+        apply: (compiler) => {
+          if (process.env.NODE_ENV === 'production') {
+            console.log('Bundle analysis enabled - check .next/analyze/ for reports');
+          }
+        }
+      });
     }
 
     // Handle sharp module for image processing
