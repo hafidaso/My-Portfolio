@@ -1,0 +1,97 @@
+/* Fix for CSS encoding and syntax issues */
+
+/* Ensure proper charset declaration */
+@charset "UTF-8";
+
+/* Import fonts with better error handling */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* Fallback font declarations with proper escaping */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial'), local('Helvetica'), local('sans-serif');
+  font-display: swap;
+  ascent-override: 90.44%;
+  descent-override: 22.52%;
+  line-gap-override: 0.00%;
+  size-adjust: 107.12%;
+}
+
+/* CSS Reset to prevent syntax errors */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Fix for invalid CSS properties and ensure proper fallbacks */
+.font-inter {
+  font-family: 'Inter', 'Inter Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-feature-settings: 'cv11', 'ss01';
+  font-variation-settings: 'opsz' 32;
+}
+
+/* Fix for unicode-range issues */
+.unicode-safe {
+  font-feature-settings: normal;
+  font-variant-ligatures: normal;
+  font-variant-caps: normal;
+  font-variant-numeric: normal;
+  font-variant-east-asian: normal;
+}
+
+/* Prevent CSS syntax errors in production builds */
+.safe-transforms {
+  transform: translateZ(0);
+  will-change: auto;
+  backface-visibility: hidden;
+}
+
+/* Fix for CSS custom properties */
+:root {
+  --font-inter: 'Inter', 'Inter Fallback', system-ui, -apple-system, sans-serif;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+}
+
+/* Media query fixes to prevent parsing errors */
+@media screen and (max-width: 768px) {
+  .responsive-text {
+    font-size: clamp(1rem, 4vw, 1.5rem);
+    line-height: 1.4;
+  }
+}
+
+/* Fix for CSS Grid and Flexbox compatibility */
+.grid-safe {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.flex-safe {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Fix for animation and transition performance */
+.animation-safe {
+  animation-fill-mode: both;
+  animation-duration: 0.3s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-safe {
+  transition-property: opacity, transform, background-color, border-color, color, fill, stroke;
+  transition-duration: 0.15s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}

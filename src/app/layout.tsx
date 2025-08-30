@@ -6,6 +6,9 @@ import JsonLd from "@/components/JsonLd";
 import CustomCursor from "@/components/CustomCursor";
 import BackToTop from "@/components/BackToTop";
 import HydrationErrorBoundary from "@/components/HydrationErrorBoundary";
+import ErrorBoundary from "@/components/ErrorBoundary";
+import BrowserCompatibility from "@/components/BrowserCompatibility";
+import ErrorHandlingInit from "@/components/ErrorHandlingInit";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -146,17 +149,22 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`} suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <NextUIProvider>
-            <HydrationErrorBoundary>
-              <div className="min-h-screen bg-background text-foreground">
-                <CustomCursor />
-                <Navbar />
-                <main className="py-8 px-4 md:px-6 mx-auto max-w-7xl">
-                  {children}
-                </main>
-                <Footer />
-                <BackToTop />
-              </div>
-            </HydrationErrorBoundary>
+            <ErrorBoundary>
+              <BrowserCompatibility>
+                <HydrationErrorBoundary>
+                  <ErrorHandlingInit />
+                  <div className="min-h-screen bg-background text-foreground">
+                    <CustomCursor />
+                    <Navbar />
+                    <main className="py-8 px-4 md:px-6 mx-auto max-w-7xl">
+                      {children}
+                    </main>
+                    <Footer />
+                    <BackToTop />
+                  </div>
+                </HydrationErrorBoundary>
+              </BrowserCompatibility>
+            </ErrorBoundary>
           </NextUIProvider>
         </ThemeProvider>
       </body>

@@ -2,6 +2,7 @@ import React, { memo, useMemo } from 'react';
 import { Github, ExternalLink, Star, GitFork } from 'lucide-react';
 import * as Si from 'react-icons/si';
 import ThreeDCard from './ThreeDCard';
+import { safeObjectKeys } from '../lib/safeUtils';
 
 interface ProjectCardProps {
   title: string;
@@ -31,7 +32,8 @@ const ProjectCard = memo<ProjectCardProps>(({
   // Memoize icon components mapping
   const iconComponents = useMemo(() => {
     const components: { [key: string]: React.ElementType } = {};
-    Object.keys(Si).forEach(key => {
+    const iconKeys = safeObjectKeys(Si);
+    iconKeys.forEach(key => {
       components[key] = (Si as any)[key];
     });
     return components;

@@ -12,8 +12,8 @@ const nextConfig = {
     // Disable image optimization to avoid sharp module issues
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
-    // Simplified CSP to avoid module loading conflicts while allowing text selection
-    contentSecurityPolicy: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';",
+    // Enhanced CSP to prevent runtime errors while allowing text selection
+    contentSecurityPolicy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' data:; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https: blob:;",
   },
   // Disable TypeScript type checking during build to work around Next.js 15.3.1 params type issue
   typescript: {
