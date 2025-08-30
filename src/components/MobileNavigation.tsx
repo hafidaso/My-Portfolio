@@ -31,12 +31,10 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
     checkMobile();
     window.addEventListener('resize', checkMobile);
     
-
-    
     return () => {
       window.removeEventListener('resize', checkMobile);
     };
-  }, [isOpen, pathname]);
+  }, []);
 
   // Lock background scroll when menu is open
   useEffect(() => {
@@ -44,11 +42,9 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
       if (isOpen) {
         document.body.style.overflow = 'hidden';
         document.body.classList.add('menu-open');
-
       } else {
         document.body.style.overflow = '';
         document.body.classList.remove('menu-open');
-
       }
     } catch (error) {
       console.error('[MobileNavigation] Error setting body overflow:', error);
@@ -58,7 +54,6 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
       try {
         document.body.style.overflow = '';
         document.body.classList.remove('menu-open');
-
       } catch (error) {
         console.error('[MobileNavigation] Error in cleanup:', error);
       }
@@ -70,44 +65,29 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
     try {
       const now = Date.now();
       const timeSinceLastClick = now - lastClickTime;
-      
-
 
       if (locked) {
-
         return;
       }
 
       // Prevent rapid clicking
       if (timeSinceLastClick < 100) {
-
         return;
       }
 
       setLocked(true);
       setLastClickTime(now);
 
-
       onToggle();
       
       setTimeout(() => {
         setLocked(false);
-
       }, 350); // match animation duration
       
     } catch (error) {
       console.error('[MobileNavigation] Error in handleToggle:', error);
       setLocked(false);
     }
-  };
-
-  // Handle touch events specifically
-  const handleTouchStart = (event: React.TouchEvent) => {
-    // Touch event handling
-  };
-
-  const handleTouchEnd = (event: React.TouchEvent) => {
-    // Touch event handling
   };
 
   const navItems = [
@@ -134,10 +114,8 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
     <>
       {/* Mobile Menu Button */}
       <motion.button
-        className="md:hidden fixed top-4 right-4 z-50 p-3 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 min-h-[48px] min-w-[48px] touch-manipulation"
+        className="md:hidden fixed top-4 right-4 z-[9999] p-3 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 min-h-[48px] min-w-[48px] touch-manipulation"
         onClick={handleToggle}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
         whileTap={{ scale: 0.95 }}
         whileHover={{ scale: 1.05 }}
         aria-label="Toggle mobile menu"
@@ -145,7 +123,9 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
         style={{ 
           touchAction: 'manipulation',
           WebkitTapHighlightColor: 'transparent',
-          userSelect: 'none'
+          userSelect: 'none',
+          position: 'fixed',
+          zIndex: 9999
         }}
       >
         <AnimatePresence mode="wait">
@@ -177,14 +157,12 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 z-40 bg-black/30 md:hidden"
+            className="fixed inset-0 z-[9998] bg-black/30 md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={handleToggle}
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
             aria-label="Close menu backdrop"
             style={{ touchAction: 'manipulation' }}
           />
@@ -195,7 +173,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed top-0 right-0 h-full w-72 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 z-50 md:hidden shadow-2xl border-l border-gray-200 dark:border-gray-600"
+            className="fixed top-0 right-0 h-full w-72 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 z-[9999] md:hidden shadow-2xl border-l border-gray-200 dark:border-gray-600"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
@@ -226,8 +204,6 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
                 {/* Close Button */}
                 <button
                   onClick={handleToggle}
-                  onTouchStart={handleTouchStart}
-                  onTouchEnd={handleTouchEnd}
                   className="p-2 rounded-lg bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 transition-colors shadow-md"
                   style={{ touchAction: 'manipulation' }}
                 >
@@ -245,8 +221,6 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
                   onClick={() => {
                     handleToggle();
                   }}
-                  onTouchStart={handleTouchStart}
-                  onTouchEnd={handleTouchEnd}
                   className={`flex items-center space-x-3 p-3 rounded-lg transition-all duration-200 min-h-[48px] touch-manipulation ${
                     pathname === item.href
                       ? 'bg-orange-500 text-white shadow-md'
@@ -280,8 +254,6 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onToggle })
                     onClick={() => {
                       handleToggle();
                     }}
-                    onTouchStart={handleTouchStart}
-                    onTouchEnd={handleTouchEnd}
                     className="flex items-center space-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
                     style={{ touchAction: 'manipulation' }}
                   >

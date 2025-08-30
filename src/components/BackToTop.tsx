@@ -31,10 +31,15 @@ export default function BackToTop() {
   }, [mounted, toggleVisibility]);
 
   const scrollToTop = useCallback(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    try {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    } catch (error) {
+      // Fallback for browsers that don't support smooth scrolling
+      window.scrollTo(0, 0);
+    }
   }, []);
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
@@ -52,7 +57,25 @@ export default function BackToTop() {
       onClick={scrollToTop}
       onKeyDown={handleKeyDown}
       className="rainbow-back-top focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background transition-all duration-200 hover:scale-105 active:scale-95"
-      style={{ opacity: 1 }}
+      style={{ 
+        opacity: 1,
+        zIndex: 9998,
+        position: 'fixed',
+        bottom: '30px',
+        left: '30px',
+        width: '50px',
+        height: '50px',
+        borderRadius: '50%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        cursor: 'pointer',
+        touchAction: 'manipulation',
+        WebkitTapHighlightColor: 'transparent',
+        userSelect: 'none',
+        minHeight: '48px',
+        minWidth: '48px'
+      }}
       aria-label="Back to top"
       title="Back to top"
       suppressHydrationWarning

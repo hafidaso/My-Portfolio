@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
@@ -18,6 +18,15 @@ const navLinks = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -60,7 +69,7 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile Navigation Component */}
-      <MobileNavigation isOpen={isOpen} onToggle={() => setIsOpen(!isOpen)} />
+      {mounted && <MobileNavigation isOpen={isOpen} onToggle={handleToggle} />}
     </header>
   );
 }

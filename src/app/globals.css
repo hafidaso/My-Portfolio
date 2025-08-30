@@ -154,6 +154,24 @@ body {
       appearance: none !important;
     }
   }
+  
+  /* Ensure back to top button works on mobile */
+  .rainbow-back-top {
+    z-index: 9998 !important;
+    position: fixed !important;
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+    user-select: none !important;
+    min-height: 48px !important;
+    min-width: 48px !important;
+  }
+  
+  /* Prevent any elements from covering the back to top button */
+  .rainbow-back-top {
+    position: fixed !important;
+    z-index: 9998 !important;
+  }
 }
 
 /* Touch device optimizations */
@@ -518,7 +536,7 @@ canvas.fixed {
   line-height: 46px;
   border-radius: 50%;
   text-align: center;
-  z-index: 999 !important;
+  z-index: 9998 !important;
   background-color: var(--color-blackest);
   display: flex;
   align-items: center;
@@ -527,6 +545,11 @@ canvas.fixed {
   box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
   transition: all 0.3s ease;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  min-height: 48px;
+  min-width: 48px;
 }
 
 .rainbow-back-top:hover {
