@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Websites - Web Development Portfolio | Hafida Belayd",
     description: "Explore Hafida Belayd's web development projects. View responsive websites, web applications, and modern web solutions with live demos and source code.",
-    url: "https://hafida-belayd.netlify.app/websites",
+    url: "https://hafida-belayd.me//websites",
     type: "website",
     siteName: "Hafida Belayd Portfolio",
   },
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
   },
   alternates: {
-    canonical: "https://hafida-belayd.netlify.app/websites",
+    canonical: "https://hafida-belayd.me//websites",
   },
 };
 

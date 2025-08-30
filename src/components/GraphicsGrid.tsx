@@ -129,7 +129,7 @@ const GraphicsGrid: React.FC = () => {
               {project.image ? (
                 <img
                   src={project.image}
-                  alt={project.title}
+                  alt={`Graphic design project: ${project.title} - ${project.category.replace('-', ' ')} design from ${project.year}`}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   onError={(e) => {
                     // Fallback to placeholder if image fails to load

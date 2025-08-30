@@ -15,7 +15,7 @@ interface BlogPostJsonLdProps {
 }
 
 export default function BlogPostJsonLd({ post }: BlogPostJsonLdProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hafida-belayd.netlify.app';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hafida-belayd.me/';
   
   const articleSchema = {
     '@context': 'https://schema.org',

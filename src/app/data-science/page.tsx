@@ -4,7 +4,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "MY PLANET IN DATA - Data Science Projects",
-  description: "Explore Hafida Belayd's data science and data analysis projects. Discover insights from comprehensive datasets covering renewable energy, machine learning, statistical analysis, and predictive modeling. Professional data science portfolio.",
+  description: "Data science and analysis projects by Hafida Belayd. Machine learning, statistical analysis, and data visualization insights from real-world datasets.",
   keywords: [
     "Data Science Projects",
     "Data Analysis",
@@ -24,18 +24,18 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "MY PLANET IN DATA - Data Science Projects | Hafida Belayd",
-    description: "Explore Hafida Belayd's data science and data analysis projects. Discover insights from comprehensive datasets covering renewable energy, machine learning, and statistical analysis.",
-    url: "https://hafida-belayd.netlify.app/data-science",
+    description: "Data science and analysis projects by Hafida Belayd. Machine learning, statistical analysis, and data visualization insights from real-world datasets.",
+    url: "https://hafida-belayd.me//data-science",
     type: "website",
     siteName: "Hafida Belayd Portfolio",
   },
   twitter: {
     title: "MY PLANET IN DATA - Data Science Projects | Hafida Belayd",
-    description: "Explore Hafida Belayd's data science and data analysis projects. Discover insights from comprehensive datasets covering renewable energy, machine learning, and statistical analysis.",
+    description: "Data science and analysis projects by Hafida Belayd. Machine learning, statistical analysis, and data visualization insights from real-world datasets.",
     card: "summary_large_image",
   },
   alternates: {
-    canonical: "https://hafida-belayd.netlify.app/data-science",
+    canonical: "https://hafida-belayd.me//data-science",
   },
 };
 

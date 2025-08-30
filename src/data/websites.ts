@@ -17,7 +17,7 @@ export const websitesData: Website[] = [
     title: 'Personal Portfolio',
     description: 'A modern, responsive portfolio website built with Next.js and Tailwind CSS. Features dark mode, animations, and SEO optimization.',
     image: '/images/portfolio.png',
-    liveUrl: 'https://hafida-belayd.netlify.app',
+    liveUrl: 'https://hafida-belayd.me/',
     githubUrl: 'https://github.com/hafidaso/portfolio',
     technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'],
     category: 'personal',

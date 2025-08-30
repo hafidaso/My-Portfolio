@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Removed output: 'export' to enable API routes
-  // trailingSlash: true, // Temporarily disabled to fix blog routing
+  trailingSlash: true, // ✅ Enable consistent trailing slash handling
   images: {
     unoptimized: true,
     remotePatterns: [

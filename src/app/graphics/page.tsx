@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Graphics - Creative Design Portfolio | Hafida Belayd",
     description: "Explore Hafida Belayd's graphic design projects. View creative designs, branding work, and visual projects showcased on Behance. Professional graphic design portfolio.",
-    url: "https://hafida-belayd.netlify.app/graphics",
+    url: "https://hafida-belayd.me//graphics",
     type: "website",
     siteName: "Hafida Belayd Portfolio",
   },
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
   },
   alternates: {
-    canonical: "https://hafida-belayd.netlify.app/graphics",
+    canonical: "https://hafida-belayd.me//graphics",
   },
 };
 

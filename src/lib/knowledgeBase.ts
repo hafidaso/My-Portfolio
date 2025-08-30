@@ -41,7 +41,7 @@ const personalInfo: KnowledgeItem = {
     - Email: hafidabelaidagnaoui@gmail.com
     - LinkedIn: https://www.linkedin.com/in/hafida-belayd
     - GitHub: https://github.com/hafidaso
-    - Portfolio: https://hafida-belayd.netlify.app/
+    - Portfolio: https://hafida-belayd.me//
 
     I am passionate about using data-driven insights to solve real-world problems while creating visually compelling and user-friendly solutions.
   `,
@@ -50,7 +50,7 @@ const personalInfo: KnowledgeItem = {
     email: 'hafidabelaidagnaoui@gmail.com',
     linkedin: 'https://www.linkedin.com/in/hafida-belayd',
     github: 'https://github.com/hafidaso',
-    website: 'https://hafida-belayd.netlify.app/',
+    website: 'https://hafida-belayd.me//',
     languages: ['Arabic', 'French', 'English']
   }
 };

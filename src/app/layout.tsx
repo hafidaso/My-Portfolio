@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     "Data Engineering",
     "Deep Learning"
   ],
-  authors: [{ name: "Hafida Belayd", url: "https://hafida-belayd.netlify.app" }],
+  authors: [{ name: "Hafida Belayd", url: "https://hafida-belayd.me/" }],
   creator: "Hafida Belayd",
   publisher: "Hafida Belayd",
   formatDetection: {
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://hafida-belayd.netlify.app'),
+  metadataBase: new URL('https://hafida-belayd.me/'),
   alternates: {
     canonical: '/',
     languages: {
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://hafida-belayd.netlify.app',
+    url: 'https://hafida-belayd.me/',
     title: 'Hafida Belayd — Data Analyst & AI Specialist',
     description: 'Hafida Belayd — Data Analyst & AI Specialist. Developer & Designer | Expert in Python, Machine Learning, and Data Visualization. Based in Morocco.',
     siteName: 'Hafida Belayd Portfolio',
@@ -130,12 +130,16 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://github-readme-stats.vercel.app" />
+        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png" />
         <link rel="shortcut icon" href="/favicon.ico" />
-        <link rel="canonical" href="https://hafida-belayd.netlify.app" />
+        <link rel="canonical" href="https://hafida-belayd.me/" />
         <link rel="alternate" type="application/rss+xml" title="Hafida Belayd Blog RSS" href="/rss.xml" />
         <link rel="alternate" type="application/atom+xml" title="Hafida Belayd Blog Atom" href="/atom.xml" />
       </head>
