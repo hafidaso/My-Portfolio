@@ -41,19 +41,25 @@ export const LazyLatestPosts = ({ posts }: { posts: any[] }) => {
     }
     
     try {
-      return {
-        id: String(post.id || ''),
-        title: String(post.title || ''),
-        description: String(post.description || ''),
-        date: String(post.date || ''),
-        readTime: String(post.readTime || ''),
-        category: String(post.category || ''),
+      // Convert all values to safe types
+      const sanitized = {
+        id: post.id != null ? String(post.id) : `post-${Date.now()}`,
+        title: post.title != null ? String(post.title) : 'Untitled Post',
+        description: post.description != null ? String(post.description) : 'No description available',
+        date: post.date != null ? String(post.date) : new Date().toISOString().split('T')[0],
+        readTime: post.readTime != null ? String(post.readTime) : '0 min read',
+        category: post.category != null ? String(post.category) : 'Uncategorized',
         tags: Array.isArray(post.tags) 
-          ? post.tags.map((tag: any) => String(tag)) 
+          ? post.tags.map((tag: any) => tag != null ? String(tag) : '').filter(Boolean)
           : [],
-        author: String(post.author || ''),
-        image: post.image ? String(post.image) : undefined
+        author: post.author != null ? String(post.author) : 'Anonymous',
+        image: post.image != null ? String(post.image) : undefined,
+        excerpt: post.excerpt != null ? String(post.excerpt) : ''
       };
+      
+      // Double-check all values are serializable
+      JSON.stringify(sanitized);
+      return sanitized;
     } catch (error) {
       console.error('Error sanitizing post:', post, error);
       return null;
@@ -68,7 +74,7 @@ export const LazyLatestPosts = ({ posts }: { posts: any[] }) => {
     
     return posts
       .map(safePost)
-      .filter(post => post !== null);
+      .filter((post): post is NonNullable<typeof post> => post !== null);
   }, [posts]);
 
   return (

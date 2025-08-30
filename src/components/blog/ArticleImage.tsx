@@ -16,27 +16,34 @@ export default function ArticleImage({ postData }: ArticleImageProps) {
   const [imageError, setImageError] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
   
+  // Sanitize postData to prevent React error #130
+  const safePostData = {
+    id: String(postData?.id || 'unknown'),
+    title: String(postData?.title || 'Untitled Post'),
+    image: postData?.image ? String(postData.image) : null
+  };
+  
   // Define possible image sources in order of priority
   const imageSources = React.useMemo(() => {
     const sources = [];
     
     // 1. Use explicit image from frontmatter if available
-    if (postData.image) {
-      sources.push(postData.image);
+    if (safePostData.image) {
+      sources.push(safePostData.image);
     }
     
     // 2. Try common image formats based on post ID
     sources.push(
-      `/images/${postData.id}.png`,
-      `/images/${postData.id}.jpg`,
-      `/images/${postData.id}.jpeg`,
-      `/images/${postData.id}.webp`,
-      `/images/${postData.id}.gif`
+      `/images/${safePostData.id}.png`,
+      `/images/${safePostData.id}.jpg`,
+      `/images/${safePostData.id}.jpeg`,
+      `/images/${safePostData.id}.webp`,
+      `/images/${safePostData.id}.gif`
     );
     
-    console.log(`ArticleImage: Available sources for ${postData.id}:`, sources);
+    console.log(`ArticleImage: Available sources for ${safePostData.id}:`, sources);
     return sources;
-  }, [postData.image, postData.id]);
+  }, [safePostData.image, safePostData.id]);
   
   // Initialize with first available source
   React.useEffect(() => {
@@ -59,7 +66,7 @@ export default function ArticleImage({ postData }: ArticleImageProps) {
       setImageError(false);
     } else {
       // No more sources to try
-      console.log(`ArticleImage: All sources failed for ${postData.id}`);
+      console.log(`ArticleImage: All sources failed for ${safePostData.id}`);
       setImageError(true);
       setIsLoading(false);
     }
@@ -73,7 +80,7 @@ export default function ArticleImage({ postData }: ArticleImageProps) {
   
   // Show a placeholder or fallback when all images fail
   if (!currentSrc || (imageError && imageSources.indexOf(currentSrc) >= imageSources.length - 1)) {
-    console.log(`ArticleImage: No image available for ${postData.id}, showing fallback`);
+    console.log(`ArticleImage: No image available for ${safePostData.id}, showing fallback`);
     return (
       <div className="relative mb-8">
         <div className="w-full h-[400px] bg-gradient-to-r from-orange-100 to-purple-100 dark:from-orange-900/20 dark:to-purple-900/20 rounded-lg flex items-center justify-center">
@@ -83,7 +90,7 @@ export default function ArticleImage({ postData }: ArticleImageProps) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
-            <p className="text-sm font-medium">{postData.title}</p>
+            <p className="text-sm font-medium">{safePostData.title}</p>
             <p className="text-xs mt-1 opacity-70">Featured Image</p>
           </div>
         </div>
@@ -104,7 +111,7 @@ export default function ArticleImage({ postData }: ArticleImageProps) {
       
       <Image
         src={currentSrc}
-        alt={postData.title}
+        alt={safePostData.title}
         width={800}
         height={400}
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 800px, 800px"
@@ -121,7 +128,7 @@ export default function ArticleImage({ postData }: ArticleImageProps) {
       {/* Image caption */}
       {!isLoading && !imageError && (
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 text-center italic">
-          {postData.title}
+          {safePostData.title}
         </p>
       )}
     </div>

@@ -67,46 +67,57 @@ export default function RelatedPosts({ currentPost, allPosts, maxPosts = 4 }: Re
         Related Articles
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {relatedPosts.map((post) => (
-          <Link 
-            key={post.id} 
-            href={`/blog/${post.id}`}
-            className="group block"
-          >
-            <article className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col">
-              <div className="relative h-48 w-full">
-                <Image
-                  src={`/images/${post.id}.png`}
-                  alt={post.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  style={{ objectFit: "cover" }}
-                  className="transition-transform duration-300 group-hover:scale-105"
-                  priority={false}
-                  quality={85}
-                />
-              </div>
-              <div className="p-6 flex flex-col flex-grow">
-                <h4 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors line-clamp-2">
-                  {post.title}
-                </h4>
-                <p className="text-gray-600 dark:text-gray-300 mb-4 flex-grow line-clamp-3">
-                  {post.description}
-                </p>
-                <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mt-auto">
-                  <span className="flex items-center mr-4">
-                    <Calendar size={14} className="mr-1" />
-                    {post.date}
-                  </span>
-                  <span className="flex items-center">
-                    <Clock size={14} className="mr-1" />
-                    {post.readTime}
-                  </span>
+        {relatedPosts.map((post, index) => {
+          // Sanitize post data
+          const safePost = {
+            id: String(post?.id || `related-${index}`),
+            title: String(post?.title || 'Untitled Post'),
+            description: String(post?.description || 'No description available'),
+            date: String(post?.date || new Date().toISOString().split('T')[0]),
+            readTime: String(post?.readTime || '0 min read')
+          };
+          
+          return (
+            <Link 
+              key={`related-post-${safePost.id}-${index}`} 
+              href={`/blog/${safePost.id}`}
+              className="group block"
+            >
+              <article className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col">
+                <div className="relative h-48 w-full">
+                  <Image
+                    src={`/images/${safePost.id}.png`}
+                    alt={safePost.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    style={{ objectFit: "cover" }}
+                    className="transition-transform duration-300 group-hover:scale-105"
+                    priority={false}
+                    quality={85}
+                  />
                 </div>
-              </div>
-            </article>
-          </Link>
-        ))}
+                <div className="p-6 flex flex-col flex-grow">
+                  <h4 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors line-clamp-2">
+                    {safePost.title}
+                  </h4>
+                  <p className="text-gray-600 dark:text-gray-300 mb-4 flex-grow line-clamp-3">
+                    {safePost.description}
+                  </p>
+                  <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mt-auto">
+                    <span className="flex items-center mr-4">
+                      <Calendar size={14} className="mr-1" />
+                      {safePost.date}
+                    </span>
+                    <span className="flex items-center">
+                      <Clock size={14} className="mr-1" />
+                      {safePost.readTime}
+                    </span>
+                  </div>
+                </div>
+              </article>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

@@ -321,15 +321,15 @@ const ProjectsGrid: React.FC = () => {
           <>
             {visibleItems.map((project, index) => (
               <ProjectCard 
-                key={`${project.title}-${index}`}
-                title={project.title}
-                description={project.description}
-                technologies={project.technologies}
-                githubLink={project.githubLink}
-                liveLink={project.liveLink}
-                stars={project.stars}
-                forks={project.forks}
-                lastUpdated={project.lastUpdated}
+                key={`project-${project.title?.replace(/[^a-zA-Z0-9]/g, '-')}-${index}`}
+                title={project.title || 'Untitled Project'}
+                description={project.description || 'No description available'}
+                technologies={Array.isArray(project.technologies) ? project.technologies : []}
+                githubLink={project.githubLink || ''}
+                liveLink={project.liveLink || undefined}
+                stars={typeof project.stars === 'number' ? project.stars : 0}
+                forks={typeof project.forks === 'number' ? project.forks : 0}
+                lastUpdated={project.lastUpdated || new Date().toISOString()}
               />
             ))}
             {hasMore && (
