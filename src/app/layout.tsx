@@ -144,6 +144,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <NextUIProvider>
             <HydrationErrorBoundary>
+              <BackgroundAudio />
               <div className="min-h-screen bg-background text-foreground">
                 <CustomCursor />
                 <Navbar />
@@ -152,7 +153,6 @@ export default function RootLayout({
                 </main>
                 <Footer />
                 <BackToTop />
-                  <BackgroundAudio />
               </div>
             </HydrationErrorBoundary>
           </NextUIProvider>
