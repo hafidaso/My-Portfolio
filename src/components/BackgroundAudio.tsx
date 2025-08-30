@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef, useState, useEffect } from "react";
 
 const AUDIO_SRC = "/beethoven-fur-elise-relaxing-classical-piano-268551.mp3"; // Place your Beethoven music file in public/
