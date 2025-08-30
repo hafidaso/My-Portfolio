@@ -1,4 +1,5 @@
 import Footer from "@/components/Footer";
+import BackgroundAudio from "@/components/BackgroundAudio";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { NextUIProvider } from "@/components/NextUIProvider";
@@ -151,6 +152,7 @@ export default function RootLayout({
                 </main>
                 <Footer />
                 <BackToTop />
+                  <BackgroundAudio />
               </div>
             </HydrationErrorBoundary>
           </NextUIProvider>
