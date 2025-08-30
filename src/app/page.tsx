@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import AboutMe from '@/components/AboutMe';
 import Technologies from '@/components/Technologies';
 import FeaturedProjects from '@/components/FeaturedProjects';
-import LatestPosts from '@/components/LatestPosts';
-import GitHubStats from '@/components/GitHubStats';
-import Timeline from '@/components/Timeline';
-import Languages from '@/components/Languages';
-import Hobbies from '@/components/Hobbies';
+import LoadingAnimation from '@/components/LoadingAnimation';
+import { LazyOnScroll } from '@/components/LazyComponent';
 import HomePageJsonLd from '@/components/HomePageJsonLd';
 import { getSortedPostsData } from '@/lib/markdown';
+
+// Lazy load non-critical components
+const LatestPosts = React.lazy(() => import('@/components/LatestPosts'));
+const GitHubStats = React.lazy(() => import('@/components/GitHubStats'));
+const Timeline = React.lazy(() => import('@/components/Timeline'));
+const Languages = React.lazy(() => import('@/components/Languages'));
+const Hobbies = React.lazy(() => import('@/components/Hobbies'));
+
+const LoadingFallback = ({ height = "200px" }: { height?: string }) => (
+  <div className="flex justify-center items-center" style={{ minHeight: height }}>
+    <LoadingAnimation type="spinner" size="md" color="primary" />
+  </div>
+);
 
 const HomePage: React.FC = async () => {
   try {
@@ -28,7 +38,11 @@ const HomePage: React.FC = async () => {
             <AboutMe />
           </div>
           <div>
-            <GitHubStats />
+            <LazyOnScroll fallback={<LoadingFallback height="300px" />}>
+              <Suspense fallback={<LoadingFallback height="300px" />}>
+                <GitHubStats />
+              </Suspense>
+            </LazyOnScroll>
           </div>
         </div>
 
@@ -46,22 +60,38 @@ const HomePage: React.FC = async () => {
 
           {/* Timeline - Spans full width */}
           <div className="lg:col-span-3">
-            <Timeline />
+            <LazyOnScroll fallback={<LoadingFallback height="400px" />}>
+              <Suspense fallback={<LoadingFallback height="400px" />}>
+                <Timeline />
+              </Suspense>
+            </LazyOnScroll>
           </div>
 
           {/* Latest Posts */}
           <div className="lg:col-span-2">
-            <LatestPosts posts={latestPosts} />
+            <LazyOnScroll fallback={<LoadingFallback height="300px" />}>
+              <Suspense fallback={<LoadingFallback height="300px" />}>
+                <LatestPosts posts={latestPosts} />
+              </Suspense>
+            </LazyOnScroll>
           </div>
 
           {/* Languages */}
           <div>
-            <Languages />
+            <LazyOnScroll fallback={<LoadingFallback height="300px" />}>
+              <Suspense fallback={<LoadingFallback height="300px" />}>
+                <Languages />
+              </Suspense>
+            </LazyOnScroll>
           </div>
 
           {/* Hobbies */}
           <div className="lg:col-span-3">
-            <Hobbies />
+            <LazyOnScroll fallback={<LoadingFallback height="250px" />}>
+              <Suspense fallback={<LoadingFallback height="250px" />}>
+                <Hobbies />
+              </Suspense>
+            </LazyOnScroll>
           </div>
         </div>
       </main>

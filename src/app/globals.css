@@ -5,14 +5,126 @@
 /* Import the CSS fixes */
 @import '../styles/fixes.css';
 
-/* Custom CSS for 3D effects */
+/* Performance optimizations layer */
+@layer base {
+  /* Force GPU acceleration for animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateZ(0);
+    }
+    to {
+      opacity: 1;
+      transform: translateZ(0);
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 20px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale3d(0.95, 0.95, 1) translateZ(0);
+    }
+    to {
+      opacity: 1;
+      transform: scale3d(1, 1, 1) translateZ(0);
+    }
+  }
+  
+  /* Enhanced loading animations */
+  @keyframes dotPulse {
+    0%, 80%, 100% {
+      transform: scale3d(0.8, 0.8, 1) translateZ(0);
+      opacity: 0.5;
+    }
+    40% {
+      transform: scale3d(1.2, 1.2, 1) translateZ(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes waveScale {
+    0%, 40%, 100% {
+      transform: scaleY(0.4) translateZ(0);
+    }
+    20% {
+      transform: scaleY(1.0) translateZ(0);
+    }
+  }
+}
+
+@layer components {
+  /* Performance-optimized component styles */
+  .animate-fade-in {
+    animation: fadeIn 0.6s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+    will-change: opacity, transform;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.8s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+    will-change: opacity, transform;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.5s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+    will-change: opacity, transform;
+  }
+  
+  .animate-dot-pulse {
+    animation: dotPulse 1.4s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+  
+  .animate-wave-scale {
+    animation: waveScale 1.2s ease-in-out infinite;
+    will-change: transform;
+  }
+  
+  /* GPU-accelerated hover effects */
+  .gpu-hover {
+    transform: translateZ(0);
+    transition: transform 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    will-change: transform;
+  }
+  
+  .gpu-hover:hover {
+    transform: translate3d(0, -2px, 0);
+  }
+  
+  /* Optimized card styles */
+  .performance-card {
+    contain: layout style paint;
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  
+  /* Text selection optimization */
+  .optimized-text {
+    contain: layout style;
+    text-rendering: optimizeSpeed;
+  }
+}
+
+/* Custom CSS for 3D effects with GPU acceleration */
 .perspective-1000 {
   perspective: 1000px;
+  transform: translateZ(0);
 }
 
 /* Normal cursor behavior - custom cursor disabled */
 body {
   cursor: auto; /* Restore normal browser cursor */
+  contain: layout style;
 }
 
 /* Show default cursor for touch devices */

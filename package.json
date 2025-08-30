@@ -15,7 +15,10 @@
     "deploy-build": "npm run build",
     "clear-cache": "./scripts/clear-cache.sh",
     "dev-clean": "./scripts/clear-cache.sh && npm run dev",
-    "dev-fresh": "rm -rf .next && npm run dev"
+    "dev-fresh": "rm -rf .next && npm run dev",
+    "analyze": "ANALYZE=true npm run build",
+    "perf-audit": "lighthouse http://localhost:3000 --output=html --output-path=./lighthouse-report.html --chrome-flags='--headless'",
+    "bundle-report": "npm run analyze && open .next/analyze/client.html"
   },
   "dependencies": {
     "@huggingface/inference": "^4.3.2",
@@ -60,6 +63,7 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^15.5.2",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "eslint": "^8",

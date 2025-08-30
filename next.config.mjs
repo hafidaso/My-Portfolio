@@ -1,20 +1,13 @@
 /** @type {import('next').NextConfig} */
+import bundleAnalyzer from '@next/bundle-analyzer';
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
+
 const nextConfig = {
   // Removed output: 'export' to enable API routes
   trailingSlash: true, // ✅ Enable consistent trailing slash handling
-  images: {
-    unoptimized: true,
-    remotePatterns: [
-      { protocol: "https", hostname: "res.cloudinary.com", pathname: "**" },
-      { protocol: "https", hostname: "images.unsplash.com", pathname: "**" },
-      { protocol: "https", hostname: "github-readme-stats.vercel.app", pathname: "**" },
-    ],
-    // Disable image optimization to avoid sharp module issues
-    dangerouslyAllowSVG: true,
-    contentDispositionType: 'attachment',
-    // Enhanced CSP to prevent runtime errors while allowing text selection
-    contentSecurityPolicy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' data:; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https: blob:;",
-  },
   // Disable TypeScript type checking during build to work around Next.js 15.3.1 params type issue
   typescript: {
     ignoreBuildErrors: true,
@@ -37,12 +30,30 @@ const nextConfig = {
   },
   // Remove distDir to fix dynamic routing issues
   // distDir: 'out',
-  // React configuration - Enable strict mode for better error detection
-  reactStrictMode: true,
-  
   // Enable compiler optimizations (swcMinify is now default in Next.js 15)
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error'] } : false,
+    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
+    // Remove React devtools in production
+    reactRemoveProperties: process.env.NODE_ENV === 'production' ? true : false,
+  },
+
+  // Performance optimizations
+  poweredByHeader: false, // Remove X-Powered-By header
+  compress: true, // Enable gzip compression
+  
+  // Enhanced image optimization
+  images: {
+    unoptimized: false, // Enable Next.js image optimization
+    formats: ['image/webp', 'image/avif'],
+    minimumCacheTTL: 31536000, // 1 year cache
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' data:; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https: blob:;",
+    remotePatterns: [
+      { protocol: "https", hostname: "res.cloudinary.com", pathname: "**" },
+      { protocol: "https", hostname: "images.unsplash.com", pathname: "**" },
+      { protocol: "https", hostname: "github-readme-stats.vercel.app", pathname: "**" },
+    ],
   },
 
   // Suppress hydration warnings from browser extensions
@@ -167,4 +178,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withBundleAnalyzer(nextConfig);

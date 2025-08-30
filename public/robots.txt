@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://hafida-belayd.me/sitemap.xml
+
+# Block access to sensitive areas
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /.well-known/
+
+# Allow important pages
+Allow: /
+Allow: /blog
+Allow: /projects
+Allow: /data-science
+Allow: /websites
+Allow: /graphics
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
