@@ -82,28 +82,76 @@ export default function BlogPostsList({ posts }: BlogPostsListProps) {
 
 function PostImage({ post }: { post: any }) {
   const [srcIndex, setSrcIndex] = React.useState(0);
+  const [imageLoaded, setImageLoaded] = React.useState(false);
+  const [hasError, setHasError] = React.useState(false);
+  
   const extensions = [
-    post.image ? null : `/images/${post.id}.png`,
+    post.image || `/images/${post.id}.png`,
     `/images/${post.id}.jpg`,
+    `/images/${post.id}.jpeg`,
+    `/images/${post.id}.webp`,
     `/images/${post.id}.gif`,
-  ];
-  let src = post.image || extensions[srcIndex];
-  // Fallback image if all fail
-  const fallback = "/images/default.png";
+  ].filter(Boolean);
+  
+  const currentSrc = extensions[srcIndex] || "/images/default-post.png";
+  
+  console.log(`PostImage: Trying source ${srcIndex + 1}/${extensions.length} for ${post.id}: ${currentSrc}`);
+  
+  const handleImageError = () => {
+    console.log(`PostImage: Error loading ${currentSrc} for ${post.id}`);
+    if (srcIndex < extensions.length - 1) {
+      setSrcIndex(srcIndex + 1);
+      setImageLoaded(false);
+      setHasError(false);
+    } else {
+      console.log(`PostImage: All sources failed for ${post.id}, showing fallback`);
+      setHasError(true);
+    }
+  };
+  
+  const handleImageLoad = () => {
+    console.log(`PostImage: Successfully loaded ${currentSrc} for ${post.id}`);
+    setImageLoaded(true);
+    setHasError(false);
+  };
+  
+  if (hasError) {
+    return (
+      <div className="w-full h-full bg-gradient-to-br from-orange-100 to-purple-100 dark:from-orange-900/20 dark:to-purple-900/20 flex items-center justify-center">
+        <div className="text-center text-gray-600 dark:text-gray-400">
+          <div className="w-12 h-12 mx-auto mb-2 bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <p className="text-xs font-medium">{post.title}</p>
+        </div>
+      </div>
+    );
+  }
+  
   return (
-    <Image
-      src={src}
-      alt={post.title}
-      fill
-      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-      style={{ objectFit: "cover" }}
-      className="transition-transform duration-300 group-hover:scale-105"
-      priority={false}
-      quality={85}
-      onError={() => {
-        if (srcIndex < extensions.length - 1) setSrcIndex(srcIndex + 1);
-        else if (src !== fallback) setSrcIndex(extensions.length); // fallback
-      }}
-    />
+    <>
+      {!imageLoaded && (
+        <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 animate-pulse flex items-center justify-center">
+          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-orange-600"></div>
+        </div>
+      )}
+      <Image
+        src={currentSrc}
+        alt={post.title}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        style={{ objectFit: "cover" }}
+        className={`transition-all duration-300 group-hover:scale-105 ${
+          imageLoaded ? 'opacity-100' : 'opacity-0'
+        }`}
+        priority={false}
+        quality={85}
+        onError={handleImageError}
+        onLoad={handleImageLoad}
+        unoptimized={false}
+      />
+    </>
   );
 } 
