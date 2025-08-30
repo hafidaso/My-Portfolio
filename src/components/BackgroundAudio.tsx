@@ -32,7 +32,14 @@ const BackgroundAudio: React.FC = () => {
 
   return (
     <div style={{ position: "fixed", bottom: 20, right: 20, zIndex: 9999 }}>
-      <audio ref={audioRef} src={AUDIO_SRC} autoPlay loop />
+      <audio
+        ref={audioRef}
+        src={AUDIO_SRC}
+        autoPlay
+        loop
+        controls={false}
+        style={{ display: 'none' }}
+      />
       <button
         onClick={handlePlayPause}
         style={{
